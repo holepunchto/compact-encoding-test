@@ -29,7 +29,8 @@
     "index.js",
     "index.d.ts",
     "CODECS.md",
-    "fixtures"
+    "fixtures",
+    "NOTICE"
   ],
   "scripts": {
     "test": "npm run test:bare && npm run test:node",
