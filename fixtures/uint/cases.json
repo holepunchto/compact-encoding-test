@@ -1,0 +1,123 @@
+[
+  {
+    "id": "uint-zero",
+    "note": "zero",
+    "value": 0,
+    "hex": "00",
+    "rules": [
+      "uint-single-byte"
+    ]
+  },
+  {
+    "id": "uint-one",
+    "note": "one",
+    "value": 1,
+    "hex": "01",
+    "rules": [
+      "uint-single-byte"
+    ]
+  },
+  {
+    "id": "uint-single-byte-max",
+    "note": "the largest value that fits in one byte",
+    "value": 252,
+    "hex": "fc",
+    "rules": [
+      "uint-single-byte"
+    ]
+  },
+  {
+    "id": "uint-uint16-min",
+    "note": "the smallest value that takes the 0xfd form",
+    "value": 253,
+    "hex": "fdfd00",
+    "rules": [
+      "uint-uint16-prefix",
+      "uint-little-endian"
+    ]
+  },
+  {
+    "id": "uint-uint16-byte-order",
+    "note": "a value whose two payload bytes differ, so byte order is discriminated",
+    "value": 256,
+    "hex": "fd0001",
+    "rules": [
+      "uint-uint16-prefix",
+      "uint-little-endian"
+    ]
+  },
+  {
+    "id": "uint-uint16-max",
+    "note": "the largest value that takes the 0xfd form",
+    "value": 65535,
+    "hex": "fdffff",
+    "rules": [
+      "uint-uint16-prefix"
+    ]
+  },
+  {
+    "id": "uint-uint32-min",
+    "note": "the smallest value that takes the 0xfe form",
+    "value": 65536,
+    "hex": "fe00000100",
+    "rules": [
+      "uint-uint32-prefix",
+      "uint-little-endian"
+    ]
+  },
+  {
+    "id": "uint-uint32-max",
+    "note": "the largest value that takes the 0xfe form",
+    "value": 4294967295,
+    "hex": "feffffffff",
+    "rules": [
+      "uint-uint32-prefix"
+    ]
+  },
+  {
+    "id": "uint-uint64-min",
+    "note": "the smallest value that takes the 0xff form",
+    "value": 4294967296,
+    "hex": "ff0000000001000000",
+    "rules": [
+      "uint-uint64-prefix",
+      "uint-little-endian"
+    ]
+  },
+  {
+    "id": "uint-uint64-max-safe",
+    "note": "the largest integer a double represents exactly",
+    "value": 9007199254740991,
+    "hex": "ffffffffffffff1f00",
+    "rules": [
+      "uint-uint64-prefix"
+    ]
+  },
+  {
+    "id": "uint-overlong-uint16",
+    "note": "one encoded in the 0xfd form, which a decoder accepts",
+    "hex": "fd0100",
+    "decodes": 1,
+    "rules": [
+      "uint-overlong-decode"
+    ]
+  },
+  {
+    "id": "uint-overlong-uint32",
+    "note": "one encoded in the 0xfe form, which a decoder accepts",
+    "hex": "fe01000000",
+    "decodes": 1,
+    "rules": [
+      "uint-overlong-decode"
+    ]
+  },
+  {
+    "id": "uint-truncated-prefix",
+    "note": "a 0xfd prefix with no payload following it",
+    "hex": "fd",
+    "rejects": true,
+    "rules": [
+      "uint-truncated-rejected"
+    ]
+  }
+]

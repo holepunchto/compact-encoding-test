@@ -1,1 +1,24 @@
-{}
+{
+  "capabilities": {
+    "integers": {
+      "uint": [
+        "uint-zero",
+        "uint-one",
+        "uint-single-byte-max",
+        "uint-uint16-min",
+        "uint-uint16-byte-order",
+        "uint-uint16-max",
+        "uint-uint32-min",
+        "uint-uint32-max",
+        "uint-uint64-min",
+        "uint-uint64-max-safe",
+        "uint-overlong-uint16",
+        "uint-overlong-uint32",
+        "uint-truncated-prefix"
+      ]
+    }
+  },
+  "delegated": [
+    "uint-overlong-decode"
+  ]
+}

@@ -1,0 +1,20 @@
+[
+  {
+    "rule": "uint-little-endian",
+    "reading": "the payload of a prefixed form is big-endian",
+    "fixture": "uint-uint16-byte-order",
+    "hex": "fd0100"
+  },
+  {
+    "rule": "uint-single-byte",
+    "reading": "the single-byte form extends through 0xfd rather than stopping below it",
+    "fixture": "uint-uint16-min",
+    "hex": "fd"
+  },
+  {
+    "rule": "uint-uint64-prefix",
+    "reading": "the 0xff form carries a 32-bit payload",
+    "fixture": "uint-uint64-min",
+    "hex": "ff00000001"
+  }
+]

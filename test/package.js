@@ -13,3 +13,8 @@ test('the specification ships alongside the fixtures', (t) => {
 test('the capability taxonomy parses', (t) => {
   t.ok(corpus.capabilities && typeof corpus.capabilities === 'object', 'capabilities is an object')
 })
+
+test('the fixtures are installed', (t) => {
+  const { allFixtures } = require('../lib/corpus')
+  t.ok(allFixtures().length > 0, 'the corpus ships fixtures')
+})

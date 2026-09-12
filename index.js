@@ -7,10 +7,16 @@ function readJSON(file) {
 
 const fixturesDir = path.join(__dirname, 'fixtures')
 
-const CAPABILITIES = readJSON(path.join(fixturesDir, 'index.json'))
+const INDEX = readJSON(path.join(fixturesDir, 'index.json'))
+
+function loadCodec(name) {
+  return readJSON(path.join(fixturesDir, name, 'cases.json'))
+}
 
 module.exports = {
-  capabilities: CAPABILITIES,
+  capabilities: INDEX.capabilities,
+  delegated: INDEX.delegated,
   fixturesDir,
+  loadCodec,
   specPath: path.join(__dirname, 'CODECS.md')
 }
