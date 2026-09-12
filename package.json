@@ -1,0 +1,56 @@
+{
+  "name": "compact-encoding-test",
+  "version": "0.1.0",
+  "description": "Cross-language conformance vectors and normative spec for compact-encoding",
+  "license": "Apache-2.0",
+  "author": "Holepunch Inc",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/holepunchto/compact-encoding-test.git"
+  },
+  "exports": {
+    "./package": "./package.json",
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./index.js"
+    }
+  },
+  "imports": {
+    "fs": {
+      "bare": "bare-fs",
+      "default": "fs"
+    },
+    "path": {
+      "bare": "bare-path",
+      "default": "path"
+    }
+  },
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "CODECS.md",
+    "fixtures",
+    "NOTICE"
+  ],
+  "scripts": {
+    "test": "npm run test:bare && npm run test:node",
+    "test:bare": "brittle-bare test.js",
+    "test:node": "brittle-node test.js",
+    "lint": "prettier . --check && lunte",
+    "format": "prettier . --write && lunte --fix"
+  },
+  "bugs": {
+    "url": "https://github.com/holepunchto/compact-encoding-test/issues"
+  },
+  "homepage": "https://github.com/holepunchto/compact-encoding-test",
+  "dependencies": {
+    "bare-fs": "^4.5.6",
+    "bare-path": "^3.0.0"
+  },
+  "devDependencies": {
+    "brittle": "^3.19.0",
+    "lunte": "^1.8.0",
+    "prettier": "^3.6.2",
+    "prettier-config-holepunch": "^2.0.0"
+  }
+}
