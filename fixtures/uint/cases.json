@@ -86,7 +86,7 @@
   },
   {
     "id": "uint-uint64-max-safe",
-    "note": "the largest integer a double represents exactly",
+    "note": "the largest value uint encodes at all, above which the codec directs the caller to biguint",
     "value": 9007199254740991,
     "hex": "ffffffffffffff1f00",
     "rules": [

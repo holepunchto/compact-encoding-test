@@ -15,7 +15,7 @@ A fixture is either round-trip, carrying a value and the bytes it encodes to, or
 - `uint-single-byte` - a value below `0xfd` encodes as that one byte, with nothing following.
 - `uint-uint16-prefix` - a value from `0xfd` through `0xffff` encodes as the byte `0xfd` followed by a two-byte payload.
 - `uint-uint32-prefix` - a value from `0x10000` through `0xffffffff` encodes as the byte `0xfe` followed by a four-byte payload.
-- `uint-uint64-prefix` - a value from `0x100000000` upwards encodes as the byte `0xff` followed by an eight-byte payload.
+- `uint-uint64-prefix` - a value from `0x100000000` through 9007199254740991 encodes as the byte `0xff` followed by an eight-byte payload. The payload is eight bytes wide, but the codec refuses a value above 9007199254740991 and directs the caller to `biguint`, so the top of the range is the largest integer a double holds exactly rather than the width of the payload.
 - `uint-little-endian` - the payload of every prefixed form is little-endian, least significant byte first.
 - `uint-overlong-decode` (delegated) - a decoder accepts a prefixed form wider than the value needs, rather than rejecting it as non-canonical. An encoder never produces one, so this constrains decoders only, and a decoder that rejects an overlong form is not conformant.
 - `uint-truncated-rejected` - a decoder rejects input that ends before the payload its prefix announces.

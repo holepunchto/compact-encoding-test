@@ -1,6 +1,6 @@
 const test = require('brittle')
 const corpus = require('..')
-const { rules, malformed } = require('../lib/spec')
+const { rules, ruleSlugs, malformed } = require('../lib/spec')
 
 test('the specification states at least one rule', (t) => {
   t.ok(rules().length > 0, 'CODECS.md carries rules')
@@ -24,7 +24,7 @@ test('every rule is cited by a fixture', (t) => {
 })
 
 test('every citation names a rule that exists', (t) => {
-  const known = new Set(rules().map((rule) => rule.slug))
+  const known = ruleSlugs()
   const dangling = []
 
   for (const fixture of corpus.allFixtures()) {

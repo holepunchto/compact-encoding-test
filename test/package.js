@@ -4,11 +4,7 @@ const path = require('path')
 const corpus = require('..')
 
 test('the fixtures are installed', (t) => {
-  const taxonomy = path.join(corpus.fixturesDir, 'index.json')
-
-  t.ok(fs.existsSync(taxonomy), 'the corpus ships a taxonomy')
-  if (!fs.existsSync(taxonomy)) return
-
+  t.ok(fs.existsSync(path.join(corpus.fixturesDir, 'index.json')), 'the corpus ships a taxonomy')
   t.ok(corpus.allFixtures().length > 0, 'the corpus ships fixtures')
 })
 

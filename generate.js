@@ -26,23 +26,13 @@ function decode(codec, hex) {
   }
 }
 
-function resolve(codec, one) {
-  if (one.bytes !== undefined) {
-    return {
-      id: one.id,
-      note: one.note,
-      hex: one.bytes,
-      ...decode(codec, one.bytes),
-      rules: one.rules
-    }
-  }
-  return {
-    id: one.id,
-    note: one.note,
-    value: one.value,
-    hex: encode(codec, one.value),
-    rules: one.rules
-  }
+function resolve(codec, example) {
+  const outcome =
+    example.bytes !== undefined
+      ? { hex: example.bytes, ...decode(codec, example.bytes) }
+      : { value: example.value, hex: encode(codec, example.value) }
+
+  return { id: example.id, note: example.note, ...outcome, rules: example.rules }
 }
 
 function json(value) {
@@ -54,7 +44,8 @@ function generate() {
   const capabilities = {}
 
   for (const [name, { category, cases: list }] of Object.entries(cases)) {
-    const resolved = list.map((one) => resolve(c[name], one))
+    const codec = c[name]
+    const resolved = list.map((example) => resolve(codec, example))
     files[path.join('fixtures', name, 'cases.json')] = json(resolved)
     capabilities[category] = { ...capabilities[category], [name]: resolved.map((one) => one.id) }
   }
