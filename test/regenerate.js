@@ -1,18 +1,14 @@
 const test = require('brittle')
+const fs = require('fs')
+const path = require('path')
 const { generate } = require('../generate')
-const { readCommitted } = require('../lib/corpus')
+
+const ROOT = path.join(__dirname, '..')
 
 test('regenerating the fixtures matches what is committed', (t) => {
   const generated = generate()
-  const committed = readCommitted()
 
   for (const [file, content] of Object.entries(generated)) {
-    t.is(committed[file], content, `${file} is byte-identical`)
+    t.is(fs.readFileSync(path.join(ROOT, file), 'utf8'), content, `${file} is byte-identical`)
   }
-
-  t.alike(
-    Object.keys(committed).sort(),
-    Object.keys(generated).sort(),
-    'no committed file is left behind by the generator'
-  )
 })

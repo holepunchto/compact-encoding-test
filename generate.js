@@ -5,8 +5,6 @@ const cases = require('./lib/cases')
 const mutants = require('./lib/mutants')
 const delegated = require('./lib/delegated')
 
-const FIXTURES = path.join(__dirname, 'fixtures')
-
 function encode(codec, value) {
   const state = c.state()
   codec.preencode(state, value)
@@ -18,6 +16,8 @@ function encode(codec, value) {
 
 function decode(codec, hex) {
   const buffer = Buffer.from(hex, 'hex')
+  if (buffer.toString('hex') !== hex) throw new Error(`case bytes are not hex: ${hex}`)
+
   const state = { buffer, start: 0, end: buffer.length }
   try {
     return { decodes: codec.decode(state) }
@@ -51,12 +51,12 @@ function json(value) {
 
 function generate() {
   const files = {}
-  const capabilities = { integers: {} }
+  const capabilities = {}
 
-  for (const [name, list] of Object.entries(cases)) {
+  for (const [name, { category, cases: list }] of Object.entries(cases)) {
     const resolved = list.map((one) => resolve(c[name], one))
     files[path.join('fixtures', name, 'cases.json')] = json(resolved)
-    capabilities.integers[name] = resolved.map((one) => one.id)
+    capabilities[category] = { ...capabilities[category], [name]: resolved.map((one) => one.id) }
   }
 
   files[path.join('fixtures', 'index.json')] = json({ capabilities, delegated })
@@ -73,6 +73,6 @@ function write() {
   }
 }
 
-module.exports = { generate, write, fixturesDir: FIXTURES }
+module.exports = { generate, write }
 
 if (require.main === module) write()

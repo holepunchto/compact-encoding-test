@@ -6,15 +6,27 @@
     "hex": "fd0100"
   },
   {
-    "rule": "uint-single-byte",
-    "reading": "the single-byte form extends through 0xfd rather than stopping below it",
+    "rule": "uint-uint16-prefix",
+    "reading": "the threshold is exclusive, so 0xfd itself still encodes as one byte",
     "fixture": "uint-uint16-min",
     "hex": "fd"
   },
   {
     "rule": "uint-uint64-prefix",
-    "reading": "the 0xff form carries a 32-bit payload",
-    "fixture": "uint-uint64-min",
-    "hex": "ff00000001"
+    "reading": "the 0xff form carries a 32-bit payload, so a larger value truncates",
+    "fixture": "uint-uint64-max-safe",
+    "hex": "ffffffffff"
+  },
+  {
+    "rule": "uint-overlong-decode",
+    "reading": "a decoder rejects a form wider than the value needs",
+    "fixture": "uint-overlong-uint16",
+    "rejects": true
+  },
+  {
+    "rule": "uint-truncated-rejected",
+    "reading": "a decoder returns what it has instead of rejecting a truncated form",
+    "fixture": "uint-truncated-prefix",
+    "decodes": 0
   }
 ]
