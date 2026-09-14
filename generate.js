@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const c = require('compact-encoding')
-const { asks, codecs, delegated, loadCases } = require('.')
+const { asks, codecs, loadCases } = require('./lib/corpus')
 
 function encode(codec, value) {
   const state = c.state()
@@ -54,7 +54,7 @@ function generate() {
     }
   }
 
-  files[path.join('fixtures', 'index.json')] = json({ capabilities, delegated: delegated() })
+  files[path.join('fixtures', 'index.json')] = json(capabilities)
 
   return files
 }

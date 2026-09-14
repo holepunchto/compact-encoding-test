@@ -1,5 +1,5 @@
 const test = require('brittle')
-const corpus = require('..')
+const corpus = require('../lib/corpus')
 const { rules } = require('../lib/spec')
 
 test('the delegated markers agree', (t) => {

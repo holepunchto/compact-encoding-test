@@ -1,5 +1,5 @@
 const test = require('brittle')
-const corpus = require('..')
+const corpus = require('../lib/corpus')
 const { rules, ruleSlugs } = require('../lib/spec')
 
 const HEX = /^([0-9a-f][0-9a-f])*$/

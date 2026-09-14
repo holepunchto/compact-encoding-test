@@ -1,5 +1,5 @@
 const test = require('brittle')
-const corpus = require('..')
+const corpus = require('../lib/corpus')
 const { rules, ruleSlugs, malformed } = require('../lib/spec')
 
 test('the specification states at least one rule', (t) => {
