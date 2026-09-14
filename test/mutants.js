@@ -4,14 +4,21 @@ const { ruleSlugs } = require('../lib/spec')
 
 const HEX = /^([0-9a-f][0-9a-f])*$/
 
-// A round-trip case asks what a value encodes to; a decode-only case asks what
-// a decoder makes of some bytes. Rejecting and decoding are two answers to the
-// second question, so a mutant contradicts a fixture only within one question.
-function outcome(entry) {
-  if (entry.rejects !== undefined) return { kind: 'meaning', answer: 'rejected' }
-  if (entry.decodes !== undefined) return { kind: 'meaning', answer: `decodes ${entry.decodes}` }
-  if (entry.hex !== undefined) return { kind: 'bytes', answer: entry.hex }
-  return { kind: 'none', answer: undefined }
+// A case that carries a value asks what it encodes to; a case that carries
+// bytes asks what a decoder makes of them. Rejecting and decoding are two
+// answers to the second question, so a mutant contradicts within one question.
+function question(fixture) {
+  return fixture.input.value !== undefined ? 'bytes' : 'meaning'
+}
+
+function answers(answer) {
+  return answer.hex !== undefined ? 'bytes' : 'meaning'
+}
+
+function stated(answer) {
+  if (answer.hex !== undefined) return `bytes ${answer.hex}`
+  if (answer.rejects) return 'rejected'
+  return `decodes ${answer.decodes}`
 }
 
 test('mutants exist', (t) => {
@@ -44,26 +51,23 @@ test('every mutant is aimed at a fixture that exercises its rule', (t) => {
   t.alike(misaimed, [], 'every mutant is checked by a fixture that covers its rule')
 })
 
-test('every mutant answers its fixture in the same terms', (t) => {
+test('every mutant answers the question its fixture asks', (t) => {
   const mismatched = []
 
   for (const mutant of corpus.mutants()) {
     const fixture = corpus.fixtureById(mutant.fixture)
     if (!fixture) continue
 
-    const wrong = outcome(mutant)
-    const right = outcome(fixture)
-
-    if (wrong.kind !== right.kind) {
+    if (answers(mutant.answer) !== question(fixture)) {
       mismatched.push(
-        `${mutant.rule}: answers in ${wrong.kind} a fixture answered in ${right.kind}`
+        `${mutant.rule}: answers in ${answers(mutant.answer)} a case asking about ${question(fixture)}`
       )
-    } else if (wrong.kind === 'bytes' && !HEX.test(wrong.answer)) {
+    } else if (mutant.answer.hex !== undefined && !HEX.test(mutant.answer.hex)) {
       mismatched.push(`${mutant.rule}: states bytes that are not hex`)
     }
   }
 
-  t.alike(mismatched, [], 'a mutant contradicts its fixture in the terms that fixture answers')
+  t.alike(mismatched, [], 'a mutant contradicts its fixture in the terms the case asks about')
 })
 
 test('every mutant is killed by the fixture it names', (t) => {
@@ -73,10 +77,7 @@ test('every mutant is killed by the fixture it names', (t) => {
     const fixture = corpus.fixtureById(mutant.fixture)
     if (!fixture) continue
 
-    const wrong = outcome(mutant)
-    const right = outcome(fixture)
-
-    if (wrong.kind === right.kind && wrong.answer === right.answer) {
+    if (stated(mutant.answer) === stated(fixture.answer)) {
       survivors.push(`${mutant.rule}: ${fixture.id} does not reject "${mutant.reading}"`)
     }
   }

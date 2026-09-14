@@ -1,1 +1,2 @@
-fixtures/
+fixtures/index.json
+fixtures/*/answers.json

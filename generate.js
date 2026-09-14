@@ -1,9 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const c = require('compact-encoding')
-const cases = require('./lib/cases')
-const mutants = require('./lib/mutants')
-const delegated = require('./lib/delegated')
+const { fixturesDir, codecs, loadCases } = require('.')
 
 function encode(codec, value) {
   const state = c.state()
@@ -11,7 +9,7 @@ function encode(codec, value) {
   state.buffer = Buffer.alloc(state.end)
   state.start = 0
   codec.encode(state, value)
-  return state.buffer.toString('hex')
+  return { hex: state.buffer.toString('hex') }
 }
 
 function decode(codec, hex) {
@@ -26,13 +24,8 @@ function decode(codec, hex) {
   }
 }
 
-function resolve(codec, example) {
-  const outcome =
-    example.bytes !== undefined
-      ? { hex: example.bytes, ...decode(codec, example.bytes) }
-      : { value: example.value, hex: encode(codec, example.value) }
-
-  return { id: example.id, note: example.note, ...outcome, rules: example.rules }
+function answer(codec, input) {
+  return input.bytes !== undefined ? decode(codec, input.bytes) : encode(codec, input.value)
 }
 
 function json(value) {
@@ -43,24 +36,28 @@ function generate() {
   const files = {}
   const capabilities = {}
 
-  for (const [name, { category, cases: list }] of Object.entries(cases)) {
+  for (const name of codecs()) {
+    const { category, cases } = loadCases(name)
     const codec = c[name]
-    const resolved = list.map((example) => resolve(codec, example))
-    files[path.join('fixtures', name, 'cases.json')] = json(resolved)
-    capabilities[category] = { ...capabilities[category], [name]: resolved.map((one) => one.id) }
+
+    const answers = {}
+    for (const example of cases) answers[example.id] = answer(codec, example.input)
+
+    files[path.join('fixtures', name, 'answers.json')] = json(answers)
+    capabilities[category] = {
+      ...capabilities[category],
+      [name]: cases.map((example) => example.id)
+    }
   }
 
-  files[path.join('fixtures', 'index.json')] = json({ capabilities, delegated })
-  files[path.join('fixtures', 'mutants.json')] = json(mutants)
+  files[path.join('fixtures', 'index.json')] = json(capabilities)
 
   return files
 }
 
 function write() {
   for (const [file, content] of Object.entries(generate())) {
-    const target = path.join(__dirname, file)
-    fs.mkdirSync(path.dirname(target), { recursive: true })
-    fs.writeFileSync(target, content)
+    fs.writeFileSync(path.join(fixturesDir, '..', file), content)
   }
 }
 

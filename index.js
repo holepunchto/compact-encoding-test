@@ -8,24 +8,38 @@ function readJSON(file) {
   return JSON.parse(fs.readFileSync(file, 'utf8'))
 }
 
-function index() {
-  return readJSON(path.join(fixturesDir, 'index.json'))
+function codecs() {
+  return fs
+    .readdirSync(fixturesDir, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => entry.name)
+    .sort()
 }
 
 function capabilities() {
-  return index().capabilities
+  return readJSON(path.join(fixturesDir, 'index.json'))
 }
 
 function delegated() {
-  return index().delegated
+  return readJSON(path.join(fixturesDir, 'delegated.json'))
 }
 
-function codecs() {
-  return Object.values(capabilities()).flatMap((category) => Object.keys(category))
+function mutants() {
+  return readJSON(path.join(fixturesDir, 'mutants.json'))
+}
+
+function loadCases(name) {
+  return readJSON(path.join(fixturesDir, name, 'cases.json'))
+}
+
+function loadAnswers(name) {
+  return readJSON(path.join(fixturesDir, name, 'answers.json'))
 }
 
 function loadCodec(name) {
-  return readJSON(path.join(fixturesDir, name, 'cases.json'))
+  const { cases } = loadCases(name)
+  const answers = loadAnswers(name)
+  return cases.map((example) => ({ ...example, answer: answers[example.id] }))
 }
 
 function allFixtures() {
@@ -33,12 +47,7 @@ function allFixtures() {
 }
 
 function fixtureById(id) {
-  const fixtures = new Map(allFixtures().map((fixture) => [fixture.id, fixture]))
-  return fixtures.get(id)
-}
-
-function mutants() {
-  return readJSON(path.join(fixturesDir, 'mutants.json'))
+  return new Map(allFixtures().map((fixture) => [fixture.id, fixture])).get(id)
 }
 
 module.exports = {
@@ -48,6 +57,8 @@ module.exports = {
   delegated,
   fixtureById,
   fixturesDir,
+  loadAnswers,
+  loadCases,
   loadCodec,
   mutants,
   specPath

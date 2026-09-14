@@ -1,19 +1,25 @@
-export interface Fixture {
+export interface Case {
   id: string
   note: string
-  value?: number
-  hex: string
+  input: { value?: number; bytes?: string }
+  rules: string[]
+}
+
+export interface Answer {
+  hex?: string
   decodes?: number
   rejects?: boolean
-  rules: string[]
+}
+
+export interface Fixture extends Case {
+  answer: Answer
 }
 
 export interface Mutant {
   rule: string
   reading: string
   fixture: string
-  hex?: string
-  decodes?: number
+  answer: Answer
 }
 
 export const fixturesDir: string
@@ -24,5 +30,7 @@ export function capabilities(): Record<string, Record<string, string[]>>
 export function codecs(): string[]
 export function delegated(): string[]
 export function fixtureById(id: string): Fixture | undefined
+export function loadAnswers(name: string): Record<string, Answer>
+export function loadCases(name: string): { category: string; cases: Case[] }
 export function loadCodec(name: string): Fixture[]
 export function mutants(): Mutant[]
