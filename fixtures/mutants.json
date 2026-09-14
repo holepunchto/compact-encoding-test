@@ -38,5 +38,21 @@
     "answer": {
       "decodes": 0
     }
+  },
+  {
+    "rule": "uint-single-byte",
+    "reading": "a value below 0xfd still takes a prefixed form rather than standing alone",
+    "fixture": "uint-one",
+    "answer": {
+      "hex": "fd0100"
+    }
+  },
+  {
+    "rule": "uint-uint32-prefix",
+    "reading": "the 0xfe form carries an eight-byte payload",
+    "fixture": "uint-uint32-min",
+    "answer": {
+      "hex": "fe0000010000000000"
+    }
   }
 ]

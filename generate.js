@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const c = require('compact-encoding')
-const { fixturesDir, codecs, loadCases } = require('.')
+const { asks, codecs, delegated, loadCases } = require('.')
 
 function encode(codec, value) {
   const state = c.state()
@@ -24,8 +24,10 @@ function decode(codec, hex) {
   }
 }
 
-function answer(codec, input) {
-  return input.bytes !== undefined ? decode(codec, input.bytes) : encode(codec, input.value)
+function answer(codec, example) {
+  return asks(example) === 'bytes'
+    ? encode(codec, example.input.value)
+    : decode(codec, example.input.bytes)
 }
 
 function json(value) {
@@ -38,10 +40,12 @@ function generate() {
 
   for (const name of codecs()) {
     const { category, cases } = loadCases(name)
+
     const codec = c[name]
+    if (codec === undefined) throw new Error(`the reference has no codec named ${name}`)
 
     const answers = {}
-    for (const example of cases) answers[example.id] = answer(codec, example.input)
+    for (const example of cases) answers[example.id] = answer(codec, example)
 
     files[path.join('fixtures', name, 'answers.json')] = json(answers)
     capabilities[category] = {
@@ -50,14 +54,14 @@ function generate() {
     }
   }
 
-  files[path.join('fixtures', 'index.json')] = json(capabilities)
+  files[path.join('fixtures', 'index.json')] = json({ capabilities, delegated: delegated() })
 
   return files
 }
 
 function write() {
   for (const [file, content] of Object.entries(generate())) {
-    fs.writeFileSync(path.join(fixturesDir, '..', file), content)
+    fs.writeFileSync(path.join(__dirname, file), content)
   }
 }
 

@@ -1,6 +1,6 @@
 const test = require('brittle')
 const corpus = require('..')
-const { rules, ruleSlugs } = require('../lib/spec')
+const { rules } = require('../lib/spec')
 
 test('the delegated markers agree', (t) => {
   const inSpec = rules()
@@ -13,11 +13,4 @@ test('the delegated markers agree', (t) => {
     inSpec,
     'the taxonomy and the specification mark the same rules delegated'
   )
-})
-
-test('a delegated rule is a rule', (t) => {
-  const known = ruleSlugs()
-  const unknown = corpus.delegated().filter((slug) => !known.has(slug))
-
-  t.alike(unknown, [], 'the taxonomy marks only rules the specification states')
 })

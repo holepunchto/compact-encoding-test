@@ -35,3 +35,24 @@ test('every citation names a rule that exists', (t) => {
 
   t.alike(dangling, [], 'no fixture cites a rule the specification does not state')
 })
+
+test('every case cites a rule', (t) => {
+  const uncited = corpus
+    .allFixtures()
+    .filter((fixture) => fixture.rules.length === 0)
+    .map((fixture) => fixture.id)
+
+  t.alike(uncited, [], 'no case sits in the corpus without saying what it checks')
+})
+
+test('case ids are unique across the corpus', (t) => {
+  const seen = new Set()
+  const repeated = []
+
+  for (const fixture of corpus.allFixtures()) {
+    if (seen.has(fixture.id)) repeated.push(fixture.id)
+    seen.add(fixture.id)
+  }
+
+  t.alike(repeated, [], 'no id is claimed twice')
+})

@@ -17,7 +17,15 @@ function codecs() {
 }
 
 function capabilities() {
-  return readJSON(path.join(fixturesDir, 'index.json'))
+  return readJSON(path.join(fixturesDir, 'index.json')).capabilities
+}
+
+function asks(example) {
+  return example.input.value !== undefined ? 'bytes' : 'meaning'
+}
+
+function states(answer) {
+  return answer.hex !== undefined ? 'bytes' : 'meaning'
 }
 
 function delegated() {
@@ -52,14 +60,15 @@ function fixtureById(id) {
 
 module.exports = {
   allFixtures,
+  asks,
   capabilities,
   codecs,
   delegated,
   fixtureById,
   fixturesDir,
-  loadAnswers,
   loadCases,
   loadCodec,
   mutants,
-  specPath
+  specPath,
+  states
 }
