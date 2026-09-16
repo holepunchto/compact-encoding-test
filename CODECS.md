@@ -22,6 +22,12 @@ A fixture is either round-trip, carrying a value and the bytes it encodes to, or
 
 An encoder picks the narrowest form that holds the value, which is what makes the boundary fixtures load-bearing: `252` and `253` sit on either side of the first threshold, and each larger form has its own minimum and maximum.
 
+## The safe-integer ceiling
+
+Every integer codec here carries its value as a double, so one bound cuts across all of them regardless of what a codec's own form allows.
+
+- `decode-ceiling` - a decoder rejects bytes that would decode above 9007199254740991, the largest integer a double holds exactly. `uint64` rejects eight bytes of ones while `uint48` decodes six of them cleanly, and the varint `uint` rejects its eight-byte form carrying the same number, so the ceiling belongs to the value rather than to the codec. This is where an implementation with a real 64-bit integer type parts from the reference.
+
 ## Fixed-width integers
 
 The fixed-width codecs write a set number of bytes with no prefix, so the reader knows the length before it reads anything. `uint8` through `uint64` carry unsigned values, `int8` through `int64` signed ones, and `uint32be` and `uint64be` differ from their siblings only in byte order. The big-endian codecs are their own capability, since only two implementations provide any, and the ones the reference does not implement at all carry a capability with no fixtures and a reason.
@@ -32,7 +38,6 @@ The fixed-width codecs write a set number of bytes with no prefix, so the reader
 - `fixed-width-signed-zigzag` - a signed codec zigzags the value into an unsigned one before laying the bytes down, mapping -1 to 1 and 1 to 2, rather than storing two's complement. An implementer who writes two's complement agrees with the reference on no negative value at all.
 - `fixed-width-truncates-high-bytes` - a value the codec accepts but the width cannot hold keeps its low bytes, so `uint8` writes zero for 256 and `int8` writes zero for 128, whose zigzag is 256.
 - `fixed-width-rejects-short-input` - a decoder rejects input holding fewer bytes than the width announces.
-- `fixed-width-decode-ceiling` - a decoder rejects bytes that would decode above 9007199254740991, the largest integer a double holds exactly, whatever the width allows. Eight bytes of ones are rejected by `uint64` while six bytes of ones decode cleanly under `uint48`, so the ceiling belongs to the number, not to the codec. This is where an implementation with a real 64-bit integer type diverges from the reference.
 
 ## int
 

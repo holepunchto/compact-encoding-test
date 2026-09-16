@@ -112,7 +112,7 @@
     }
   },
   {
-    "rule": "fixed-width-decode-ceiling",
+    "rule": "decode-ceiling",
     "reading": "a decoder returns whatever the bytes hold, however large",
     "fixture": "uint64-decode-ceiling",
     "answer": {

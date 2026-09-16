@@ -50,7 +50,8 @@
       "uint-uint64-max-safe",
       "uint-overlong-uint16",
       "uint-overlong-uint32",
-      "uint-truncated-prefix"
+      "uint-truncated-prefix",
+      "uint-decode-ceiling"
     ],
     "uint16": [
       "uint16-byte-order",
@@ -76,7 +77,8 @@
     ],
     "uint56": [
       "uint56-byte-order",
-      "uint56-max"
+      "uint56-max",
+      "uint56-decode-ceiling"
     ],
     "uint64": [
       "uint64-byte-order",
@@ -99,7 +101,8 @@
       "uint32be-byte-order"
     ],
     "uint64be": [
-      "uint64be-byte-order"
+      "uint64be-byte-order",
+      "uint64be-decode-ceiling"
     ],
     "uintbe": []
   }

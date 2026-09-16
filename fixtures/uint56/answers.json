@@ -4,5 +4,8 @@
   },
   "uint56-max": {
     "hex": "ffffffffffff1f"
+  },
+  "uint56-decode-ceiling": {
+    "rejects": true
   }
 }

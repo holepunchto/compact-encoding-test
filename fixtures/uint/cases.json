@@ -104,6 +104,14 @@
         "bytes": "fd"
       },
       "rules": ["uint-truncated-rejected"]
+    },
+    {
+      "id": "uint-decode-ceiling",
+      "note": "the eight-byte form carrying the first unsafe integer",
+      "input": {
+        "bytes": "ff0000000000002000"
+      },
+      "rules": ["decode-ceiling"]
     }
   ]
 }

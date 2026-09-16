@@ -16,6 +16,14 @@
         "value": 9007199254740991
       },
       "rules": ["fixed-width-width-from-name", "fixed-width-little-endian"]
+    },
+    {
+      "id": "uint56-decode-ceiling",
+      "note": "seven bytes carrying the first unsafe integer",
+      "input": {
+        "bytes": "00000000000020"
+      },
+      "rules": ["decode-ceiling"]
     }
   ]
 }

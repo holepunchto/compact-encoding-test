@@ -19,7 +19,7 @@
       "input": {
         "bytes": "ffffffffffffffff"
       },
-      "rules": ["fixed-width-decode-ceiling"]
+      "rules": ["decode-ceiling"]
     }
   ]
 }
