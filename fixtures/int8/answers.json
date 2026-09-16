@@ -1,0 +1,11 @@
+{
+  "int8-minus1": {
+    "hex": "01"
+  },
+  "int8-minus128": {
+    "hex": "ff"
+  },
+  "int8-127": {
+    "hex": "fe"
+  }
+}

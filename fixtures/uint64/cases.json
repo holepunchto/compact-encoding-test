@@ -1,0 +1,21 @@
+{
+  "category": "integers",
+  "cases": [
+    {
+      "id": "uint64-4294967296",
+      "note": "a value with a byte set past the fourth",
+      "input": {
+        "value": 4294967296
+      },
+      "rules": ["fixed-width-name-states-bits", "fixed-width-little-endian"]
+    },
+    {
+      "id": "uint64-9007199254740991",
+      "note": "the largest value the codec accepts at all",
+      "input": {
+        "value": 9007199254740991
+      },
+      "rules": ["fixed-width-name-states-bits", "fixed-width-little-endian"]
+    }
+  ]
+}

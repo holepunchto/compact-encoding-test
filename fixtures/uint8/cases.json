@@ -1,0 +1,29 @@
+{
+  "category": "integers",
+  "cases": [
+    {
+      "id": "uint8-42",
+      "note": "a value under the width",
+      "input": {
+        "value": 42
+      },
+      "rules": ["fixed-width-name-states-bits", "fixed-width-little-endian"]
+    },
+    {
+      "id": "uint8-255",
+      "note": "the largest value one byte holds",
+      "input": {
+        "value": 255
+      },
+      "rules": ["fixed-width-name-states-bits", "fixed-width-little-endian"]
+    },
+    {
+      "id": "uint8-256",
+      "note": "a value past the width, whose low byte is kept",
+      "input": {
+        "value": 256
+      },
+      "rules": ["fixed-width-truncates-high-bytes"]
+    }
+  ]
+}

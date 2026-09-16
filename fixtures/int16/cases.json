@@ -1,0 +1,29 @@
+{
+  "category": "integers",
+  "cases": [
+    {
+      "id": "int16-minus2",
+      "note": "a negative whose zigzag occupies the low byte",
+      "input": {
+        "value": -2
+      },
+      "rules": [
+        "fixed-width-name-states-bits",
+        "fixed-width-little-endian",
+        "fixed-width-signed-zigzag"
+      ]
+    },
+    {
+      "id": "int16-32767",
+      "note": "the largest positive value two bytes hold",
+      "input": {
+        "value": 32767
+      },
+      "rules": [
+        "fixed-width-name-states-bits",
+        "fixed-width-little-endian",
+        "fixed-width-signed-zigzag"
+      ]
+    }
+  ]
+}

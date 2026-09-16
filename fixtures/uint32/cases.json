@@ -1,0 +1,21 @@
+{
+  "category": "integers",
+  "cases": [
+    {
+      "id": "uint32-67305985",
+      "note": "a value whose four bytes differ",
+      "input": {
+        "value": 67305985
+      },
+      "rules": ["fixed-width-name-states-bits", "fixed-width-little-endian"]
+    },
+    {
+      "id": "uint32-4294967295",
+      "note": "the largest value four bytes hold",
+      "input": {
+        "value": 4294967295
+      },
+      "rules": ["fixed-width-name-states-bits", "fixed-width-little-endian"]
+    }
+  ]
+}

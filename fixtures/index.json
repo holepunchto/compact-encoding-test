@@ -1,5 +1,39 @@
 {
   "integers": {
+    "int": [
+      "int-0",
+      "int-minus1",
+      "int-1",
+      "int-minus64"
+    ],
+    "int16": [
+      "int16-minus2",
+      "int16-32767"
+    ],
+    "int24": [
+      "int24-minus2"
+    ],
+    "int32": [
+      "int32-minus2",
+      "int32-2147483647"
+    ],
+    "int40": [
+      "int40-minus2"
+    ],
+    "int48": [
+      "int48-minus2"
+    ],
+    "int56": [
+      "int56-minus2"
+    ],
+    "int64": [
+      "int64-minus2"
+    ],
+    "int8": [
+      "int8-minus1",
+      "int8-minus128",
+      "int8-127"
+    ],
     "uint": [
       "uint-zero",
       "uint-one",
@@ -14,6 +48,46 @@
       "uint-overlong-uint16",
       "uint-overlong-uint32",
       "uint-truncated-prefix"
+    ],
+    "uint16": [
+      "uint16-513",
+      "uint16-65535",
+      "uint16-truncated"
+    ],
+    "uint24": [
+      "uint24-197121",
+      "uint24-16777215"
+    ],
+    "uint32": [
+      "uint32-67305985",
+      "uint32-4294967295"
+    ],
+    "uint32be": [
+      "uint32be-16909060"
+    ],
+    "uint40": [
+      "uint40-21542142465",
+      "uint40-1099511627775"
+    ],
+    "uint48": [
+      "uint48-1108152157441",
+      "uint48-281474976710655"
+    ],
+    "uint56": [
+      "uint56-1976943448883713",
+      "uint56-9007199254740991"
+    ],
+    "uint64": [
+      "uint64-4294967296",
+      "uint64-9007199254740991"
+    ],
+    "uint64be": [
+      "uint64be-4294967296"
+    ],
+    "uint8": [
+      "uint8-42",
+      "uint8-255",
+      "uint8-256"
     ]
   }
 }

@@ -1,0 +1,11 @@
+{
+  "uint16-513": {
+    "hex": "0102"
+  },
+  "uint16-65535": {
+    "hex": "ffff"
+  },
+  "uint16-truncated": {
+    "rejects": true
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "category": "integers",
+  "cases": [
+    {
+      "id": "uint48-1108152157441",
+      "note": "a value whose six bytes differ",
+      "input": {
+        "value": 1108152157441
+      },
+      "rules": ["fixed-width-name-states-bits", "fixed-width-little-endian"]
+    },
+    {
+      "id": "uint48-281474976710655",
+      "note": "the largest value six bytes hold",
+      "input": {
+        "value": 281474976710655
+      },
+      "rules": ["fixed-width-name-states-bits", "fixed-width-little-endian"]
+    }
+  ]
+}

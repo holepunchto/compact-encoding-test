@@ -1,0 +1,17 @@
+{
+  "category": "integers",
+  "cases": [
+    {
+      "id": "int40-minus2",
+      "note": "a negative in five bytes",
+      "input": {
+        "value": -2
+      },
+      "rules": [
+        "fixed-width-name-states-bits",
+        "fixed-width-little-endian",
+        "fixed-width-signed-zigzag"
+      ]
+    }
+  ]
+}
