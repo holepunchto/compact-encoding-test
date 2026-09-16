@@ -2,40 +2,36 @@
   "category": "integers",
   "cases": [
     {
-      "id": "int8-minus1",
+      "id": "int8-minus-one",
       "note": "minus one, which zigzag maps to one",
       "input": {
         "value": -1
       },
-      "rules": [
-        "fixed-width-name-states-bits",
-        "fixed-width-little-endian",
-        "fixed-width-signed-zigzag"
-      ]
+      "rules": ["fixed-width-width-from-name", "fixed-width-signed-zigzag"]
     },
     {
-      "id": "int8-minus128",
+      "id": "int8-min",
       "note": "the most negative value one byte holds",
       "input": {
         "value": -128
       },
-      "rules": [
-        "fixed-width-name-states-bits",
-        "fixed-width-little-endian",
-        "fixed-width-signed-zigzag"
-      ]
+      "rules": ["fixed-width-width-from-name", "fixed-width-signed-zigzag"]
     },
     {
-      "id": "int8-127",
+      "id": "int8-max",
       "note": "the largest positive value one byte holds",
       "input": {
         "value": 127
       },
-      "rules": [
-        "fixed-width-name-states-bits",
-        "fixed-width-little-endian",
-        "fixed-width-signed-zigzag"
-      ]
+      "rules": ["fixed-width-width-from-name", "fixed-width-signed-zigzag"]
+    },
+    {
+      "id": "int8-truncates",
+      "note": "a positive whose zigzag passes the width",
+      "input": {
+        "value": 128
+      },
+      "rules": ["fixed-width-truncates-high-bytes"]
     }
   ]
 }

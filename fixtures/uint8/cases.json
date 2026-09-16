@@ -2,23 +2,23 @@
   "category": "integers",
   "cases": [
     {
-      "id": "uint8-42",
-      "note": "a value under the width",
+      "id": "uint8-value",
+      "note": "a value inside the width",
       "input": {
         "value": 42
       },
-      "rules": ["fixed-width-name-states-bits", "fixed-width-little-endian"]
+      "rules": ["fixed-width-width-from-name"]
     },
     {
-      "id": "uint8-255",
+      "id": "uint8-max",
       "note": "the largest value one byte holds",
       "input": {
         "value": 255
       },
-      "rules": ["fixed-width-name-states-bits", "fixed-width-little-endian"]
+      "rules": ["fixed-width-width-from-name"]
     },
     {
-      "id": "uint8-256",
+      "id": "uint8-truncates",
       "note": "a value past the width, whose low byte is kept",
       "input": {
         "value": 256

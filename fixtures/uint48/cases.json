@@ -2,20 +2,28 @@
   "category": "integers",
   "cases": [
     {
-      "id": "uint48-1108152157441",
+      "id": "uint48-byte-order",
       "note": "a value whose six bytes differ",
       "input": {
-        "value": 1108152157441
+        "value": 6618611909121
       },
-      "rules": ["fixed-width-name-states-bits", "fixed-width-little-endian"]
+      "rules": ["fixed-width-width-from-name", "fixed-width-little-endian"]
     },
     {
-      "id": "uint48-281474976710655",
+      "id": "uint48-max",
       "note": "the largest value six bytes hold",
       "input": {
         "value": 281474976710655
       },
-      "rules": ["fixed-width-name-states-bits", "fixed-width-little-endian"]
+      "rules": ["fixed-width-width-from-name", "fixed-width-little-endian"]
+    },
+    {
+      "id": "uint48-decode-max",
+      "note": "six bytes of ones, which stay inside the ceiling",
+      "input": {
+        "bytes": "ffffffffffff"
+      },
+      "rules": ["fixed-width-decode-ceiling"]
     }
   ]
 }

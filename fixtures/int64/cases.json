@@ -2,16 +2,24 @@
   "category": "integers",
   "cases": [
     {
-      "id": "int64-minus2",
+      "id": "int64-negative",
       "note": "a negative in eight bytes",
       "input": {
         "value": -2
       },
       "rules": [
-        "fixed-width-name-states-bits",
+        "fixed-width-width-from-name",
         "fixed-width-little-endian",
         "fixed-width-signed-zigzag"
       ]
+    },
+    {
+      "id": "int64-decode-ceiling",
+      "note": "eight bytes of ones, whose zigzag decodes past the ceiling",
+      "input": {
+        "bytes": "ffffffffffffffff"
+      },
+      "rules": ["fixed-width-decode-ceiling"]
     }
   ]
 }

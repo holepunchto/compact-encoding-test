@@ -1,13 +1,13 @@
 {
-  "category": "integers",
+  "category": "big-endian-integers",
   "cases": [
     {
-      "id": "uint32be-16909060",
-      "note": "a value whose four bytes differ, laid down most significant first",
+      "id": "uint32be-byte-order",
+      "note": "a value whose four bytes differ, most significant first",
       "input": {
         "value": 16909060
       },
-      "rules": ["fixed-width-name-states-bits", "fixed-width-big-endian"]
+      "rules": ["fixed-width-width-from-name", "fixed-width-big-endian"]
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "uint32be-16909060": {
+  "uint32be-byte-order": {
     "hex": "01020304"
   }
 }

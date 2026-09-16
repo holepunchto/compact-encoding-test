@@ -56,3 +56,12 @@ test('case ids are unique across the corpus', (t) => {
 
   t.alike(repeated, [], 'no id is claimed twice')
 })
+
+test('a codec with no cases says why', (t) => {
+  const silent = corpus
+    .codecs()
+    .filter((name) => corpus.loadCases(name).cases.length === 0)
+    .filter((name) => !corpus.loadCases(name).reason)
+
+  t.alike(silent, [], 'a codec the corpus does not cover states its reason')
+})

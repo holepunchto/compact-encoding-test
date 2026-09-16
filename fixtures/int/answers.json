@@ -1,14 +1,17 @@
 {
-  "int-0": {
+  "int-zero": {
     "hex": "00"
   },
-  "int-minus1": {
+  "int-minus-one": {
     "hex": "01"
   },
-  "int-1": {
+  "int-one": {
     "hex": "02"
   },
-  "int-minus64": {
+  "int-single-byte-max": {
     "hex": "7f"
+  },
+  "int-two-byte": {
+    "hex": "fdfd00"
   }
 }

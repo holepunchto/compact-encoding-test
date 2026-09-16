@@ -1,8 +1,8 @@
 {
-  "uint32-67305985": {
+  "uint32-byte-order": {
     "hex": "01020304"
   },
-  "uint32-4294967295": {
+  "uint32-max": {
     "hex": "ffffffff"
   }
 }

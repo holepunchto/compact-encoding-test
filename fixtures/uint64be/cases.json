@@ -1,13 +1,13 @@
 {
-  "category": "integers",
+  "category": "big-endian-integers",
   "cases": [
     {
-      "id": "uint64be-4294967296",
+      "id": "uint64be-byte-order",
       "note": "a value with a byte set past the fourth, most significant first",
       "input": {
         "value": 4294967296
       },
-      "rules": ["fixed-width-name-states-bits", "fixed-width-big-endian"]
+      "rules": ["fixed-width-width-from-name", "fixed-width-big-endian"]
     }
   ]
 }

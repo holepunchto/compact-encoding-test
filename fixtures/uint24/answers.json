@@ -1,8 +1,8 @@
 {
-  "uint24-197121": {
+  "uint24-byte-order": {
     "hex": "010203"
   },
-  "uint24-16777215": {
+  "uint24-max": {
     "hex": "ffffff"
   }
 }

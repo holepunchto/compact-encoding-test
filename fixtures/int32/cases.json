@@ -2,25 +2,25 @@
   "category": "integers",
   "cases": [
     {
-      "id": "int32-minus2",
+      "id": "int32-negative",
       "note": "a negative in four bytes",
       "input": {
         "value": -2
       },
       "rules": [
-        "fixed-width-name-states-bits",
+        "fixed-width-width-from-name",
         "fixed-width-little-endian",
         "fixed-width-signed-zigzag"
       ]
     },
     {
-      "id": "int32-2147483647",
+      "id": "int32-max",
       "note": "the largest positive value four bytes hold",
       "input": {
         "value": 2147483647
       },
       "rules": [
-        "fixed-width-name-states-bits",
+        "fixed-width-width-from-name",
         "fixed-width-little-endian",
         "fixed-width-signed-zigzag"
       ]

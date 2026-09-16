@@ -1,38 +1,41 @@
 {
   "integers": {
     "int": [
-      "int-0",
-      "int-minus1",
-      "int-1",
-      "int-minus64"
+      "int-zero",
+      "int-minus-one",
+      "int-one",
+      "int-single-byte-max",
+      "int-two-byte"
     ],
     "int16": [
-      "int16-minus2",
-      "int16-32767"
+      "int16-negative",
+      "int16-max"
     ],
     "int24": [
-      "int24-minus2"
+      "int24-negative"
     ],
     "int32": [
-      "int32-minus2",
-      "int32-2147483647"
+      "int32-negative",
+      "int32-max"
     ],
     "int40": [
-      "int40-minus2"
+      "int40-negative"
     ],
     "int48": [
-      "int48-minus2"
+      "int48-negative"
     ],
     "int56": [
-      "int56-minus2"
+      "int56-negative"
     ],
     "int64": [
-      "int64-minus2"
+      "int64-negative",
+      "int64-decode-ceiling"
     ],
     "int8": [
-      "int8-minus1",
-      "int8-minus128",
-      "int8-127"
+      "int8-minus-one",
+      "int8-min",
+      "int8-max",
+      "int8-truncates"
     ],
     "uint": [
       "uint-zero",
@@ -50,44 +53,54 @@
       "uint-truncated-prefix"
     ],
     "uint16": [
-      "uint16-513",
-      "uint16-65535",
-      "uint16-truncated"
+      "uint16-byte-order",
+      "uint16-max",
+      "uint16-short-input"
     ],
     "uint24": [
-      "uint24-197121",
-      "uint24-16777215"
+      "uint24-byte-order",
+      "uint24-max"
     ],
     "uint32": [
-      "uint32-67305985",
-      "uint32-4294967295"
-    ],
-    "uint32be": [
-      "uint32be-16909060"
+      "uint32-byte-order",
+      "uint32-max"
     ],
     "uint40": [
-      "uint40-21542142465",
-      "uint40-1099511627775"
+      "uint40-byte-order",
+      "uint40-max"
     ],
     "uint48": [
-      "uint48-1108152157441",
-      "uint48-281474976710655"
+      "uint48-byte-order",
+      "uint48-max",
+      "uint48-decode-max"
     ],
     "uint56": [
-      "uint56-1976943448883713",
-      "uint56-9007199254740991"
+      "uint56-byte-order",
+      "uint56-max"
     ],
     "uint64": [
-      "uint64-4294967296",
-      "uint64-9007199254740991"
-    ],
-    "uint64be": [
-      "uint64be-4294967296"
+      "uint64-byte-order",
+      "uint64-max",
+      "uint64-decode-ceiling"
     ],
     "uint8": [
-      "uint8-42",
-      "uint8-255",
-      "uint8-256"
+      "uint8-value",
+      "uint8-max",
+      "uint8-truncates"
     ]
+  },
+  "big-endian-integers": {
+    "int16be": [],
+    "int32be": [],
+    "int64be": [],
+    "intbe": [],
+    "uint16be": [],
+    "uint32be": [
+      "uint32be-byte-order"
+    ],
+    "uint64be": [
+      "uint64be-byte-order"
+    ],
+    "uintbe": []
   }
 }

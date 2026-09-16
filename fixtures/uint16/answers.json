@@ -1,11 +1,11 @@
 {
-  "uint16-513": {
+  "uint16-byte-order": {
     "hex": "0102"
   },
-  "uint16-65535": {
+  "uint16-max": {
     "hex": "ffff"
   },
-  "uint16-truncated": {
+  "uint16-short-input": {
     "rejects": true
   }
 }

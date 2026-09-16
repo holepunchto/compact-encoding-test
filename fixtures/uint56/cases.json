@@ -2,20 +2,20 @@
   "category": "integers",
   "cases": [
     {
-      "id": "uint56-1976943448883713",
+      "id": "uint56-byte-order",
       "note": "a value whose seven bytes differ",
       "input": {
         "value": 1976943448883713
       },
-      "rules": ["fixed-width-name-states-bits", "fixed-width-little-endian"]
+      "rules": ["fixed-width-width-from-name", "fixed-width-little-endian"]
     },
     {
-      "id": "uint56-9007199254740991",
-      "note": "the largest value the codec accepts at all",
+      "id": "uint56-max",
+      "note": "the largest value the codec accepts, short of what seven bytes hold",
       "input": {
         "value": 9007199254740991
       },
-      "rules": ["fixed-width-name-states-bits", "fixed-width-little-endian"]
+      "rules": ["fixed-width-width-from-name", "fixed-width-little-endian"]
     }
   ]
 }

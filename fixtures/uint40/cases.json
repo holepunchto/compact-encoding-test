@@ -2,20 +2,20 @@
   "category": "integers",
   "cases": [
     {
-      "id": "uint40-21542142465",
+      "id": "uint40-byte-order",
       "note": "a value whose five bytes differ",
       "input": {
         "value": 21542142465
       },
-      "rules": ["fixed-width-name-states-bits", "fixed-width-little-endian"]
+      "rules": ["fixed-width-width-from-name", "fixed-width-little-endian"]
     },
     {
-      "id": "uint40-1099511627775",
+      "id": "uint40-max",
       "note": "the largest value five bytes hold",
       "input": {
         "value": 1099511627775
       },
-      "rules": ["fixed-width-name-states-bits", "fixed-width-little-endian"]
+      "rules": ["fixed-width-width-from-name", "fixed-width-little-endian"]
     }
   ]
 }

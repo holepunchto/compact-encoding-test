@@ -2,13 +2,13 @@
   "category": "integers",
   "cases": [
     {
-      "id": "int40-minus2",
+      "id": "int40-negative",
       "note": "a negative in five bytes",
       "input": {
         "value": -2
       },
       "rules": [
-        "fixed-width-name-states-bits",
+        "fixed-width-width-from-name",
         "fixed-width-little-endian",
         "fixed-width-signed-zigzag"
       ]

@@ -1,8 +1,8 @@
 {
-  "uint56-1976943448883713": {
+  "uint56-byte-order": {
     "hex": "01020304050607"
   },
-  "uint56-9007199254740991": {
+  "uint56-max": {
     "hex": "ffffffffffff1f"
   }
 }

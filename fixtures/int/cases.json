@@ -2,7 +2,7 @@
   "category": "integers",
   "cases": [
     {
-      "id": "int-0",
+      "id": "int-zero",
       "note": "zero, which zigzag leaves at zero",
       "input": {
         "value": 0
@@ -10,7 +10,7 @@
       "rules": ["int-zigzag"]
     },
     {
-      "id": "int-minus1",
+      "id": "int-minus-one",
       "note": "minus one, which zigzag maps to one",
       "input": {
         "value": -1
@@ -18,7 +18,7 @@
       "rules": ["int-zigzag"]
     },
     {
-      "id": "int-1",
+      "id": "int-one",
       "note": "one, which zigzag maps to two",
       "input": {
         "value": 1
@@ -26,10 +26,18 @@
       "rules": ["int-zigzag"]
     },
     {
-      "id": "int-minus64",
+      "id": "int-single-byte-max",
       "note": "a negative whose zigzag still fits one byte",
       "input": {
         "value": -64
+      },
+      "rules": ["int-zigzag"]
+    },
+    {
+      "id": "int-two-byte",
+      "note": "a negative whose zigzag passes the single-byte form, so the uint rules take over",
+      "input": {
+        "value": -127
       },
       "rules": ["int-zigzag"]
     }

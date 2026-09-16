@@ -1,8 +1,8 @@
 {
-  "int32-minus2": {
+  "int32-negative": {
     "hex": "03000000"
   },
-  "int32-2147483647": {
+  "int32-max": {
     "hex": "feffffff"
   }
 }

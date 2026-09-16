@@ -1,11 +1,11 @@
 {
-  "uint8-42": {
+  "uint8-value": {
     "hex": "2a"
   },
-  "uint8-255": {
+  "uint8-max": {
     "hex": "ff"
   },
-  "uint8-256": {
+  "uint8-truncates": {
     "hex": "00"
   }
 }

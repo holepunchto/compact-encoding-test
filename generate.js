@@ -43,7 +43,9 @@ function generate() {
     const { category, cases } = loadCases(name)
 
     const codec = c[name]
-    if (codec === undefined) throw new Error(`the reference has no codec named ${name}`)
+    if (codec === undefined && cases.length > 0) {
+      throw new Error(`the reference has no codec named ${name}`)
+    }
 
     const answers = {}
     for (const example of cases) answers[example.id] = answer(codec, example)
