@@ -1,0 +1,21 @@
+{
+  "category": "integers",
+  "cases": [
+    {
+      "id": "uint24-197121",
+      "note": "a value whose three bytes differ",
+      "input": {
+        "value": 197121
+      },
+      "rules": ["fixed-width-name-states-bits", "fixed-width-little-endian"]
+    },
+    {
+      "id": "uint24-16777215",
+      "note": "the largest value three bytes hold",
+      "input": {
+        "value": 16777215
+      },
+      "rules": ["fixed-width-name-states-bits", "fixed-width-little-endian"]
+    }
+  ]
+}

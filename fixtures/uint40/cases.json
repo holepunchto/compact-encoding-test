@@ -1,0 +1,21 @@
+{
+  "category": "integers",
+  "cases": [
+    {
+      "id": "uint40-21542142465",
+      "note": "a value whose five bytes differ",
+      "input": {
+        "value": 21542142465
+      },
+      "rules": ["fixed-width-name-states-bits", "fixed-width-little-endian"]
+    },
+    {
+      "id": "uint40-1099511627775",
+      "note": "the largest value five bytes hold",
+      "input": {
+        "value": 1099511627775
+      },
+      "rules": ["fixed-width-name-states-bits", "fixed-width-little-endian"]
+    }
+  ]
+}

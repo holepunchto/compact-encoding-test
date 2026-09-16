@@ -1,0 +1,41 @@
+{
+  "category": "integers",
+  "cases": [
+    {
+      "id": "int8-minus1",
+      "note": "minus one, which zigzag maps to one",
+      "input": {
+        "value": -1
+      },
+      "rules": [
+        "fixed-width-name-states-bits",
+        "fixed-width-little-endian",
+        "fixed-width-signed-zigzag"
+      ]
+    },
+    {
+      "id": "int8-minus128",
+      "note": "the most negative value one byte holds",
+      "input": {
+        "value": -128
+      },
+      "rules": [
+        "fixed-width-name-states-bits",
+        "fixed-width-little-endian",
+        "fixed-width-signed-zigzag"
+      ]
+    },
+    {
+      "id": "int8-127",
+      "note": "the largest positive value one byte holds",
+      "input": {
+        "value": 127
+      },
+      "rules": [
+        "fixed-width-name-states-bits",
+        "fixed-width-little-endian",
+        "fixed-width-signed-zigzag"
+      ]
+    }
+  ]
+}
