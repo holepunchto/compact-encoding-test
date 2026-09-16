@@ -1,6 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const c = require('compact-encoding')
+const { fixturesDir } = require('.')
 const { asks, codecs, loadCases } = require('./lib/corpus')
 
 function encode(codec, value) {
@@ -47,21 +48,21 @@ function generate() {
     const answers = {}
     for (const example of cases) answers[example.id] = answer(codec, example)
 
-    files[path.join('fixtures', name, 'answers.json')] = json(answers)
+    files[path.join(fixturesDir, name, 'answers.json')] = json(answers)
     capabilities[category] = {
       ...capabilities[category],
       [name]: cases.map((example) => example.id)
     }
   }
 
-  files[path.join('fixtures', 'index.json')] = json(capabilities)
+  files[path.join(fixturesDir, 'index.json')] = json(capabilities)
 
   return files
 }
 
 function write() {
   for (const [file, content] of Object.entries(generate())) {
-    fs.writeFileSync(path.join(__dirname, file), content)
+    fs.writeFileSync(file, content)
   }
 }
 

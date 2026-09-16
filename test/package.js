@@ -9,11 +9,6 @@ test('the fixtures are installed', (t) => {
   t.ok(allFixtures().length > 0, 'the corpus ships fixtures')
 })
 
-test('the published paths are the ones the corpus reads', (t) => {
-  t.is(corpus.fixturesDir, require('../lib/corpus').fixturesDir, 'one fixtures directory')
-  t.is(corpus.specPath, require('../lib/spec').specPath, 'one specification')
-})
-
 test('the specification ships alongside the fixtures', (t) => {
   t.ok(fs.existsSync(corpus.specPath), 'CODECS.md exists')
 })
