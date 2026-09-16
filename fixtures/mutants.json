@@ -1,0 +1,58 @@
+[
+  {
+    "rule": "uint-little-endian",
+    "reading": "the payload of a prefixed form is big-endian",
+    "fixture": "uint-uint16-byte-order",
+    "answer": {
+      "hex": "fd0100"
+    }
+  },
+  {
+    "rule": "uint-uint16-prefix",
+    "reading": "the threshold is exclusive, so 0xfd itself still encodes as one byte",
+    "fixture": "uint-uint16-min",
+    "answer": {
+      "hex": "fd"
+    }
+  },
+  {
+    "rule": "uint-uint64-prefix",
+    "reading": "the 0xff form carries a 32-bit payload, so a larger value truncates",
+    "fixture": "uint-uint64-max-safe",
+    "answer": {
+      "hex": "ffffffffff"
+    }
+  },
+  {
+    "rule": "uint-overlong-decode",
+    "reading": "a decoder rejects a form wider than the value needs",
+    "fixture": "uint-overlong-uint16",
+    "answer": {
+      "rejects": true
+    }
+  },
+  {
+    "rule": "uint-truncated-rejected",
+    "reading": "a decoder returns what it has instead of rejecting a truncated form",
+    "fixture": "uint-truncated-prefix",
+    "answer": {
+      "decodes": 0
+    }
+  },
+  {
+    "rule": "uint-single-byte",
+    "reading": "a value below 0xfd still takes a prefixed form rather than standing alone",
+    "fixture": "uint-one",
+    "answer": {
+      "hex": "fd0100"
+    }
+  },
+  {
+    "rule": "uint-uint32-prefix",
+    "reading": "the 0xfe form carries an eight-byte payload",
+    "fixture": "uint-uint32-min",
+    "answer": {
+      "hex": "fe0000010000000000"
+    }
+  }
+]

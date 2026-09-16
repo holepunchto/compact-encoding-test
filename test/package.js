@@ -1,15 +1,22 @@
 const test = require('brittle')
 const fs = require('fs')
+const path = require('path')
 const corpus = require('..')
+const { allFixtures, capabilities } = require('../lib/corpus')
 
-test('the package locates its own fixtures directory', (t) => {
-  t.ok(fs.existsSync(corpus.fixturesDir), 'fixtures directory exists')
+test('the fixtures are installed', (t) => {
+  t.ok(fs.existsSync(path.join(corpus.fixturesDir, 'index.json')), 'the corpus ships a taxonomy')
+  t.ok(allFixtures().length > 0, 'the corpus ships fixtures')
 })
 
 test('the specification ships alongside the fixtures', (t) => {
   t.ok(fs.existsSync(corpus.specPath), 'CODECS.md exists')
 })
 
-test('the capability taxonomy parses', (t) => {
-  t.ok(corpus.capabilities && typeof corpus.capabilities === 'object', 'capabilities is an object')
+test('the taxonomy names a category, a codec and its cases', (t) => {
+  const taxonomy = capabilities()
+  const categories = Object.keys(taxonomy)
+
+  t.ok(categories.length > 0, 'the taxonomy carries a category')
+  t.ok(Object.keys(taxonomy[categories[0]]).length > 0, 'a category carries a codec')
 })

@@ -1,0 +1,41 @@
+{
+  "uint-zero": {
+    "hex": "00"
+  },
+  "uint-one": {
+    "hex": "01"
+  },
+  "uint-single-byte-max": {
+    "hex": "fc"
+  },
+  "uint-uint16-min": {
+    "hex": "fdfd00"
+  },
+  "uint-uint16-byte-order": {
+    "hex": "fd0001"
+  },
+  "uint-uint16-max": {
+    "hex": "fdffff"
+  },
+  "uint-uint32-min": {
+    "hex": "fe00000100"
+  },
+  "uint-uint32-max": {
+    "hex": "feffffffff"
+  },
+  "uint-uint64-min": {
+    "hex": "ff0000000001000000"
+  },
+  "uint-uint64-max-safe": {
+    "hex": "ffffffffffffff1f00"
+  },
+  "uint-overlong-uint16": {
+    "decodes": 1
+  },
+  "uint-overlong-uint32": {
+    "decodes": 1
+  },
+  "uint-truncated-prefix": {
+    "rejects": true
+  }
+}
