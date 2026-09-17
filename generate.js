@@ -9,8 +9,14 @@ function encode(codec, value) {
 
   try {
     codec.preencode(state, value)
-    state.buffer = Buffer.alloc(state.end)
-    state.start = 0
+  } catch {
+    return { refused: true }
+  }
+
+  state.buffer = Buffer.alloc(state.end)
+  state.start = 0
+
+  try {
     codec.encode(state, value)
   } catch {
     return { refused: true }
@@ -49,7 +55,8 @@ function generate() {
     const { category, cases } = loadCases(name)
 
     const codec = c[name]
-    if (codec === undefined && cases.length > 0) {
+    const usable = codec !== undefined && typeof codec.preencode === 'function'
+    if (!usable && cases.length > 0) {
       throw new Error(`the reference has no codec named ${name}`)
     }
 
