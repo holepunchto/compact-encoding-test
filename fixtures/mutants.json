@@ -118,5 +118,29 @@
     "answer": {
       "decodes": 9007199254740992
     }
+  },
+  {
+    "rule": "unsigned-rejects-negative",
+    "reading": "a negative truncates like any other value the width cannot hold",
+    "fixture": "uint8-negative",
+    "answer": {
+      "hex": "ff"
+    }
+  },
+  {
+    "rule": "encode-ceiling",
+    "reading": "an encoder writes whatever the double holds",
+    "fixture": "uint64-encode-ceiling",
+    "answer": {
+      "hex": "0000000000002000"
+    }
+  },
+  {
+    "rule": "signed-range",
+    "reading": "a signed codec reaches as far as an unsigned one",
+    "fixture": "int-past-range",
+    "answer": {
+      "hex": "ff0000000000002000"
+    }
   }
 ]

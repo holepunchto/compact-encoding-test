@@ -6,10 +6,16 @@ const { asks, codecs, loadCases } = require('./lib/corpus')
 
 function encode(codec, value) {
   const state = c.state()
-  codec.preencode(state, value)
-  state.buffer = Buffer.alloc(state.end)
-  state.start = 0
-  codec.encode(state, value)
+
+  try {
+    codec.preencode(state, value)
+    state.buffer = Buffer.alloc(state.end)
+    state.start = 0
+    codec.encode(state, value)
+  } catch {
+    return { refused: true }
+  }
+
   return { hex: state.buffer.toString('hex') }
 }
 

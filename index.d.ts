@@ -7,6 +7,7 @@ export interface Case {
 
 export interface Answer {
   hex?: string
+  refused?: boolean
   decodes?: number
   rejects?: boolean
 }

@@ -40,6 +40,30 @@
         "value": -127
       },
       "rules": ["int-zigzag"]
+    },
+    {
+      "id": "int-range-max",
+      "note": "the largest value a signed codec carries",
+      "input": {
+        "value": 4503599627370495
+      },
+      "rules": ["signed-range"]
+    },
+    {
+      "id": "int-range-min",
+      "note": "the smallest value a signed codec carries, one further from zero than the largest",
+      "input": {
+        "value": -4503599627370496
+      },
+      "rules": ["signed-range"]
+    },
+    {
+      "id": "int-past-range",
+      "note": "one past the largest, which the codec refuses",
+      "input": {
+        "value": 4503599627370496
+      },
+      "rules": ["signed-range"]
     }
   ]
 }

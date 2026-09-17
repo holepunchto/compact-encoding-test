@@ -26,6 +26,7 @@ An encoder picks the narrowest form that holds the value, which is what makes th
 
 Every integer codec here carries its value as a double, so one bound cuts across all of them regardless of what a codec's own form allows.
 
+- `encode-ceiling` - an encoder refuses a value above 9007199254740991 rather than writing an approximation of it, whatever the codec's own form allows.
 - `decode-ceiling` - a decoder rejects bytes that would decode above 9007199254740991, the largest integer a double holds exactly. `uint64` rejects eight bytes of ones while `uint48` decodes six of them cleanly, and the varint `uint` rejects its eight-byte form carrying the same number, so the ceiling belongs to the value rather than to the codec. This is where an implementation with a real 64-bit integer type parts from the reference.
 
 ## Fixed-width integers
@@ -36,6 +37,7 @@ The fixed-width codecs write a set number of bytes with no prefix, so the reader
 - `fixed-width-little-endian` - a codec whose name has no suffix writes its bytes least significant first.
 - `fixed-width-big-endian` - a codec whose name ends `be` writes the same bytes most significant first.
 - `fixed-width-signed-zigzag` - a signed codec zigzags the value into an unsigned one before laying the bytes down, mapping -1 to 1 and 1 to 2, rather than storing two's complement. An implementer who writes two's complement agrees with the reference on no negative value at all.
+- `unsigned-rejects-negative` - an unsigned codec refuses a negative value rather than wrapping it into the width, so truncation applies only to values the codec carries in the first place.
 - `fixed-width-truncates-high-bytes` - a value the codec accepts but the width cannot hold keeps its low bytes, so `uint8` writes zero for 256 and `int8` writes zero for 128, whose zigzag is 256.
 - `fixed-width-rejects-short-input` - a decoder rejects input holding fewer bytes than the width announces.
 
@@ -44,3 +46,4 @@ The fixed-width codecs write a set number of bytes with no prefix, so the reader
 `int` carries a signed value in the space `uint` uses, by mapping it to an unsigned one first.
 
 - `int-zigzag` - the value is zigzagged, mapping 0 to 0, -1 to 1, 1 to 2 and -2 to 3, and the result is encoded by the `uint` rules above.
+- `signed-range` - a signed codec carries -4503599627370496 through 4503599627370495 and refuses anything beyond, whatever its width. The range reaches one further below zero than above it, and it is half as wide as the unsigned ceiling because zigzag doubles the magnitude before the value is written.

@@ -20,6 +20,14 @@
         "bytes": "ffffffffffffffff"
       },
       "rules": ["decode-ceiling"]
+    },
+    {
+      "id": "int64-past-range",
+      "note": "one past the largest, refused however wide the codec is",
+      "input": {
+        "value": 4503599627370496
+      },
+      "rules": ["signed-range"]
     }
   ]
 }

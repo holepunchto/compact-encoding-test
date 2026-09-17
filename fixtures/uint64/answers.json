@@ -7,5 +7,8 @@
   },
   "uint64-decode-ceiling": {
     "rejects": true
+  },
+  "uint64-encode-ceiling": {
+    "refused": true
   }
 }
