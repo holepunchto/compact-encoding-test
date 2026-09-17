@@ -8,7 +8,8 @@
       "int-two-byte",
       "int-range-max",
       "int-range-min",
-      "int-past-range"
+      "int-past-range",
+      "int-past-range-min"
     ],
     "int16": [
       "int16-negative",
@@ -33,13 +34,16 @@
     "int64": [
       "int64-negative",
       "int64-decode-ceiling",
-      "int64-past-range"
+      "int64-past-range",
+      "int64-past-range-min",
+      "int64-decode-range"
     ],
     "int8": [
       "int8-minus-one",
       "int8-min",
       "int8-max",
-      "int8-truncates"
+      "int8-truncates",
+      "int8-signed-max"
     ],
     "uint": [
       "uint-zero",

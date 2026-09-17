@@ -10,5 +10,8 @@
   },
   "int8-truncates": {
     "hex": "00"
+  },
+  "int8-signed-max": {
+    "hex": "fe"
   }
 }

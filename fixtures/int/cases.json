@@ -64,6 +64,14 @@
         "value": 4503599627370496
       },
       "rules": ["signed-range"]
+    },
+    {
+      "id": "int-past-range-min",
+      "note": "one past the smallest",
+      "input": {
+        "value": -4503599627370497
+      },
+      "rules": ["signed-range"]
     }
   ]
 }
