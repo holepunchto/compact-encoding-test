@@ -120,7 +120,7 @@
     }
   },
   {
-    "rule": "unsigned-rejects-negative",
+    "rule": "unsigned-refuses-negative",
     "reading": "a negative truncates like any other value the width cannot hold",
     "fixture": "uint8-negative",
     "answer": {
@@ -137,7 +137,7 @@
   },
   {
     "rule": "signed-range",
-    "reading": "a signed codec reaches as far as an unsigned one",
+    "reading": "an implementation with sixty-four bit integers zigzags and writes without checking either bound",
     "fixture": "int-past-range",
     "answer": {
       "hex": "ff0000000000002000"

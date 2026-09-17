@@ -31,7 +31,7 @@
       "input": {
         "value": -1
       },
-      "rules": ["unsigned-rejects-negative"]
+      "rules": ["unsigned-refuses-negative"]
     }
   ]
 }

@@ -8,7 +8,8 @@
       "int-two-byte",
       "int-range-max",
       "int-range-min",
-      "int-past-range"
+      "int-past-range",
+      "int-past-range-min"
     ],
     "int16": [
       "int16-negative",

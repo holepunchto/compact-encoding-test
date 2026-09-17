@@ -6,7 +6,7 @@ Reference implementation: `compact-encoding` 3.5.0.
 
 Each rule carries a stable slug id, and every fixture under `fixtures/` names the rule slugs it exercises. A rule with no citing fixture fails the corpus build, so a rule cannot ship unchecked. A rule whose bytes the reference implementation defines rather than any portable rule is marked `delegated`, in this document and in the capability taxonomy both; an implementation matches the reference for those rather than reasoning from first principles.
 
-A fixture is either round-trip, carrying a value and the bytes it encodes to, or decode-only, carrying bytes and what a decoder must make of them.
+A case carries an input and the corpus carries its answer beside it, in `answers.json`, keyed by the case id. The input says which question the case asks. A `value` asks what it encodes to, answered by bytes or by a refusal where the codec will not carry the value at all. `bytes` ask what a decoder makes of them, answered by a decoded value or by a rejection.
 
 ## uint
 
@@ -24,7 +24,7 @@ An encoder picks the narrowest form that holds the value, which is what makes th
 
 ## The safe-integer ceiling
 
-Every integer codec here carries its value as a double, so one bound cuts across all of them regardless of what a codec's own form allows.
+Every integer codec here carries its value as a double, so bounds cut across the family regardless of what a codec's own form allows. The unsigned bound is stated here; the signed one is narrower and stated with `int`.
 
 - `encode-ceiling` - an encoder refuses a value above 9007199254740991 rather than writing an approximation of it, whatever the codec's own form allows.
 - `decode-ceiling` - a decoder rejects bytes that would decode above 9007199254740991, the largest integer a double holds exactly. `uint64` rejects eight bytes of ones while `uint48` decodes six of them cleanly, and the varint `uint` rejects its eight-byte form carrying the same number, so the ceiling belongs to the value rather than to the codec. This is where an implementation with a real 64-bit integer type parts from the reference.
@@ -37,7 +37,7 @@ The fixed-width codecs write a set number of bytes with no prefix, so the reader
 - `fixed-width-little-endian` - a codec whose name has no suffix writes its bytes least significant first.
 - `fixed-width-big-endian` - a codec whose name ends `be` writes the same bytes most significant first.
 - `fixed-width-signed-zigzag` - a signed codec zigzags the value into an unsigned one before laying the bytes down, mapping -1 to 1 and 1 to 2, rather than storing two's complement. An implementer who writes two's complement agrees with the reference on no negative value at all.
-- `unsigned-rejects-negative` - an unsigned codec refuses a negative value rather than wrapping it into the width, so truncation applies only to values the codec carries in the first place.
+- `unsigned-refuses-negative` - an unsigned codec refuses a negative value rather than wrapping it into the width, so truncation applies only to values the codec carries in the first place.
 - `fixed-width-truncates-high-bytes` - a value the codec accepts but the width cannot hold keeps its low bytes, so `uint8` writes zero for 256 and `int8` writes zero for 128, whose zigzag is 256.
 - `fixed-width-rejects-short-input` - a decoder rejects input holding fewer bytes than the width announces.
 
@@ -46,4 +46,4 @@ The fixed-width codecs write a set number of bytes with no prefix, so the reader
 `int` carries a signed value in the space `uint` uses, by mapping it to an unsigned one first.
 
 - `int-zigzag` - the value is zigzagged, mapping 0 to 0, -1 to 1, 1 to 2 and -2 to 3, and the result is encoded by the `uint` rules above.
-- `signed-range` - a signed codec carries -4503599627370496 through 4503599627370495 and refuses anything beyond, whatever its width. The range reaches one further below zero than above it, and it is half as wide as the unsigned ceiling because zigzag doubles the magnitude before the value is written.
+- `signed-range` - a signed codec accepts -4503599627370496 through 4503599627370495 and refuses anything beyond at either end, whatever its width. Accepting is not carrying: `int8` takes the largest of them and writes `fe`, keeping the low byte under the truncation rule above. The range reaches one further below zero than above it, and it is half as wide as the unsigned ceiling because zigzag doubles the magnitude before the value is written.

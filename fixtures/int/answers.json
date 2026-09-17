@@ -22,5 +22,8 @@
   },
   "int-past-range": {
     "refused": true
+  },
+  "int-past-range-min": {
+    "refused": true
   }
 }
