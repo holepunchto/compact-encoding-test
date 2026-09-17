@@ -54,5 +54,69 @@
     "answer": {
       "hex": "fe0000010000000000"
     }
+  },
+  {
+    "rule": "fixed-width-width-from-name",
+    "reading": "a codec writes only as many bytes as the value needs",
+    "fixture": "int64-negative",
+    "answer": {
+      "hex": "03"
+    }
+  },
+  {
+    "rule": "fixed-width-little-endian",
+    "reading": "the bytes run most significant first",
+    "fixture": "uint16-byte-order",
+    "answer": {
+      "hex": "0201"
+    }
+  },
+  {
+    "rule": "fixed-width-big-endian",
+    "reading": "the be suffix changes nothing about byte order",
+    "fixture": "uint32be-byte-order",
+    "answer": {
+      "hex": "04030201"
+    }
+  },
+  {
+    "rule": "fixed-width-signed-zigzag",
+    "reading": "a signed codec stores two's complement",
+    "fixture": "int8-minus-one",
+    "answer": {
+      "hex": "ff"
+    }
+  },
+  {
+    "rule": "fixed-width-truncates-high-bytes",
+    "reading": "a value past the width saturates at the largest the width holds",
+    "fixture": "uint8-truncates",
+    "answer": {
+      "hex": "ff"
+    }
+  },
+  {
+    "rule": "fixed-width-rejects-short-input",
+    "reading": "a decoder zero fills the bytes it was not given",
+    "fixture": "uint16-short-input",
+    "answer": {
+      "decodes": 0
+    }
+  },
+  {
+    "rule": "int-zigzag",
+    "reading": "the value is encoded as its magnitude, with the sign carried elsewhere",
+    "fixture": "int-single-byte-max",
+    "answer": {
+      "hex": "40"
+    }
+  },
+  {
+    "rule": "decode-ceiling",
+    "reading": "a decoder returns whatever the bytes hold, however large",
+    "fixture": "uint64-decode-ceiling",
+    "answer": {
+      "decodes": 9007199254740992
+    }
   }
 ]

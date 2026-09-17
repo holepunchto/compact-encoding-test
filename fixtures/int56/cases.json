@@ -1,0 +1,17 @@
+{
+  "category": "integers",
+  "cases": [
+    {
+      "id": "int56-negative",
+      "note": "a negative in seven bytes",
+      "input": {
+        "value": -2
+      },
+      "rules": [
+        "fixed-width-width-from-name",
+        "fixed-width-little-endian",
+        "fixed-width-signed-zigzag"
+      ]
+    }
+  ]
+}

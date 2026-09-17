@@ -1,0 +1,29 @@
+{
+  "category": "integers",
+  "cases": [
+    {
+      "id": "uint56-byte-order",
+      "note": "a value whose seven bytes differ",
+      "input": {
+        "value": 1976943448883713
+      },
+      "rules": ["fixed-width-width-from-name", "fixed-width-little-endian"]
+    },
+    {
+      "id": "uint56-max",
+      "note": "the largest value the codec accepts, short of what seven bytes hold",
+      "input": {
+        "value": 9007199254740991
+      },
+      "rules": ["fixed-width-width-from-name", "fixed-width-little-endian"]
+    },
+    {
+      "id": "uint56-decode-ceiling",
+      "note": "seven bytes carrying the first unsafe integer",
+      "input": {
+        "bytes": "00000000000020"
+      },
+      "rules": ["decode-ceiling"]
+    }
+  ]
+}

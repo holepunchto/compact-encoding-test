@@ -1,0 +1,11 @@
+{
+  "uint56-byte-order": {
+    "hex": "01020304050607"
+  },
+  "uint56-max": {
+    "hex": "ffffffffffff1f"
+  },
+  "uint56-decode-ceiling": {
+    "rejects": true
+  }
+}

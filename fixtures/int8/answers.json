@@ -1,0 +1,14 @@
+{
+  "int8-minus-one": {
+    "hex": "01"
+  },
+  "int8-min": {
+    "hex": "ff"
+  },
+  "int8-max": {
+    "hex": "fe"
+  },
+  "int8-truncates": {
+    "hex": "00"
+  }
+}

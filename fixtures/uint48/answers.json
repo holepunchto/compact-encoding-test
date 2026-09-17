@@ -1,0 +1,11 @@
+{
+  "uint48-byte-order": {
+    "hex": "010203040506"
+  },
+  "uint48-max": {
+    "hex": "ffffffffffff"
+  },
+  "uint48-decode-max": {
+    "decodes": 281474976710655
+  }
+}

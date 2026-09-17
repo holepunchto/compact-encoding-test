@@ -1,0 +1,11 @@
+{
+  "uint16-byte-order": {
+    "hex": "0102"
+  },
+  "uint16-max": {
+    "hex": "ffff"
+  },
+  "uint16-short-input": {
+    "rejects": true
+  }
+}

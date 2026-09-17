@@ -1,0 +1,29 @@
+{
+  "category": "integers",
+  "cases": [
+    {
+      "id": "uint8-value",
+      "note": "a value inside the width",
+      "input": {
+        "value": 42
+      },
+      "rules": ["fixed-width-width-from-name"]
+    },
+    {
+      "id": "uint8-max",
+      "note": "the largest value one byte holds",
+      "input": {
+        "value": 255
+      },
+      "rules": ["fixed-width-width-from-name"]
+    },
+    {
+      "id": "uint8-truncates",
+      "note": "a value past the width, whose low byte is kept",
+      "input": {
+        "value": 256
+      },
+      "rules": ["fixed-width-truncates-high-bytes"]
+    }
+  ]
+}

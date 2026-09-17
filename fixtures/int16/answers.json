@@ -1,0 +1,8 @@
+{
+  "int16-negative": {
+    "hex": "0300"
+  },
+  "int16-max": {
+    "hex": "feff"
+  }
+}

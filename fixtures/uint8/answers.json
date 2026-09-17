@@ -1,0 +1,11 @@
+{
+  "uint8-value": {
+    "hex": "2a"
+  },
+  "uint8-max": {
+    "hex": "ff"
+  },
+  "uint8-truncates": {
+    "hex": "00"
+  }
+}

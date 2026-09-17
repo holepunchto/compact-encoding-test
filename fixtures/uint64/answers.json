@@ -1,0 +1,11 @@
+{
+  "uint64-byte-order": {
+    "hex": "0000000001000000"
+  },
+  "uint64-max": {
+    "hex": "ffffffffffff1f00"
+  },
+  "uint64-decode-ceiling": {
+    "rejects": true
+  }
+}

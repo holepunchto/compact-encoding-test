@@ -1,0 +1,5 @@
+{
+  "category": "big-endian-integers",
+  "reason": "the reference implementation has no uintbe; libcompact only",
+  "cases": []
+}

@@ -1,0 +1,8 @@
+{
+  "uint32-byte-order": {
+    "hex": "01020304"
+  },
+  "uint32-max": {
+    "hex": "ffffffff"
+  }
+}

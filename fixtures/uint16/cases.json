@@ -1,0 +1,29 @@
+{
+  "category": "integers",
+  "cases": [
+    {
+      "id": "uint16-byte-order",
+      "note": "a value whose two bytes differ, so order is discriminated",
+      "input": {
+        "value": 513
+      },
+      "rules": ["fixed-width-width-from-name", "fixed-width-little-endian"]
+    },
+    {
+      "id": "uint16-max",
+      "note": "the largest value two bytes hold",
+      "input": {
+        "value": 65535
+      },
+      "rules": ["fixed-width-width-from-name", "fixed-width-little-endian"]
+    },
+    {
+      "id": "uint16-short-input",
+      "note": "one byte where the width needs two",
+      "input": {
+        "bytes": "00"
+      },
+      "rules": ["fixed-width-rejects-short-input"]
+    }
+  ]
+}
