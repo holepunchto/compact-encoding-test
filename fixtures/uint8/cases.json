@@ -24,6 +24,14 @@
         "value": 256
       },
       "rules": ["fixed-width-truncates-high-bytes"]
+    },
+    {
+      "id": "uint8-negative",
+      "note": "a negative, which no unsigned codec carries",
+      "input": {
+        "value": -1
+      },
+      "rules": ["unsigned-rejects-negative"]
     }
   ]
 }

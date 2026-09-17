@@ -24,6 +24,14 @@
         "bytes": "ffffffffffffffff"
       },
       "rules": ["decode-ceiling"]
+    },
+    {
+      "id": "uint64-encode-ceiling",
+      "note": "the first unsafe integer, which no codec encodes",
+      "input": {
+        "value": 9007199254740992
+      },
+      "rules": ["encode-ceiling"]
     }
   ]
 }

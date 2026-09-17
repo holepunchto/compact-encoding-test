@@ -10,6 +10,7 @@ function fixtures() {
 
 function stated(answer) {
   if (answer.hex !== undefined) return `bytes ${answer.hex}`
+  if (answer.refused !== undefined) return 'refused'
   if (answer.rejects !== undefined) return 'rejected'
   return `decodes ${answer.decodes}`
 }
@@ -30,6 +31,8 @@ test('every mutant states one well-formed answer', (t) => {
       malformed.push(`${mutant.rule}: states bytes that are not hex`)
     } else if (mutant.answer.rejects !== undefined && mutant.answer.rejects !== true) {
       malformed.push(`${mutant.rule}: states a rejection that is not one`)
+    } else if (mutant.answer.refused !== undefined && mutant.answer.refused !== true) {
+      malformed.push(`${mutant.rule}: states a refusal that is not one`)
     }
   }
 

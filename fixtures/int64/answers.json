@@ -4,5 +4,8 @@
   },
   "int64-decode-ceiling": {
     "rejects": true
+  },
+  "int64-past-range": {
+    "refused": true
   }
 }

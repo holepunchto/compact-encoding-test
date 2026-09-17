@@ -13,5 +13,14 @@
   },
   "int-two-byte": {
     "hex": "fdfd00"
+  },
+  "int-range-max": {
+    "hex": "fffeffffffffff1f00"
+  },
+  "int-range-min": {
+    "hex": "ffffffffffffff1f00"
+  },
+  "int-past-range": {
+    "refused": true
   }
 }

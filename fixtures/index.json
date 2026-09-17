@@ -5,7 +5,10 @@
       "int-minus-one",
       "int-one",
       "int-single-byte-max",
-      "int-two-byte"
+      "int-two-byte",
+      "int-range-max",
+      "int-range-min",
+      "int-past-range"
     ],
     "int16": [
       "int16-negative",
@@ -29,7 +32,8 @@
     ],
     "int64": [
       "int64-negative",
-      "int64-decode-ceiling"
+      "int64-decode-ceiling",
+      "int64-past-range"
     ],
     "int8": [
       "int8-minus-one",
@@ -83,12 +87,14 @@
     "uint64": [
       "uint64-byte-order",
       "uint64-max",
-      "uint64-decode-ceiling"
+      "uint64-decode-ceiling",
+      "uint64-encode-ceiling"
     ],
     "uint8": [
       "uint8-value",
       "uint8-max",
-      "uint8-truncates"
+      "uint8-truncates",
+      "uint8-negative"
     ]
   },
   "big-endian-integers": {
