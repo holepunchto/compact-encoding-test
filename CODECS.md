@@ -4,9 +4,9 @@ This document is the normative definition of the codecs in `compact-encoding`. I
 
 Reference implementation: `compact-encoding` 3.5.0.
 
-Each rule carries a stable slug id, and every case under `fixtures/` names the rule slugs it exercises. A rule with no citing fixture fails the corpus build, so a rule cannot ship unchecked. A rule whose bytes the reference implementation defines rather than any portable rule is marked `delegated`, in this document and in the capability taxonomy both; an implementation matches the reference for those rather than reasoning from first principles.
+Each rule carries a stable slug id, and every case under `fixtures/` names the rule slugs it exercises. A rule with no citing case fails the corpus build, so a rule cannot ship unchecked. A rule whose bytes the reference implementation defines rather than any portable rule is marked `delegated`, in this document and in the capability taxonomy both; an implementation matches the reference for those rather than reasoning from first principles.
 
-A case carries an input and the corpus carries its answer beside it, in `answers.json`, keyed by the case id. The input says which question the case asks. A `value` asks what it encodes to, answered by `hex` or by `refused` where the codec will not carry the value at all. `bytes` ask what a decoder makes of them, answered by `decodes` or by `rejects`.
+A case carries an input and the corpus carries its answer beside it, in `answers.json`, keyed by the case id. The input says which question the case asks. A `value` asks what it encodes to, answered by `hex` or by `refused` where the codec will not encode the value. `bytes` ask what a decoder makes of them, answered by `decodes` or by `rejects`.
 
 ## uint
 
@@ -20,9 +20,9 @@ A case carries an input and the corpus carries its answer beside it, in `answers
 - `uint-overlong-decode` (delegated) - a decoder reads a prefixed form wider than the value needs, rather than rejecting it as non-canonical. An encoder never produces one, so this constrains decoders only, and a decoder that rejects an overlong form is not conformant.
 - `uint-truncated-rejected` - a decoder rejects input that ends before the payload its prefix announces.
 
-An encoder picks the narrowest form that holds the value, which is what makes the boundary fixtures load-bearing: `252` and `253` sit on either side of the first threshold, and each larger form has its own minimum and maximum.
+An encoder picks the narrowest form that holds the value, which is what makes the boundary cases load-bearing: `252` and `253` sit on either side of the first threshold, and each larger form has its own minimum and maximum.
 
-## The safe-integer ceiling
+## Bounds on the value
 
 Every integer codec here carries its value as a double, so bounds cut across the family regardless of what a codec's own form allows. The unsigned bound is stated here; the signed one is narrower and stated with `int`.
 
@@ -31,7 +31,7 @@ Every integer codec here carries its value as a double, so bounds cut across the
 
 ## Fixed-width integers
 
-The fixed-width codecs write a set number of bytes with no prefix, so the reader knows the length before it reads anything. `uint8` through `uint64` carry unsigned values, `int8` through `int64` signed ones, and `uint32be` and `uint64be` differ from their siblings only in byte order. The big-endian codecs are their own capability, since only two implementations provide any, and the ones the reference does not implement at all carry a capability with no fixtures and a reason.
+The fixed-width codecs write a set number of bytes with no prefix, so the reader knows the length before it reads anything. `uint8` through `uint64` carry unsigned values, `int8` through `int64` signed ones, and `uint32be` and `uint64be` differ from their siblings only in byte order. The big-endian codecs are their own capability, since only two implementations provide any, and the ones the reference does not implement at all carry a capability with no cases and a reason.
 
 - `fixed-width-width-from-name` - a codec named `uintN` or `intN` writes exactly N bits, so `uint24` writes three bytes and `int64` writes eight, whatever the value.
 - `fixed-width-little-endian` - a codec whose name has no suffix writes its bytes least significant first.
@@ -43,7 +43,7 @@ The fixed-width codecs write a set number of bytes with no prefix, so the reader
 
 ## int
 
-`int` carries a signed value in the space `uint` uses, by mapping it to an unsigned one first.
+`int` carries a signed value in the space `uint` uses, by mapping it to an unsigned one first. A decoder needs no bound of its own: zigzag maps the whole unsigned range exactly onto the signed one, sending 9007199254740991 to -4503599627370496 and 9007199254740990 to 4503599627370495, so bytes carrying anything further out are already refused by `decode-ceiling`.
 
 - `int-zigzag` - the value is zigzagged, mapping 0 to 0, -1 to 1, 1 to 2 and -2 to 3, and the result is encoded by the `uint` rules above.
-- `signed-range` - a signed codec accepts -4503599627370496 through 4503599627370495 and refuses anything beyond at either end, whatever its width, and a decoder rejects bytes whose zigzag falls outside the same range. Accepting is not carrying: `int8` accepts the largest of them and writes `fe`, keeping the low byte under `fixed-width-truncates-high-bytes`. The range reaches one further below zero than above it, and it is half as wide as the unsigned ceiling because zigzag doubles the magnitude before the value is written.
+- `signed-range` - a signed codec accepts -4503599627370496 through 4503599627370495 and refuses anything beyond at either end, whatever its width. Accepting is not carrying: `int8` accepts the largest of them and writes `fe`, keeping the low byte under `fixed-width-truncates-high-bytes`. The range reaches one further below zero than above it, and it is half as wide as the unsigned ceiling because zigzag doubles the magnitude before the value is written.

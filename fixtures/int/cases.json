@@ -67,7 +67,7 @@
     },
     {
       "id": "int-past-range-min",
-      "note": "one past the smallest",
+      "note": "one past the smallest, the end the range reaches further on",
       "input": {
         "value": -4503599627370497
       },

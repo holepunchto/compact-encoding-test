@@ -142,5 +142,13 @@
     "answer": {
       "hex": "ff0000000000002000"
     }
+  },
+  {
+    "rule": "signed-range",
+    "reading": "a 64-bit implementation zigzags and writes the smallest values without checking the bound",
+    "fixture": "int-past-range-min",
+    "answer": {
+      "hex": "ff0100000000002000"
+    }
   }
 ]

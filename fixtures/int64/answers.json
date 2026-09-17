@@ -10,8 +10,5 @@
   },
   "int64-past-range-min": {
     "refused": true
-  },
-  "int64-decode-range": {
-    "rejects": true
   }
 }
