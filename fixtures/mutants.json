@@ -137,7 +137,7 @@
   },
   {
     "rule": "signed-range",
-    "reading": "an implementation with sixty-four bit integers zigzags and writes without checking either bound",
+    "reading": "a 64-bit implementation zigzags and writes the largest values without checking the bound",
     "fixture": "int-past-range",
     "answer": {
       "hex": "ff0000000000002000"

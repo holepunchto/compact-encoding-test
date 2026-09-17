@@ -67,7 +67,7 @@
     },
     {
       "id": "int-past-range-min",
-      "note": "one below the smallest, which the codec refuses as it does the largest",
+      "note": "one past the smallest",
       "input": {
         "value": -4503599627370497
       },

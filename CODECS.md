@@ -4,9 +4,9 @@ This document is the normative definition of the codecs in `compact-encoding`. I
 
 Reference implementation: `compact-encoding` 3.5.0.
 
-Each rule carries a stable slug id, and every fixture under `fixtures/` names the rule slugs it exercises. A rule with no citing fixture fails the corpus build, so a rule cannot ship unchecked. A rule whose bytes the reference implementation defines rather than any portable rule is marked `delegated`, in this document and in the capability taxonomy both; an implementation matches the reference for those rather than reasoning from first principles.
+Each rule carries a stable slug id, and every case under `fixtures/` names the rule slugs it exercises. A rule with no citing fixture fails the corpus build, so a rule cannot ship unchecked. A rule whose bytes the reference implementation defines rather than any portable rule is marked `delegated`, in this document and in the capability taxonomy both; an implementation matches the reference for those rather than reasoning from first principles.
 
-A case carries an input and the corpus carries its answer beside it, in `answers.json`, keyed by the case id. The input says which question the case asks. A `value` asks what it encodes to, answered by bytes or by a refusal where the codec will not carry the value at all. `bytes` ask what a decoder makes of them, answered by a decoded value or by a rejection.
+A case carries an input and the corpus carries its answer beside it, in `answers.json`, keyed by the case id. The input says which question the case asks. A `value` asks what it encodes to, answered by `hex` or by `refused` where the codec will not carry the value at all. `bytes` ask what a decoder makes of them, answered by `decodes` or by `rejects`.
 
 ## uint
 
@@ -17,7 +17,7 @@ A case carries an input and the corpus carries its answer beside it, in `answers
 - `uint-uint32-prefix` - a value from `0x10000` through `0xffffffff` encodes as the byte `0xfe` followed by a four-byte payload.
 - `uint-uint64-prefix` - a value from `0x100000000` through 9007199254740991 encodes as the byte `0xff` followed by an eight-byte payload. The payload is eight bytes wide, but the codec refuses a value above 9007199254740991 and directs the caller to `biguint`, so the top of the range is the largest integer a double holds exactly rather than the width of the payload.
 - `uint-little-endian` - the payload of every prefixed form is little-endian, least significant byte first.
-- `uint-overlong-decode` (delegated) - a decoder accepts a prefixed form wider than the value needs, rather than rejecting it as non-canonical. An encoder never produces one, so this constrains decoders only, and a decoder that rejects an overlong form is not conformant.
+- `uint-overlong-decode` (delegated) - a decoder reads a prefixed form wider than the value needs, rather than rejecting it as non-canonical. An encoder never produces one, so this constrains decoders only, and a decoder that rejects an overlong form is not conformant.
 - `uint-truncated-rejected` - a decoder rejects input that ends before the payload its prefix announces.
 
 An encoder picks the narrowest form that holds the value, which is what makes the boundary fixtures load-bearing: `252` and `253` sit on either side of the first threshold, and each larger form has its own minimum and maximum.
@@ -46,4 +46,4 @@ The fixed-width codecs write a set number of bytes with no prefix, so the reader
 `int` carries a signed value in the space `uint` uses, by mapping it to an unsigned one first.
 
 - `int-zigzag` - the value is zigzagged, mapping 0 to 0, -1 to 1, 1 to 2 and -2 to 3, and the result is encoded by the `uint` rules above.
-- `signed-range` - a signed codec accepts -4503599627370496 through 4503599627370495 and refuses anything beyond at either end, whatever its width. Accepting is not carrying: `int8` takes the largest of them and writes `fe`, keeping the low byte under the truncation rule above. The range reaches one further below zero than above it, and it is half as wide as the unsigned ceiling because zigzag doubles the magnitude before the value is written.
+- `signed-range` - a signed codec accepts -4503599627370496 through 4503599627370495 and refuses anything beyond at either end, whatever its width, and a decoder rejects bytes whose zigzag falls outside the same range. Accepting is not carrying: `int8` accepts the largest of them and writes `fe`, keeping the low byte under `fixed-width-truncates-high-bytes`. The range reaches one further below zero than above it, and it is half as wide as the unsigned ceiling because zigzag doubles the magnitude before the value is written.

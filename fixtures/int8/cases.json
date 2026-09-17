@@ -32,6 +32,14 @@
         "value": 128
       },
       "rules": ["fixed-width-truncates-high-bytes"]
+    },
+    {
+      "id": "int8-signed-max",
+      "note": "the largest value a signed codec accepts, which one byte cannot hold",
+      "input": {
+        "value": 4503599627370495
+      },
+      "rules": ["signed-range", "fixed-width-truncates-high-bytes"]
     }
   ]
 }
