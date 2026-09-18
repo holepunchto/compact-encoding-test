@@ -11,7 +11,7 @@
     },
     {
       "id": "utf8-ascii",
-      "note": "three characters that need one byte each",
+      "note": "characters that each need one byte, so the count and the character length agree",
       "input": {
         "value": "abc"
       },
@@ -31,15 +31,15 @@
       "input": {
         "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
       },
-      "rules": ["utf8-count-then-bytes"]
+      "rules": ["utf8-count-then-bytes", "uint-single-byte"]
     },
     {
-      "id": "utf8-count-two-byte",
-      "note": "one byte longer, so the count takes the prefixed form",
+      "id": "utf8-count-prefixed",
+      "note": "one byte longer, so the count takes the marker form rather than standing alone",
       "input": {
         "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
       },
-      "rules": ["utf8-count-then-bytes"]
+      "rules": ["utf8-count-then-bytes", "uint-uint16-prefix"]
     },
     {
       "id": "utf8-unpaired-surrogate",
@@ -71,7 +71,15 @@
       "input": {
         "bytes": ""
       },
-      "rules": ["utf8-rejects-short-input"]
+      "rules": ["utf8-rejects-missing-count"]
+    },
+    {
+      "id": "utf8-trailing-bytes",
+      "note": "a byte after the count is satisfied, which a decoder reading to the end would swallow",
+      "input": {
+        "bytes": "0361626364"
+      },
+      "rules": ["utf8-count-then-bytes"]
     }
   ]
 }

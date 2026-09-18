@@ -44,7 +44,11 @@ function answer(codec, example) {
 }
 
 function json(value) {
-  return JSON.stringify(value, null, 2) + '\n'
+  const text = JSON.stringify(value, null, 2).replace(/[^\x00-\x7f]/g, (char) => {
+    return '\\u' + char.charCodeAt(0).toString(16).padStart(4, '0')
+  })
+
+  return text + '\n'
 }
 
 function generate() {

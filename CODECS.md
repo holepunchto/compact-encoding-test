@@ -52,8 +52,9 @@ The fixed-width codecs write a set number of bytes with no prefix, so the reader
 
 `utf8` carries text as a byte count followed by the bytes themselves. `string` is another name for the same codec, not a second one, and the count obeys the `uint` rules above rather than a form of its own.
 
-- `utf8-count-then-bytes` - a string encodes as its length in bytes, by the `uint` rules, followed by that many bytes of UTF-8. The count is bytes rather than characters, so a string of three characters that needs six bytes announces six.
+- `utf8-count-then-bytes` - a string encodes as its length in bytes, by the `uint` rules, followed by that many bytes of UTF-8. The count is bytes rather than characters, so a string of three characters that needs six bytes announces six, and a decoder reads exactly that many, leaving anything after them alone.
 - `utf8-empty` - the empty string is a count of zero with nothing following it, a single byte.
-- `utf8-rejects-short-input` - a decoder rejects input holding fewer bytes than the count announces, and rejects input carrying no count at all.
+- `utf8-rejects-short-input` - a decoder rejects input holding fewer bytes than the count announces.
+- `utf8-rejects-missing-count` - a decoder rejects input that carries no count at all.
 - `utf8-replaces-unpaired-surrogate` (delegated) - an encoder replaces an unpaired surrogate with U+FFFD rather than refusing the string, so the bytes it writes are not the ones the input named.
-- `utf8-replaces-invalid-bytes` (delegated) - a decoder replaces bytes that are not valid UTF-8 with U+FFFD rather than rejecting them. An implementation that rejects malformed input disagrees with the reference on every such string.
+- `utf8-replaces-invalid-bytes` (delegated) - a decoder replaces bytes that are not valid UTF-8 with U+FFFD rather than rejecting them, one replacement for each run of bytes that cannot be completed into a valid encoding: `c3 28` decodes to a replacement and an opening bracket, `c3 c3` to two replacements, and three bytes of ones to three. An implementation that rejects malformed input disagrees with the reference on every such string.

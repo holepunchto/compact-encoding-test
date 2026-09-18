@@ -1,5 +1,5 @@
 {
   "category": "strings",
-  "reason": "another name for utf8, not a second codec",
+  "reason": "another name for utf8, which this corpus covers",
   "cases": []
 }

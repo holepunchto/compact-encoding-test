@@ -214,5 +214,29 @@
     "answer": {
       "rejects": true
     }
+  },
+  {
+    "rule": "utf8-count-then-bytes",
+    "reading": "a decoder reads to the end of the buffer rather than to the count",
+    "fixture": "utf8-trailing-bytes",
+    "answer": {
+      "decodes": "abcd"
+    }
+  },
+  {
+    "rule": "utf8-rejects-missing-count",
+    "reading": "a decoder treats absent input as the empty string",
+    "fixture": "utf8-no-count",
+    "answer": {
+      "decodes": ""
+    }
+  },
+  {
+    "rule": "utf8-count-then-bytes",
+    "reading": "a decoder rejects input carrying bytes after the count is satisfied",
+    "fixture": "utf8-trailing-bytes",
+    "answer": {
+      "rejects": true
+    }
   }
 ]

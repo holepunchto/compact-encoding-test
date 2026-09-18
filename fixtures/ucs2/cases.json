@@ -1,5 +1,5 @@
 {
   "category": "strings",
-  "reason": "another name for utf16le, which no other implementation carries",
+  "reason": "another name for utf16le, which the reference alone implements",
   "cases": []
 }
