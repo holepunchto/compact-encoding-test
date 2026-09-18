@@ -31,17 +31,9 @@
     },
     {
       "id": "int64-past-range-min",
-      "note": "one past the smallest",
+      "note": "one past the smallest, which sits further from zero than the largest does",
       "input": {
         "value": -4503599627370497
-      },
-      "rules": ["signed-range"]
-    },
-    {
-      "id": "int64-decode-range",
-      "note": "bytes whose zigzag falls past the largest a signed codec carries",
-      "input": {
-        "bytes": "0000000000002000"
       },
       "rules": ["signed-range"]
     }

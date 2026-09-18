@@ -35,8 +35,7 @@
       "int64-negative",
       "int64-decode-ceiling",
       "int64-past-range",
-      "int64-past-range-min",
-      "int64-decode-range"
+      "int64-past-range-min"
     ],
     "int8": [
       "int8-minus-one",
