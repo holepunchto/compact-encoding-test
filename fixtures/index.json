@@ -1,4 +1,23 @@
 {
+  "strings": {
+    "ascii": [],
+    "base64": [],
+    "hex": [],
+    "string": [],
+    "ucs2": [],
+    "utf16le": [],
+    "utf8": [
+      "utf8-empty",
+      "utf8-ascii",
+      "utf8-multi-byte",
+      "utf8-count-single-byte-max",
+      "utf8-count-two-byte",
+      "utf8-unpaired-surrogate",
+      "utf8-invalid-bytes",
+      "utf8-short-input",
+      "utf8-no-count"
+    ]
+  },
   "integers": {
     "int": [
       "int-zero",

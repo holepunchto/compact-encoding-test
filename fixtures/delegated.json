@@ -1,1 +1,1 @@
-["uint-overlong-decode"]
+["uint-overlong-decode", "utf8-replaces-unpaired-surrogate", "utf8-replaces-invalid-bytes"]

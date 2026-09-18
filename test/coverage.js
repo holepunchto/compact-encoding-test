@@ -66,6 +66,10 @@ test('a codec with no cases says why', (t) => {
   t.alike(silent, [], 'a codec the corpus does not cover states its reason')
 })
 
+function carriable(value) {
+  return Number.isFinite(value) || typeof value === 'string'
+}
+
 test('every case states one well-formed input', (t) => {
   const HEX = /^([0-9a-f][0-9a-f])*$/
   const malformed = []
@@ -75,8 +79,8 @@ test('every case states one well-formed input', (t) => {
 
     if (keys.length !== 1) {
       malformed.push(`${fixture.id}: states ${keys.length} inputs`)
-    } else if (fixture.input.value !== undefined && !Number.isFinite(fixture.input.value)) {
-      malformed.push(`${fixture.id}: states a value that is not a number`)
+    } else if (fixture.input.value !== undefined && !carriable(fixture.input.value)) {
+      malformed.push(`${fixture.id}: states a value no codec carries`)
     } else if (fixture.input.bytes !== undefined && !HEX.test(fixture.input.bytes)) {
       malformed.push(`${fixture.id}: states bytes that are not hex`)
     }
