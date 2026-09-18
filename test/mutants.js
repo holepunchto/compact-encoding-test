@@ -9,10 +9,12 @@ function fixtures() {
 }
 
 function stated(answer) {
-  if (answer.hex !== undefined) return `bytes ${answer.hex}`
-  if (answer.refused !== undefined) return 'refused'
-  if (answer.rejects !== undefined) return 'rejected'
-  return `decodes ${answer.decodes}`
+  const shape = corpus.kind(answer)
+  return shape === 'hex'
+    ? `bytes ${answer.hex}`
+    : shape === 'decodes'
+      ? `decodes ${answer.decodes}`
+      : shape
 }
 
 test('mutants exist', (t) => {
@@ -106,4 +108,23 @@ test('every mutant is killed by the fixture it names', (t) => {
   }
 
   t.alike(survivors, [], 'no mutant survives')
+})
+
+test('a rule answered by more than bytes proves it tells the kinds apart', (t) => {
+  const byId = fixtures()
+  const unproven = []
+
+  for (const rule of rules()) {
+    const cases = corpus.allFixtures().filter((fixture) => fixture.rules.includes(rule.slug))
+    if (cases.every((fixture) => corpus.kind(fixture.answer) === 'hex')) continue
+
+    const proven = corpus
+      .mutants()
+      .filter((mutant) => mutant.rule === rule.slug)
+      .some((mutant) => corpus.kind(mutant.answer) !== corpus.kind(byId.get(mutant.fixture).answer))
+
+    if (!proven) unproven.push(rule.slug)
+  }
+
+  t.alike(unproven, [], 'a refusal or a rejection is discriminated by shape, not only by value')
 })
