@@ -150,5 +150,29 @@
     "answer": {
       "hex": "ff0100000000002000"
     }
+  },
+  {
+    "rule": "fixed-width-truncates-high-bytes",
+    "reading": "an encoder refuses a value the width cannot hold rather than keeping its low bytes",
+    "fixture": "uint8-truncates",
+    "answer": {
+      "refused": true
+    }
+  },
+  {
+    "rule": "uint-uint64-prefix",
+    "reading": "the top of the range is exclusive, so the largest value the codec accepts is refused",
+    "fixture": "uint-uint64-max-safe",
+    "answer": {
+      "refused": true
+    }
+  },
+  {
+    "rule": "decode-ceiling",
+    "reading": "a decoder applies the ceiling by width, so the widest forms are rejected whatever they carry",
+    "fixture": "uint48-decode-max",
+    "answer": {
+      "rejects": true
+    }
   }
 ]
