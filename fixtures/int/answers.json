@@ -9,7 +9,7 @@
     "hex": "02"
   },
   "int-single-byte-max": {
-    "hex": "7f"
+    "hex": "fc"
   },
   "int-two-byte": {
     "hex": "fdfd00"
@@ -25,5 +25,8 @@
   },
   "int-past-range-min": {
     "refused": true
+  },
+  "int-single-byte-min": {
+    "hex": "fb"
   }
 }

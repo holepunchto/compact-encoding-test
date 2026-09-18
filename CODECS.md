@@ -26,7 +26,7 @@ An encoder picks the narrowest form that holds the value, which is what makes th
 
 Every integer codec here carries its value as a double, so bounds cut across the family regardless of what a codec's own form allows. The unsigned bound is stated here; the signed one is narrower and stated with `int`.
 
-- `encode-ceiling` - an encoder refuses a value above 9007199254740991 rather than writing an approximation of it, whatever the codec's own form allows.
+- `encode-ceiling` - an encoder refuses an unsigned value above 9007199254740991 rather than writing an approximation of it, whatever the codec's own form allows. A signed codec is held to the narrower `signed-range` instead, so this bound never governs one.
 - `decode-ceiling` - a decoder rejects bytes that would decode above 9007199254740991, the largest integer a double holds exactly. `uint64` rejects eight bytes of ones while `uint48` decodes six of them cleanly, and the varint `uint` rejects its eight-byte form carrying the same number, so the ceiling belongs to the value rather than to the codec. This is where an implementation with a real 64-bit integer type parts from the reference.
 
 ## Fixed-width integers
@@ -45,5 +45,5 @@ The fixed-width codecs write a set number of bytes with no prefix, so the reader
 
 `int` carries a signed value in the space `uint` uses, by mapping it to an unsigned one first. A decoder needs no bound of its own: zigzag maps the whole unsigned range exactly onto the signed one, sending 9007199254740991 to -4503599627370496 and 9007199254740990 to 4503599627370495, so bytes carrying anything further out are already refused by `decode-ceiling`.
 
-- `int-zigzag` - the value is zigzagged, mapping 0 to 0, -1 to 1, 1 to 2 and -2 to 3, and the result is encoded by the `uint` rules above.
+- `int-zigzag` - the value is zigzagged and the result encoded by the `uint` rules above. Zigzag doubles a value at or above zero and maps one below zero to its doubled magnitude less one, so `n` becomes `2n` when `n` is not negative and `-2n - 1` when it is, mapping 0 to 0, -1 to 1, 1 to 2 and -2 to 3. A decoder halves an even reading and negates the halved successor of an odd one.
 - `signed-range` - a signed codec accepts -4503599627370496 through 4503599627370495 and refuses anything beyond at either end, whatever its width. Accepting is not carrying: `int8` accepts the largest of them and writes `fe`, keeping the low byte under `fixed-width-truncates-high-bytes`. The range reaches one further below zero than above it, and it is half as wide as the unsigned ceiling because zigzag doubles the magnitude before the value is written.
