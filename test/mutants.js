@@ -110,21 +110,33 @@ test('every mutant is killed by the fixture it names', (t) => {
   t.alike(survivors, [], 'no mutant survives')
 })
 
-test('a rule answered by more than bytes proves it tells the kinds apart', (t) => {
+test('every kind a rule is answered in is contradicted on a case that carries it', (t) => {
   const byId = fixtures()
+  const cases = corpus.allFixtures()
+  const mutants = corpus.mutants()
   const unproven = []
 
   for (const rule of rules()) {
-    const cases = corpus.allFixtures().filter((fixture) => fixture.rules.includes(rule.slug))
-    if (cases.every((fixture) => corpus.kind(fixture.answer) === 'hex')) continue
+    const cited = cases.filter((fixture) => fixture.rules.includes(rule.slug))
+    const kinds = new Set(
+      cited.map((fixture) => corpus.kind(fixture.answer)).filter((shape) => shape !== 'hex')
+    )
 
-    const proven = corpus
-      .mutants()
-      .filter((mutant) => mutant.rule === rule.slug)
-      .some((mutant) => corpus.kind(mutant.answer) !== corpus.kind(byId.get(mutant.fixture).answer))
+    for (const shape of kinds) {
+      const proven = mutants
+        .filter((mutant) => mutant.rule === rule.slug)
+        .some((mutant) => {
+          const fixture = byId.get(mutant.fixture)
+          return corpus.kind(fixture.answer) === shape && corpus.kind(mutant.answer) !== shape
+        })
 
-    if (!proven) unproven.push(rule.slug)
+      if (!proven) unproven.push(`${rule.slug} answered by ${shape}`)
+    }
   }
 
-  t.alike(unproven, [], 'a refusal or a rejection is discriminated by shape, not only by value')
+  t.alike(
+    unproven,
+    [],
+    'each refusal, rejection or decoded answer is contradicted on a case that carries it'
+  )
 })
