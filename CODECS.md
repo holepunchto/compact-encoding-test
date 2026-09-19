@@ -4,7 +4,7 @@ This document is the normative definition of the codecs in `compact-encoding`. I
 
 Reference implementation: `compact-encoding` 3.5.0.
 
-Each rule carries a stable slug id, and every case under `fixtures/` names the rule slugs it exercises. A rule with no citing case fails the corpus build, so a rule cannot ship unchecked. A rule whose bytes the reference implementation defines rather than any portable rule is marked `delegated`, in this document and in the capability taxonomy both; an implementation matches the reference for those rather than reasoning from first principles.
+Each rule carries a stable slug id, and every case under `fixtures/` names the rule slugs it exercises. A rule with no citing case fails the corpus build, so a rule cannot ship unchecked. A rule is marked `delegated`, in this document and in the capability taxonomy both, where another reasonable implementation would choose differently: the document states what the reference does, and says what the other choice would be, because a port reasoning from first principles will make it. The marker is a warning to copy rather than to reason. It does not mean a rule is vague - a rule this document cannot state is a rule with no case behind it, and the build refuses that.
 
 A case carries an input and the corpus carries its answer beside it, in `answers.json`, keyed by the case id. The input says which question the case asks. A `value` asks what it encodes to, answered by `hex` or by `refused` where the codec will not encode the value. `bytes` ask what a decoder makes of them, answered by `decodes` or by `rejects`.
 
@@ -56,5 +56,5 @@ The fixed-width codecs write a set number of bytes with no prefix, so the reader
 - `utf8-empty` - the empty string is a count of zero with nothing following it, a single byte.
 - `utf8-rejects-short-input` - a decoder rejects input holding fewer bytes than the count announces.
 - `utf8-rejects-missing-count` - a decoder rejects input that carries no count at all.
-- `utf8-replaces-unpaired-surrogate` (delegated) - an encoder replaces an unpaired surrogate with U+FFFD rather than refusing the string, so the bytes it writes are not the ones the input named.
+- `utf8-replaces-unpaired-surrogate` (delegated) - an encoder replaces an unpaired surrogate with U+FFFD rather than refusing the string, so the bytes it writes are not the ones the input named. An implementation whose strings cannot hold an unpaired surrogate at all refuses instead, as Python's does, and disagrees on every such string.
 - `utf8-replaces-invalid-bytes` (delegated) - a decoder replaces bytes that are not valid UTF-8 with U+FFFD rather than rejecting them, one replacement for each run of bytes that cannot be completed into a valid encoding: `c3 28` decodes to a replacement and an opening bracket, `c3 c3` to two replacements, and three bytes of ones to three. An implementation that rejects malformed input disagrees with the reference on every such string.
