@@ -66,6 +66,69 @@ test('a codec with no cases says why', (t) => {
   t.alike(silent, [], 'a codec the corpus does not cover states its reason')
 })
 
+const CARRIES = { strings: (value) => typeof value === 'string' }
+
+function carries(category) {
+  return CARRIES[category] || Number.isFinite
+}
+
+test('every case states one well-formed input', (t) => {
+  const HEX = /^([0-9a-f][0-9a-f])*$/
+  const malformed = []
+
+  for (const name of corpus.codecs()) {
+    const { category, cases } = corpus.loadCases(name)
+
+    for (const example of cases) {
+      const keys = Object.keys(example.input)
+
+      if (keys.length !== 1) {
+        malformed.push(`${example.id}: states ${keys.length} inputs`)
+      } else if (example.input.value !== undefined && !carries(category)(example.input.value)) {
+        malformed.push(`${example.id}: states a value the ${category} do not carry`)
+      } else if (example.input.bytes !== undefined && !HEX.test(example.input.bytes)) {
+        malformed.push(`${example.id}: states bytes that are not hex`)
+      }
+    }
+  }
+
+  t.alike(malformed, [], 'a case asks about a value its codec carries, or about bytes')
+})
+
+test('every case cites a rule', (t) => {
+  const uncited = corpus
+    .allFixtures()
+    .filter((fixture) => fixture.rules.length === 0)
+    .map((fixture) => fixture.id)
+
+  t.alike(uncited, [], 'no case sits in the corpus without saying what it checks')
+})
+
+test('case ids are unique across the corpus', (t) => {
+  const seen = new Set()
+  const repeated = []
+
+  for (const fixture of corpus.allFixtures()) {
+    if (seen.has(fixture.id)) repeated.push(fixture.id)
+    seen.add(fixture.id)
+  }
+
+  t.alike(repeated, [], 'no id is claimed twice')
+})
+
+test('a codec with no cases says why', (t) => {
+  const silent = corpus
+    .codecs()
+    .filter((name) => corpus.loadCases(name).cases.length === 0)
+    .filter((name) => !corpus.loadCases(name).reason)
+
+  t.alike(silent, [], 'a codec the corpus does not cover states its reason')
+})
+
+function carriable(value) {
+  return Number.isFinite(value) || typeof value === 'string'
+}
+
 test('every case states one well-formed input', (t) => {
   const HEX = /^([0-9a-f][0-9a-f])*$/
   const malformed = []
@@ -75,8 +138,8 @@ test('every case states one well-formed input', (t) => {
 
     if (keys.length !== 1) {
       malformed.push(`${fixture.id}: states ${keys.length} inputs`)
-    } else if (fixture.input.value !== undefined && !Number.isFinite(fixture.input.value)) {
-      malformed.push(`${fixture.id}: states a value that is not a number`)
+    } else if (fixture.input.value !== undefined && !carriable(fixture.input.value)) {
+      malformed.push(`${fixture.id}: states a value no codec carries`)
     } else if (fixture.input.bytes !== undefined && !HEX.test(fixture.input.bytes)) {
       malformed.push(`${fixture.id}: states bytes that are not hex`)
     }

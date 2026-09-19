@@ -47,3 +47,14 @@ The fixed-width codecs write a set number of bytes with no prefix, so the reader
 
 - `int-zigzag` - the value is zigzagged and the result encoded by the `uint` rules above. Zigzag doubles a value at or above zero and maps one below zero to its doubled magnitude less one, so `n` becomes `2n` when `n` is not negative and `-2n - 1` when it is, mapping 0 to 0, -1 to 1, 1 to 2 and -2 to 3. A decoder halves an even reading and negates the halved successor of an odd one.
 - `signed-range` - a signed codec accepts -4503599627370496 through 4503599627370495 and refuses anything beyond at either end, whatever its width. Accepting is not carrying: `int8` accepts the largest of them and writes `fe`, keeping the low byte under `fixed-width-truncates-high-bytes`. The range reaches one further below zero than above it, and it is half as wide as the unsigned ceiling because zigzag doubles the magnitude before the value is written.
+
+## Strings
+
+`utf8` carries text as a byte count followed by the bytes themselves. `string` is another name for the same codec, not a second one, and the count obeys the `uint` rules above rather than a form of its own.
+
+- `utf8-count-then-bytes` - a string encodes as its length in bytes, by the `uint` rules, followed by that many bytes of UTF-8. The count is bytes rather than characters, so a string of three characters that needs six bytes announces six, and a decoder reads exactly that many, leaving anything after them alone.
+- `utf8-empty` - the empty string is a count of zero with nothing following it, a single byte.
+- `utf8-rejects-short-input` - a decoder rejects input holding fewer bytes than the count announces.
+- `utf8-rejects-missing-count` - a decoder rejects input that carries no count at all.
+- `utf8-replaces-unpaired-surrogate` (delegated) - an encoder replaces an unpaired surrogate with U+FFFD rather than refusing the string, so the bytes it writes are not the ones the input named.
+- `utf8-replaces-invalid-bytes` (delegated) - a decoder replaces bytes that are not valid UTF-8 with U+FFFD rather than rejecting them, one replacement for each run of bytes that cannot be completed into a valid encoding: `c3 28` decodes to a replacement and an opening bracket, `c3 c3` to two replacements, and three bytes of ones to three. An implementation that rejects malformed input disagrees with the reference on every such string.

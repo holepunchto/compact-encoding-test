@@ -1,0 +1,85 @@
+{
+  "category": "strings",
+  "cases": [
+    {
+      "id": "utf8-empty",
+      "note": "the empty string, a count and nothing else",
+      "input": {
+        "value": ""
+      },
+      "rules": ["utf8-empty"]
+    },
+    {
+      "id": "utf8-ascii",
+      "note": "characters that each need one byte, so the count and the character length agree",
+      "input": {
+        "value": "abc"
+      },
+      "rules": ["utf8-count-then-bytes"]
+    },
+    {
+      "id": "utf8-multi-byte",
+      "note": "three characters needing six bytes, so the count is bytes rather than characters",
+      "input": {
+        "value": "a\u00e9\u20ac"
+      },
+      "rules": ["utf8-count-then-bytes"]
+    },
+    {
+      "id": "utf8-count-single-byte-max",
+      "note": "the longest string whose count still fits the single-byte form",
+      "input": {
+        "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      },
+      "rules": ["utf8-count-then-bytes", "uint-single-byte"]
+    },
+    {
+      "id": "utf8-count-prefixed",
+      "note": "one byte longer, so the count takes the marker form rather than standing alone",
+      "input": {
+        "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      },
+      "rules": ["utf8-count-then-bytes", "uint-uint16-prefix"]
+    },
+    {
+      "id": "utf8-unpaired-surrogate",
+      "note": "half a surrogate pair, which the encoder replaces rather than refuses",
+      "input": {
+        "value": "\ud800"
+      },
+      "rules": ["utf8-replaces-unpaired-surrogate"]
+    },
+    {
+      "id": "utf8-invalid-bytes",
+      "note": "a byte sequence that is not valid UTF-8, which decodes to a replacement rather than a rejection",
+      "input": {
+        "bytes": "02c328"
+      },
+      "rules": ["utf8-replaces-invalid-bytes"]
+    },
+    {
+      "id": "utf8-short-input",
+      "note": "a count of three with one byte following",
+      "input": {
+        "bytes": "0361"
+      },
+      "rules": ["utf8-rejects-short-input"]
+    },
+    {
+      "id": "utf8-no-count",
+      "note": "no bytes at all, so not even a count",
+      "input": {
+        "bytes": ""
+      },
+      "rules": ["utf8-rejects-missing-count"]
+    },
+    {
+      "id": "utf8-trailing-bytes",
+      "note": "a byte after the count is satisfied, which a decoder reading to the end would swallow",
+      "input": {
+        "bytes": "0361626364"
+      },
+      "rules": ["utf8-count-then-bytes"]
+    }
+  ]
+}

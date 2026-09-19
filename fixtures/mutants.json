@@ -174,5 +174,69 @@
     "answer": {
       "rejects": true
     }
+  },
+  {
+    "rule": "utf8-count-then-bytes",
+    "reading": "the count is characters rather than bytes",
+    "fixture": "utf8-multi-byte",
+    "answer": {
+      "hex": "0361c3a9e282ac"
+    }
+  },
+  {
+    "rule": "utf8-empty",
+    "reading": "the empty string writes no bytes at all",
+    "fixture": "utf8-empty",
+    "answer": {
+      "hex": ""
+    }
+  },
+  {
+    "rule": "utf8-rejects-short-input",
+    "reading": "a decoder returns what bytes it was given",
+    "fixture": "utf8-short-input",
+    "answer": {
+      "decodes": "a"
+    }
+  },
+  {
+    "rule": "utf8-replaces-unpaired-surrogate",
+    "reading": "an encoder refuses a string it cannot represent",
+    "fixture": "utf8-unpaired-surrogate",
+    "answer": {
+      "refused": true
+    }
+  },
+  {
+    "rule": "utf8-replaces-invalid-bytes",
+    "reading": "a decoder rejects bytes that are not valid UTF-8",
+    "fixture": "utf8-invalid-bytes",
+    "answer": {
+      "rejects": true
+    }
+  },
+  {
+    "rule": "utf8-count-then-bytes",
+    "reading": "a decoder reads to the end of the buffer rather than to the count",
+    "fixture": "utf8-trailing-bytes",
+    "answer": {
+      "decodes": "abcd"
+    }
+  },
+  {
+    "rule": "utf8-rejects-missing-count",
+    "reading": "a decoder treats absent input as the empty string",
+    "fixture": "utf8-no-count",
+    "answer": {
+      "decodes": ""
+    }
+  },
+  {
+    "rule": "utf8-count-then-bytes",
+    "reading": "a decoder rejects input carrying bytes after the count is satisfied",
+    "fixture": "utf8-trailing-bytes",
+    "answer": {
+      "rejects": true
+    }
   }
 ]
