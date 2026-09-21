@@ -28,5 +28,20 @@
   },
   "utf8-trailing-bytes": {
     "decodes": "abc"
+  },
+  "utf8-overlong": {
+    "decodes": "\ufffd\ufffd"
+  },
+  "utf8-encoded-surrogate": {
+    "decodes": "\ufffd\ufffd\ufffd"
+  },
+  "utf8-above-max-code-point": {
+    "decodes": "\ufffd\ufffd\ufffd\ufffd"
+  },
+  "utf8-subpart-completable": {
+    "decodes": "\ufffda"
+  },
+  "utf8-subpart-uncompletable": {
+    "decodes": "\ufffd\ufffdA"
   }
 }

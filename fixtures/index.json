@@ -16,7 +16,12 @@
       "utf8-invalid-bytes",
       "utf8-short-input",
       "utf8-no-count",
-      "utf8-trailing-bytes"
+      "utf8-trailing-bytes",
+      "utf8-overlong",
+      "utf8-encoded-surrogate",
+      "utf8-above-max-code-point",
+      "utf8-subpart-completable",
+      "utf8-subpart-uncompletable"
     ]
   },
   "integers": {
