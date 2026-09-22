@@ -238,5 +238,45 @@
     "answer": {
       "rejects": true
     }
+  },
+  {
+    "rule": "utf8-invalid-forms",
+    "reading": "an encoding wider than the code point needs still names that code point",
+    "fixture": "utf8-overlong",
+    "answer": {
+      "decodes": "/"
+    }
+  },
+  {
+    "rule": "utf8-invalid-forms",
+    "reading": "a decoder rejects an encoded surrogate rather than replacing it",
+    "fixture": "utf8-encoded-surrogate",
+    "answer": {
+      "rejects": true
+    }
+  },
+  {
+    "rule": "utf8-maximal-subpart",
+    "reading": "each invalid byte becomes its own replacement",
+    "fixture": "utf8-subpart-completable",
+    "answer": {
+      "decodes": "\ufffd\ufffda"
+    }
+  },
+  {
+    "rule": "utf8-maximal-subpart",
+    "reading": "a decoder rejects a run it cannot complete rather than replacing it",
+    "fixture": "utf8-subpart-uncompletable",
+    "answer": {
+      "rejects": true
+    }
+  },
+  {
+    "rule": "utf8-count-after-substitution",
+    "reading": "the count is taken before substitution, so a lone surrogate announces the two bytes it occupied",
+    "fixture": "utf8-unpaired-surrogate",
+    "answer": {
+      "hex": "02efbfbd"
+    }
   }
 ]

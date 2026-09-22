@@ -47,7 +47,7 @@
       "input": {
         "value": "\ud800"
       },
-      "rules": ["utf8-replaces-unpaired-surrogate"]
+      "rules": ["utf8-replaces-unpaired-surrogate", "utf8-count-after-substitution"]
     },
     {
       "id": "utf8-invalid-bytes",
@@ -80,6 +80,46 @@
         "bytes": "0361626364"
       },
       "rules": ["utf8-count-then-bytes"]
+    },
+    {
+      "id": "utf8-overlong",
+      "note": "a solidus spelled in two bytes where one holds it, so not the shortest encoding of it",
+      "input": {
+        "bytes": "02c0af"
+      },
+      "rules": ["utf8-invalid-forms", "utf8-replaces-invalid-bytes"]
+    },
+    {
+      "id": "utf8-encoded-surrogate",
+      "note": "U+D800 encoded as bytes, a code point no valid sequence carries",
+      "input": {
+        "bytes": "03eda080"
+      },
+      "rules": ["utf8-invalid-forms", "utf8-replaces-invalid-bytes"]
+    },
+    {
+      "id": "utf8-above-max-code-point",
+      "note": "U+110000, past the last code point the encoding reaches",
+      "input": {
+        "bytes": "04f4908080"
+      },
+      "rules": ["utf8-invalid-forms", "utf8-replaces-invalid-bytes"]
+    },
+    {
+      "id": "utf8-subpart-completable",
+      "note": "two bytes still completable followed by one that ends them, so the run is the pair",
+      "input": {
+        "bytes": "03e18061"
+      },
+      "rules": ["utf8-maximal-subpart", "utf8-replaces-invalid-bytes"]
+    },
+    {
+      "id": "utf8-subpart-uncompletable",
+      "note": "a lead byte its follower cannot continue, so the run is the lead alone",
+      "input": {
+        "bytes": "03e08041"
+      },
+      "rules": ["utf8-maximal-subpart", "utf8-replaces-invalid-bytes"]
     }
   ]
 }
