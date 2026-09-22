@@ -8,6 +8,8 @@ Each rule carries a stable slug id, and every case under `fixtures/` names the r
 
 A case carries an input and the corpus carries its answer beside it, in `answers.json`, keyed by the case id. The input says which question the case asks. A `value` asks what it encodes to, answered by `hex` or by `refused` where the codec will not encode the value. `bytes` ask what a decoder makes of them, answered by `decodes` or by `rejects`.
 
+The fixtures are JSON (RFC 8259). A `value` is a number where the codec carries one and a sequence of UTF-16 code units where it carries text, rather than a sequence of code points: `\ud800` is a single code unit, a surrogate with nothing after it to pair with. UTF-16 is Section 3.9 of the Unicode Standard and the surrogates it pairs are Section 3.8, which between them say which code units are surrogates and when two of them pair. A `decodes` answer is a value of the same two kinds, while `bytes` and `hex` are bytes written as pairs of hex digits. Every code unit outside ASCII is written as a `\uXXXX` escape, in the cases and the answers both.
+
 ## uint
 
 `uint` encodes an unsigned integer as one of four forms, chosen by magnitude. The first byte is either the value itself or a marker selecting a fixed-width payload that follows it.
