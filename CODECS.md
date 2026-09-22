@@ -17,7 +17,7 @@ The fixtures are JSON (RFC 8259). A `value` is a number where the codec carries 
 - `uint-single-byte` - a value below `0xfd` encodes as that one byte, with nothing following.
 - `uint-uint16-prefix` - a value from `0xfd` through `0xffff` encodes as the byte `0xfd` followed by a two-byte payload.
 - `uint-uint32-prefix` - a value from `0x10000` through `0xffffffff` encodes as the byte `0xfe` followed by a four-byte payload.
-- `uint-uint64-prefix` - a value from `0x100000000` through 9007199254740991 encodes as the byte `0xff` followed by an eight-byte payload. The payload is eight bytes wide, but the codec refuses a value above 9007199254740991 and directs the caller to `biguint`, so the top of the range is the largest integer a double holds exactly rather than the width of the payload.
+- `uint-uint64-prefix` - a value from `0x100000000` through 9007199254740991 encodes as the byte `0xff` followed by an eight-byte payload. The payload is eight bytes wide, but the codec refuses a value above 9007199254740991 and directs the caller to `biguint`, which carries integers too large for a double and which this corpus does not cover, so the top of the range is the largest integer a double holds exactly rather than the width of the payload.
 - `uint-little-endian` - the payload of every prefixed form is little-endian, least significant byte first.
 - `uint-overlong-decode` (delegated) - a decoder reads a prefixed form wider than the value needs, rather than rejecting it as non-canonical. An encoder never produces one, so this constrains decoders only, and a decoder that rejects an overlong form is not conformant.
 - `uint-truncated-rejected` - a decoder rejects input that ends before the payload its prefix announces.
@@ -26,10 +26,10 @@ An encoder picks the narrowest form that holds the value, which is what makes th
 
 ## Bounds on the value
 
-Every integer codec here carries its value as a double, so bounds cut across the family regardless of what a codec's own form allows. The unsigned bound is stated here; the signed one is narrower and stated with `int`.
+Every integer codec here carries its value as a double, an IEEE 754 binary64, whose largest exactly held integer is `2^53 - 1`, or 9007199254740991. Bounds therefore cut across the family regardless of what a codec's own form allows. The unsigned bound is stated here; the signed one is narrower and stated with `int`.
 
 - `encode-ceiling` - an encoder refuses an unsigned value above 9007199254740991 rather than writing an approximation of it, whatever the codec's own form allows. A signed codec is held to the narrower `signed-range` instead, so this bound never governs one.
-- `decode-ceiling` - a decoder rejects bytes that would decode above 9007199254740991, the largest integer a double holds exactly. `uint64` rejects eight bytes of ones while `uint48` decodes six of them cleanly, and the varint `uint` rejects its eight-byte form carrying the same number, so the ceiling belongs to the value rather than to the codec. This is where an implementation with a real 64-bit integer type parts from the reference.
+- `decode-ceiling` - a decoder rejects bytes that would decode above 9007199254740991, the largest integer a double holds exactly. `uint64` rejects eight bytes of ones while `uint48` decodes six of them cleanly, and `uint` rejects its eight-byte form carrying the same number, so the ceiling belongs to the value rather than to the codec. This is where an implementation with a real 64-bit integer type parts from the reference.
 
 ## Fixed-width integers
 
