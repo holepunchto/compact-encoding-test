@@ -38,9 +38,9 @@ A value that is not an integer is outside what these rules define. The reference
 
 ## What a decoder consumes
 
-A decoder reads from a buffer it does not own the end of, so what it leaves behind is as much a part of the contract as what it returns.
+A decoder reads from a buffer it does not own the end of, so how it treats what it was not asked for is part of the contract.
 
-- `decode-consumes-its-form` - a decoder reads the bytes its own form needs and leaves the rest where they are, rather than rejecting input that carries more. `uint` given `0161` returns 1 and leaves `61`, and `uint8` does the same, so a caller reading two values from one buffer gets the second one.
+- `decode-consumes-its-form` - a decoder given more bytes than its form needs returns what the leading bytes carry rather than rejecting the input: `uint` given `0161` returns 1, and `uint8` does the same. The reference stops at the end of its own form, leaving `61` for whoever reads next, but no case tells that apart from a decoder that reads to the end of the buffer and returns the same value, because an answer records what came back and not how far the reading went.
 
 ## Fixed-width integers
 
