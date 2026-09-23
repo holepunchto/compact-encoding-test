@@ -10,5 +10,8 @@
   },
   "uint8-negative": {
     "refused": true
+  },
+  "uint8-trailing-bytes": {
+    "decodes": 1
   }
 }

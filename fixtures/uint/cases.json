@@ -128,6 +128,14 @@
         "bytes": "ff0000000000002000"
       },
       "rules": ["decode-ceiling"]
+    },
+    {
+      "id": "uint-trailing-bytes",
+      "note": "a byte after the single-byte form is satisfied",
+      "input": {
+        "bytes": "0161"
+      },
+      "rules": ["decode-consumes-its-form"]
     }
   ]
 }

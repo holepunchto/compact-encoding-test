@@ -286,5 +286,13 @@
     "answer": {
       "decodes": 4503599627370496
     }
+  },
+  {
+    "rule": "decode-consumes-its-form",
+    "reading": "a decoder rejects input that carries more bytes than its form needs",
+    "fixture": "uint-trailing-bytes",
+    "answer": {
+      "rejects": true
+    }
   }
 ]
