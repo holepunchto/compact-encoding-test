@@ -22,7 +22,7 @@ The fixtures are JSON (RFC 8259). A `value` is a number where the codec carries 
 - `uint-uint64-prefix` - a value from `0x100000000` through 9007199254740991 encodes as the byte `0xff` followed by an eight-byte payload. The payload is eight bytes wide, but the codec refuses a value above 9007199254740991 and directs the caller to `biguint`, which carries integers too large for a double and which this corpus does not cover, so the top of the range is the largest integer a double holds exactly rather than the width of the payload.
 - `uint-little-endian` - the payload of every prefixed form is little-endian, least significant byte first.
 - `uint-overlong-decode` (delegated) - a decoder reads a prefixed form wider than the value needs, rather than rejecting it as non-canonical. An encoder never produces one for an integer, so this constrains decoders only, and a decoder that rejects an overlong form is not conformant.
-- `uint-truncated-rejected` - a decoder rejects input that ends before the payload its prefix announces.
+- `uint-truncated-rejected` - a decoder rejects input that ends before the form it is reading is complete, whether that is a payload cut short of what its prefix announces or no bytes at all, where not even the first byte is there to read.
 
 An encoder picks the narrowest form that holds the value, which is what makes the boundary cases load-bearing: `252` and `253` sit on either side of the first threshold, and each larger form has its own minimum and maximum.
 
@@ -34,6 +34,12 @@ Every integer codec here carries its value as a double, an IEEE 754 binary64, wh
 - `encode-ceiling` - an encoder refuses an unsigned value above 9007199254740991 rather than writing an approximation of it, whatever the codec's own form allows. A signed codec is held to the narrower `signed-range` instead, so this bound never governs one.
 - `decode-ceiling` - a decoder rejects bytes that would decode above 9007199254740991, the largest integer a double holds exactly. `uint64` rejects eight bytes of ones while `uint48` decodes six of them cleanly, and `uint` rejects its eight-byte form carrying the same number, so the ceiling belongs to the value rather than to the codec. A signed codec is held to it on the reading, before the reading is unzigzagged: `int64` rejects the eight bytes carrying 9007199254740992 rather than returning the 4503599627370496 they unzigzag to. This is where an implementation with a real 64-bit integer type parts from the reference.
 
+## What a decoder consumes
+
+A decoder reads from a buffer it does not own the end of, so what it leaves behind is as much a part of the contract as what it returns.
+
+- `decode-consumes-its-form` - a decoder reads the bytes its own form needs and leaves the rest where they are, rather than rejecting input that carries more. `uint` given `0161` returns 1 and leaves `61`, and `uint8` does the same, so a caller reading two values from one buffer gets the second one.
+
 ## Fixed-width integers
 
 The fixed-width codecs write a set number of bytes with no prefix, so the reader knows the length before it reads anything. `uint8` through `uint64` carry unsigned values, `int8` through `int64` signed ones, and `uint32be` and `uint64be` differ from their siblings only in byte order. The big-endian codecs are their own capability, since only two implementations provide any, and the ones the reference does not implement at all carry a capability with no cases and a reason.
@@ -43,7 +49,7 @@ The fixed-width codecs write a set number of bytes with no prefix, so the reader
 - `fixed-width-big-endian` - a codec whose name ends `be` writes the same bytes most significant first.
 - `fixed-width-signed-zigzag` - a signed codec zigzags the value into an unsigned one before laying the bytes down, mapping -1 to 1 and 1 to 2, rather than storing two's complement. An implementer who writes two's complement agrees with the reference on no negative value at all.
 - `fixed-width-truncates-high-bytes` - a value the codec accepts but the width cannot hold keeps its low bytes, so `uint8` writes zero for 256 and `int8` writes zero for 128, whose zigzag is 256.
-- `fixed-width-rejects-short-input` - a decoder rejects input holding fewer bytes than the width announces.
+- `fixed-width-rejects-short-input` - a decoder rejects input holding fewer bytes than the width announces, byte order making no difference: `uint32be` rejects three bytes as flatly as `uint32` does.
 
 ## int
 
