@@ -278,5 +278,13 @@
     "answer": {
       "hex": "02efbfbd"
     }
+  },
+  {
+    "rule": "decode-ceiling",
+    "reading": "the ceiling is applied after unzigzagging, so a reading past it comes back as a signed value",
+    "fixture": "int64-ceiling-before-unzigzag",
+    "answer": {
+      "decodes": 4503599627370496
+    }
   }
 ]
