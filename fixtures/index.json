@@ -85,6 +85,7 @@
       "uint-overlong-uint16",
       "uint-overlong-uint32",
       "uint-truncated-prefix",
+      "uint-negative",
       "uint-decode-ceiling"
     ],
     "uint16": [

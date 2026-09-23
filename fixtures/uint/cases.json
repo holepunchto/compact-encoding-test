@@ -106,6 +106,14 @@
       "rules": ["uint-truncated-rejected"]
     },
     {
+      "id": "uint-negative",
+      "note": "a negative handed to the varint form, which has no width to wrap into",
+      "input": {
+        "value": -1
+      },
+      "rules": ["unsigned-refuses-negative"]
+    },
+    {
       "id": "uint-decode-ceiling",
       "note": "the eight-byte form carrying the first unsafe integer",
       "input": {

@@ -30,6 +30,7 @@ An encoder picks the narrowest form that holds the value, which is what makes th
 
 Every integer codec here carries its value as a double, an IEEE 754 binary64, whose largest exactly held integer is `2^53 - 1`, or 9007199254740991. Bounds therefore cut across the family regardless of what a codec's own form allows. The unsigned bound is stated here; the signed one is narrower and stated with `int`.
 
+- `unsigned-refuses-negative` - an unsigned codec refuses a negative value rather than wrapping it, whatever form it writes, so `uint` refuses -1 as flatly as `uint8` does and `fixed-width-truncates-high-bytes` reaches only values a codec carries in the first place.
 - `encode-ceiling` - an encoder refuses an unsigned value above 9007199254740991 rather than writing an approximation of it, whatever the codec's own form allows. A signed codec is held to the narrower `signed-range` instead, so this bound never governs one.
 - `decode-ceiling` - a decoder rejects bytes that would decode above 9007199254740991, the largest integer a double holds exactly. `uint64` rejects eight bytes of ones while `uint48` decodes six of them cleanly, and `uint` rejects its eight-byte form carrying the same number, so the ceiling belongs to the value rather than to the codec. A signed codec is held to it on the reading, before the reading is unzigzagged: `int64` rejects the eight bytes carrying 9007199254740992 rather than returning the 4503599627370496 they unzigzag to. This is where an implementation with a real 64-bit integer type parts from the reference.
 
@@ -41,7 +42,6 @@ The fixed-width codecs write a set number of bytes with no prefix, so the reader
 - `fixed-width-little-endian` - a codec whose name has no suffix writes its bytes least significant first.
 - `fixed-width-big-endian` - a codec whose name ends `be` writes the same bytes most significant first.
 - `fixed-width-signed-zigzag` - a signed codec zigzags the value into an unsigned one before laying the bytes down, mapping -1 to 1 and 1 to 2, rather than storing two's complement. An implementer who writes two's complement agrees with the reference on no negative value at all.
-- `unsigned-refuses-negative` - an unsigned codec refuses a negative value rather than wrapping it into the width, so truncation applies only to values the codec carries in the first place.
 - `fixed-width-truncates-high-bytes` - a value the codec accepts but the width cannot hold keeps its low bytes, so `uint8` writes zero for 256 and `int8` writes zero for 128, whose zigzag is 256.
 - `fixed-width-rejects-short-input` - a decoder rejects input holding fewer bytes than the width announces.
 

@@ -38,6 +38,9 @@
   "uint-truncated-prefix": {
     "rejects": true
   },
+  "uint-negative": {
+    "refused": true
+  },
   "uint-decode-ceiling": {
     "rejects": true
   }
