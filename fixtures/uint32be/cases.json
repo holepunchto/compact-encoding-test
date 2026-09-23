@@ -8,6 +8,14 @@
         "value": 16909060
       },
       "rules": ["fixed-width-width-from-name", "fixed-width-big-endian"]
+    },
+    {
+      "id": "uint32be-short-input",
+      "note": "three bytes where the width announces four, on the codec that reads them the other way round",
+      "input": {
+        "bytes": "000001"
+      },
+      "rules": ["fixed-width-rejects-short-input"]
     }
   ]
 }
