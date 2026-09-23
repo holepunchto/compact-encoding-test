@@ -1,0 +1,31 @@
+{
+  "float64-one": {
+    "hex": "000000000000f03f"
+  },
+  "float64-fraction": {
+    "hex": "000000000000e03f"
+  },
+  "float64-negative": {
+    "hex": "000000000000f0bf"
+  },
+  "float64-nan": {
+    "hex": "000000000000f87f"
+  },
+  "float64-nan-payload": {
+    "decodes": "NaN",
+    "read": 8
+  },
+  "float64-negative-zero": {
+    "hex": "0000000000000080"
+  },
+  "float64-negative-zero-decode": {
+    "decodes": "-0",
+    "read": 8
+  },
+  "float64-infinity": {
+    "hex": "000000000000f07f"
+  },
+  "float64-negative-infinity": {
+    "hex": "000000000000f0ff"
+  }
+}

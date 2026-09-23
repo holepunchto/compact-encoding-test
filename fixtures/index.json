@@ -24,6 +24,27 @@
       "utf8-subpart-uncompletable"
     ]
   },
+  "floats": {
+    "float32": [
+      "float32-one",
+      "float32-rounds",
+      "float32-rounds-integer",
+      "float32-nan",
+      "float32-negative-zero",
+      "float32-negative-zero-decode"
+    ],
+    "float64": [
+      "float64-one",
+      "float64-fraction",
+      "float64-negative",
+      "float64-nan",
+      "float64-nan-payload",
+      "float64-negative-zero",
+      "float64-negative-zero-decode",
+      "float64-infinity",
+      "float64-negative-infinity"
+    ]
+  },
   "integers": {
     "int": [
       "int-zero",

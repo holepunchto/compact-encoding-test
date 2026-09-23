@@ -76,7 +76,10 @@ test('a codec with no cases says why', (t) => {
   t.alike(silent, [], 'a codec the corpus does not cover states its reason')
 })
 
-const CARRIES = { strings: (value) => typeof value === 'string' }
+const CARRIES = {
+  strings: (value) => typeof value === 'string',
+  floats: (value) => Number.isFinite(value) || corpus.tokenised(value)
+}
 
 function carries(category) {
   return CARRIES[category] || Number.isFinite

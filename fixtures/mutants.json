@@ -303,5 +303,77 @@
       "decodes": 1,
       "read": 2
     }
+  },
+  {
+    "rule": "float-ieee754",
+    "reading": "a float is written as the integer nearest it",
+    "fixture": "float64-fraction",
+    "answer": {
+      "hex": "0000000000000000"
+    }
+  },
+  {
+    "rule": "float-width-from-name",
+    "reading": "every float writes eight bytes, the narrower codec padding",
+    "fixture": "float32-one",
+    "answer": {
+      "hex": "000000000000f03f"
+    }
+  },
+  {
+    "rule": "float-little-endian",
+    "reading": "the bytes go most significant first",
+    "fixture": "float64-one",
+    "answer": {
+      "hex": "3ff0000000000000"
+    }
+  },
+  {
+    "rule": "float-nan-pattern",
+    "reading": "an encoder writes a NaN carrying a payload",
+    "fixture": "float64-nan",
+    "answer": {
+      "hex": "010000000000f87f"
+    }
+  },
+  {
+    "rule": "float-nan-pattern",
+    "reading": "a decoder rejects a NaN pattern its own encoder would not write",
+    "fixture": "float64-nan-payload",
+    "answer": {
+      "rejects": true
+    }
+  },
+  {
+    "rule": "float-negative-zero",
+    "reading": "negative zero normalises to positive zero as it is written",
+    "fixture": "float64-negative-zero",
+    "answer": {
+      "hex": "0000000000000000"
+    }
+  },
+  {
+    "rule": "float-negative-zero",
+    "reading": "a decoder rejects a zero whose sign bit is set",
+    "fixture": "float64-negative-zero-decode",
+    "answer": {
+      "rejects": true
+    }
+  },
+  {
+    "rule": "float32-rounds-to-nearest",
+    "reading": "a value binary32 cannot hold is truncated toward zero rather than rounded to nearest",
+    "fixture": "float32-rounds",
+    "answer": {
+      "hex": "cccccc3d"
+    }
+  },
+  {
+    "rule": "float-carries-infinity",
+    "reading": "an infinity is refused, as the integer codecs refuse a value past the ceiling",
+    "fixture": "float64-infinity",
+    "answer": {
+      "refused": true
+    }
   }
 ]
