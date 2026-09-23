@@ -1,0 +1,45 @@
+{
+  "category": "floats",
+  "cases": [
+    {
+      "id": "float32-one",
+      "note": "a value binary32 holds exactly, in half the bytes binary64 takes",
+      "input": {
+        "value": 1
+      },
+      "rules": ["float-ieee754", "float-width-from-name", "float-little-endian"]
+    },
+    {
+      "id": "float32-rounds",
+      "note": "a fraction binary32 cannot hold, rounded as it is written",
+      "input": {
+        "value": 0.1
+      },
+      "rules": ["float32-rounds-to-nearest"]
+    },
+    {
+      "id": "float32-rounds-integer",
+      "note": "the first integer binary32 cannot hold, which lands on its neighbour",
+      "input": {
+        "value": 16777217
+      },
+      "rules": ["float32-rounds-to-nearest"]
+    },
+    {
+      "id": "float32-nan",
+      "note": "the NaN an encoder writes at this width",
+      "input": {
+        "value": "NaN"
+      },
+      "rules": ["float-nan-pattern"]
+    },
+    {
+      "id": "float32-negative-zero",
+      "note": "negative zero survives the narrower width too",
+      "input": {
+        "value": "-0"
+      },
+      "rules": ["float-negative-zero"]
+    }
+  ]
+}

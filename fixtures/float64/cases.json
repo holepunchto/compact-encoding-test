@@ -1,0 +1,69 @@
+{
+  "category": "floats",
+  "cases": [
+    {
+      "id": "float64-one",
+      "note": "a value binary64 holds exactly",
+      "input": {
+        "value": 1
+      },
+      "rules": ["float-ieee754", "float-width-from-name", "float-little-endian"]
+    },
+    {
+      "id": "float64-fraction",
+      "note": "a fraction binary64 holds exactly, so nothing is lost either way",
+      "input": {
+        "value": 0.5
+      },
+      "rules": ["float-ieee754"]
+    },
+    {
+      "id": "float64-negative",
+      "note": "the sign bit is the top bit of the last byte written",
+      "input": {
+        "value": -1
+      },
+      "rules": ["float-ieee754", "float-little-endian"]
+    },
+    {
+      "id": "float64-nan",
+      "note": "the one NaN an encoder writes, of the many binary64 spells",
+      "input": {
+        "value": "NaN"
+      },
+      "rules": ["float-nan-pattern"]
+    },
+    {
+      "id": "float64-nan-payload",
+      "note": "a NaN carrying a payload, which decoding does not preserve",
+      "input": {
+        "bytes": "010000000000f87f"
+      },
+      "rules": ["float-nan-pattern"]
+    },
+    {
+      "id": "float64-negative-zero",
+      "note": "negative zero, which the sign bit alone distinguishes from positive zero",
+      "input": {
+        "value": "-0"
+      },
+      "rules": ["float-negative-zero"]
+    },
+    {
+      "id": "float64-negative-zero-decode",
+      "note": "the same bytes read back, still negative zero rather than zero",
+      "input": {
+        "bytes": "0000000000000080"
+      },
+      "rules": ["float-negative-zero"]
+    },
+    {
+      "id": "float64-infinity",
+      "note": "an infinity, which binary64 carries as a value rather than refusing",
+      "input": {
+        "value": "Infinity"
+      },
+      "rules": ["float-ieee754"]
+    }
+  ]
+}

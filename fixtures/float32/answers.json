@@ -1,0 +1,17 @@
+{
+  "float32-one": {
+    "hex": "0000803f"
+  },
+  "float32-rounds": {
+    "hex": "cdcccc3d"
+  },
+  "float32-rounds-integer": {
+    "hex": "0000804b"
+  },
+  "float32-nan": {
+    "hex": "0000c07f"
+  },
+  "float32-negative-zero": {
+    "hex": "00000080"
+  }
+}

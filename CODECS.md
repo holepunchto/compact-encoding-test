@@ -8,7 +8,7 @@ Normative references: RFC 3629 (STD 63) for UTF-8, and the Unicode Standard, Ver
 
 Each rule carries a stable slug id, and every case under `fixtures/` names the rule slugs it exercises. A rule with no citing case fails the corpus build, so a rule cannot ship unchecked. A rule is marked `delegated`, in this document and in the capability taxonomy both, where another reasonable implementation would choose differently: the document states what the reference does, and says what the other choice would be, because a port reasoning from first principles will make it. The marker is a warning to copy rather than to reason. It does not mean a rule is vague - a rule this document cannot state is a rule with no case behind it, and the build refuses that.
 
-A case carries an input and the corpus carries its answer beside it, in `answers.json`, keyed by the case id. The input says which question the case asks. A `value` asks what it encodes to, answered by `hex` or by `refused` where the codec will not encode the value. `bytes` ask what a decoder makes of them, answered by `decodes` or by `rejects`. A `decodes` answer carries `read` beside it, the count of bytes the decoder took, so where a decoder stopped is part of the answer rather than something the corpus cannot see.
+A case carries an input and the corpus carries its answer beside it, in `answers.json`, keyed by the case id. The input says which question the case asks. A `value` asks what it encodes to, answered by `hex` or by `refused` where the codec will not encode the value. `bytes` ask what a decoder makes of them, answered by `decodes` or by `rejects`. A `decodes` answer carries `read` beside it, the count of bytes the decoder took, so where a decoder stopped is part of the answer rather than something the corpus cannot see. A value JSON cannot carry is written as a token - `NaN`, `Infinity`, `-Infinity` or `-0` - in a case and in a `decodes` answer both, since JSON turns the first three into null and the last into 0.
 
 The fixtures are JSON (RFC 8259). A `value` is a number where the codec carries one and a sequence of UTF-16 code units where it carries text, rather than a sequence of code points: `\ud800` is a single code unit, a surrogate with nothing after it to pair with. UTF-16 is Section 3.9 of the Unicode Standard and the surrogates it pairs are Section 3.8, which between them say which code units are surrogates and when two of them pair. A `decodes` answer is a value of the same two kinds, while `bytes` and `hex` are bytes written as pairs of hex digits. Every code unit outside ASCII is written as a `\uXXXX` escape, in the cases and the answers both.
 
@@ -59,6 +59,17 @@ The fixed-width codecs write a set number of bytes with no prefix, so the reader
 
 - `int-zigzag` - the value is zigzagged and the result encoded by the `uint` rules above. Zigzag doubles a value at or above zero and maps one below zero to its doubled magnitude less one, so `n` becomes `2n` when `n` is not negative and `-2n - 1` when it is, mapping 0 to 0, -1 to 1, 1 to 2 and -2 to 3. A decoder halves an even reading and negates the halved successor of an odd one.
 - `signed-range` - a signed codec accepts -4503599627370496 through 4503599627370495 and refuses anything beyond at either end, whatever its width. Accepting is not carrying: `int8` accepts the largest of them and writes `fe`, keeping the low byte under `fixed-width-truncates-high-bytes`. The range reaches one further below zero than above it, and it is half as wide as the unsigned ceiling because zigzag doubles the magnitude before the value is written.
+
+## Floats
+
+`float32` and `float64` write a number in its IEEE 754 form, binary32 and binary64 respectively, defined in IEEE 754-2019. They carry values the integer codecs refuse: a fraction, an infinity, and a NaN.
+
+- `float-ieee754` - a float is written in the IEEE 754 form its width names, so `float64` writes 1 as `000000000000f03f` and 0.5 as `000000000000e03f`. An infinity is a value these codecs carry rather than a bound they refuse.
+- `float-width-from-name` - `float32` writes four bytes and `float64` eight, whatever the value.
+- `float-little-endian` - the bytes go least significant first, which puts the sign bit at the top of the last byte written.
+- `float32-rounds-to-nearest` - a value binary32 cannot hold exactly is rounded to the nearest it can, on the way in rather than on the way out: 0.1 is written `cdcccc3d` and reads back as 0.10000000149011612, and 16777217 is written as its neighbour 16777216.
+- `float-nan-pattern` (delegated) - an encoder writes one NaN of the many the format spells, `000000000000f87f` at 64 bits and `0000c07f` at 32, and a decoder collapses every NaN it reads to that same value, payload and all. Another implementation may write a different quiet NaN, or keep the payload it read, and be right by IEEE 754 while disagreeing with the reference on the bytes.
+- `float-negative-zero` (delegated) - negative zero keeps its sign bit through an encode and comes back as negative zero rather than zero, so the two zeroes are distinct values at every width. An implementation whose numbers do not tell them apart normalises to positive zero and disagrees in both directions.
 
 ## Strings
 

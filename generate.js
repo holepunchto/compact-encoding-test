@@ -2,7 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const c = require('compact-encoding')
 const { fixturesDir } = require('.')
-const { asks, codecs, loadCases } = require('./lib/corpus')
+const { asks, codecs, loadCases, token, value } = require('./lib/corpus')
 
 function encode(codec, value) {
   const state = c.state()
@@ -31,8 +31,8 @@ function decode(codec, hex) {
 
   const state = { buffer, start: 0, end: buffer.length }
   try {
-    const value = codec.decode(state)
-    return { decodes: value, read: state.start }
+    const decoded = codec.decode(state)
+    return { decodes: token(decoded), read: state.start }
   } catch {
     return { rejects: true }
   }
@@ -40,7 +40,7 @@ function decode(codec, hex) {
 
 function answer(codec, example) {
   return asks(example) === 'bytes'
-    ? encode(codec, example.input.value)
+    ? encode(codec, value(example.input.value))
     : decode(codec, example.input.bytes)
 }
 
