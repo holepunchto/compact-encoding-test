@@ -4,7 +4,7 @@ This document is the normative definition of the codecs in `compact-encoding`. I
 
 Reference implementation: `compact-encoding` 3.5.0.
 
-Normative references: RFC 3629 (STD 63) for UTF-8, and the Unicode Standard, Version 18.0, for UTF-16, for surrogates and for the substitution of maximal subparts. A section number below is a section of that edition.
+Normative references: RFC 3629 (STD 63) for UTF-8, the Unicode Standard, Version 18.0, for UTF-16, for surrogates and for the substitution of maximal subparts, and IEEE 754-2019 for the binary32 and binary64 forms the float codecs write. A section number below is a section of the Unicode edition named here.
 
 Each rule carries a stable slug id, and every case under `fixtures/` names the rule slugs it exercises. A rule with no citing case fails the corpus build, so a rule cannot ship unchecked. A rule is marked `delegated`, in this document and in the capability taxonomy both, where another reasonable implementation would choose differently: the document states what the reference does, and says what the other choice would be, because a port reasoning from first principles will make it. The marker is a warning to copy rather than to reason. It does not mean a rule is vague - a rule this document cannot state is a rule with no case behind it, and the build refuses that.
 
@@ -62,13 +62,14 @@ The fixed-width codecs write a set number of bytes with no prefix, so the reader
 
 ## Floats
 
-`float32` and `float64` write a number in its IEEE 754 form, binary32 and binary64 respectively, defined in IEEE 754-2019. They carry values the integer codecs refuse: a fraction, an infinity, and a NaN.
+`float32` and `float64` write a number in its IEEE 754 form, binary32 and binary64 respectively. They carry values the integer codecs refuse: a fraction, an infinity, and a NaN.
 
-- `float-ieee754` - a float is written in the IEEE 754 form its width names, so `float64` writes 1 as `000000000000f03f` and 0.5 as `000000000000e03f`. An infinity is a value these codecs carry rather than a bound they refuse.
+- `float-ieee754` - a float is written in the IEEE 754 form its width names, so `float64` writes 1 as `000000000000f03f` and 0.5 as `000000000000e03f`.
+- `float-carries-infinity` - an infinity is a value these codecs carry rather than a bound they refuse, written as the exponent alone with no fraction: `000000000000f07f` and, with the sign bit, `000000000000f0ff`.
 - `float-width-from-name` - `float32` writes four bytes and `float64` eight, whatever the value.
 - `float-little-endian` - the bytes go least significant first, which puts the sign bit at the top of the last byte written.
 - `float32-rounds-to-nearest` - a value binary32 cannot hold exactly is rounded to the nearest it can, on the way in rather than on the way out: 0.1 is written `cdcccc3d` and reads back as 0.10000000149011612, and 16777217 is written as its neighbour 16777216.
-- `float-nan-pattern` (delegated) - an encoder writes one NaN of the many the format spells, `000000000000f87f` at 64 bits and `0000c07f` at 32, and a decoder collapses every NaN it reads to that same value, payload and all. Another implementation may write a different quiet NaN, or keep the payload it read, and be right by IEEE 754 while disagreeing with the reference on the bytes.
+- `float-nan-pattern` (delegated) - an encoder handed a NaN writes one of the many the format spells, `000000000000f87f` at 64 bits and `0000c07f` at 32, and another implementation may write a different quiet NaN and be right by IEEE 754 while disagreeing with the reference on the bytes. A NaN that came from bytes keeps the payload it arrived with: `010000000000f87f` decodes to a NaN that writes back unchanged. No case tells one NaN from another, because a decoded NaN is written as the token `NaN` whatever its bits.
 - `float-negative-zero` (delegated) - negative zero keeps its sign bit through an encode and comes back as negative zero rather than zero, so the two zeroes are distinct values at every width. An implementation whose numbers do not tell them apart normalises to positive zero and disagrees in both directions.
 
 ## Strings

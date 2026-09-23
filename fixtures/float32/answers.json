@@ -13,5 +13,9 @@
   },
   "float32-negative-zero": {
     "hex": "00000080"
+  },
+  "float32-negative-zero-decode": {
+    "decodes": "-0",
+    "read": 4
   }
 }

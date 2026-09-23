@@ -367,5 +367,13 @@
     "answer": {
       "hex": "cccccc3d"
     }
+  },
+  {
+    "rule": "float-carries-infinity",
+    "reading": "an infinity is refused, as the integer codecs refuse a value past the ceiling",
+    "fixture": "float64-infinity",
+    "answer": {
+      "refused": true
+    }
   }
 ]

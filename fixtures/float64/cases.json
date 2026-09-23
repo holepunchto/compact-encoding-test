@@ -35,7 +35,7 @@
     },
     {
       "id": "float64-nan-payload",
-      "note": "a NaN carrying a payload, which decoding does not preserve",
+      "note": "a NaN carrying a payload, which the token cannot tell from any other",
       "input": {
         "bytes": "010000000000f87f"
       },
@@ -63,7 +63,15 @@
       "input": {
         "value": "Infinity"
       },
-      "rules": ["float-ieee754"]
+      "rules": ["float-carries-infinity"]
+    },
+    {
+      "id": "float64-negative-infinity",
+      "note": "the same with the sign bit, which sits at the top of the last byte written",
+      "input": {
+        "value": "-Infinity"
+      },
+      "rules": ["float-carries-infinity", "float-little-endian"]
     }
   ]
 }

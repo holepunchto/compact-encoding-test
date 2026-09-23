@@ -35,9 +35,17 @@
     },
     {
       "id": "float32-negative-zero",
-      "note": "negative zero survives the narrower width too",
+      "note": "negative zero written at the narrower width",
       "input": {
         "value": "-0"
+      },
+      "rules": ["float-negative-zero"]
+    },
+    {
+      "id": "float32-negative-zero-decode",
+      "note": "those bytes read back, so the rule holds at this width in both directions",
+      "input": {
+        "bytes": "00000080"
       },
       "rules": ["float-negative-zero"]
     }
