@@ -18,6 +18,14 @@
       "rules": ["float32-rounds-to-nearest"]
     },
     {
+      "id": "float32-rounds-decode",
+      "note": "those bytes read back, showing what the rounding cost",
+      "input": {
+        "bytes": "cdcccc3d"
+      },
+      "rules": ["float32-rounds-to-nearest"]
+    },
+    {
       "id": "float32-rounds-integer",
       "note": "the first integer binary32 cannot hold, which lands on its neighbour",
       "input": {

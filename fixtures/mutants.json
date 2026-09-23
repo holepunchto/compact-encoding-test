@@ -375,5 +375,14 @@
     "answer": {
       "refused": true
     }
+  },
+  {
+    "rule": "float32-rounds-to-nearest",
+    "reading": "a decoder returns the decimal the value was written from",
+    "fixture": "float32-rounds-decode",
+    "answer": {
+      "decodes": 0.1,
+      "read": 4
+    }
   }
 ]

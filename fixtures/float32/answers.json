@@ -5,6 +5,10 @@
   "float32-rounds": {
     "hex": "cdcccc3d"
   },
+  "float32-rounds-decode": {
+    "decodes": 0.10000000149011612,
+    "read": 4
+  },
   "float32-rounds-integer": {
     "hex": "0000804b"
   },
