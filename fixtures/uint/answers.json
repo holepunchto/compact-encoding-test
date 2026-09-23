@@ -43,5 +43,8 @@
   },
   "uint-decode-ceiling": {
     "rejects": true
+  },
+  "uint-trailing-bytes": {
+    "decodes": 1
   }
 }

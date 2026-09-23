@@ -32,6 +32,14 @@
         "value": -1
       },
       "rules": ["unsigned-refuses-negative"]
+    },
+    {
+      "id": "uint8-trailing-bytes",
+      "note": "a byte after the width is satisfied",
+      "input": {
+        "bytes": "0161"
+      },
+      "rules": ["decode-consumes-its-form"]
     }
   ]
 }

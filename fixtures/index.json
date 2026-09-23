@@ -86,7 +86,8 @@
       "uint-overlong-uint32",
       "uint-truncated-prefix",
       "uint-negative",
-      "uint-decode-ceiling"
+      "uint-decode-ceiling",
+      "uint-trailing-bytes"
     ],
     "uint16": [
       "uint16-byte-order",
@@ -125,7 +126,8 @@
       "uint8-value",
       "uint8-max",
       "uint8-truncates",
-      "uint8-negative"
+      "uint8-negative",
+      "uint8-trailing-bytes"
     ]
   },
   "big-endian-integers": {
