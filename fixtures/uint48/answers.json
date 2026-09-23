@@ -6,6 +6,7 @@
     "hex": "ffffffffffff"
   },
   "uint48-decode-max": {
-    "decodes": 281474976710655
+    "decodes": 281474976710655,
+    "read": 6
   }
 }

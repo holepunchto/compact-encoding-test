@@ -18,7 +18,8 @@
     "hex": "03efbfbd"
   },
   "utf8-invalid-bytes": {
-    "decodes": "\ufffd("
+    "decodes": "\ufffd(",
+    "read": 3
   },
   "utf8-short-input": {
     "rejects": true
@@ -27,21 +28,27 @@
     "rejects": true
   },
   "utf8-trailing-bytes": {
-    "decodes": "abc"
+    "decodes": "abc",
+    "read": 4
   },
   "utf8-overlong": {
-    "decodes": "\ufffd\ufffd"
+    "decodes": "\ufffd\ufffd",
+    "read": 3
   },
   "utf8-encoded-surrogate": {
-    "decodes": "\ufffd\ufffd\ufffd"
+    "decodes": "\ufffd\ufffd\ufffd",
+    "read": 4
   },
   "utf8-above-max-code-point": {
-    "decodes": "\ufffd\ufffd\ufffd\ufffd"
+    "decodes": "\ufffd\ufffd\ufffd\ufffd",
+    "read": 5
   },
   "utf8-subpart-completable": {
-    "decodes": "\ufffda"
+    "decodes": "\ufffda",
+    "read": 4
   },
   "utf8-subpart-uncompletable": {
-    "decodes": "\ufffd\ufffdA"
+    "decodes": "\ufffd\ufffdA",
+    "read": 4
   }
 }

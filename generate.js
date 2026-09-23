@@ -31,7 +31,8 @@ function decode(codec, hex) {
 
   const state = { buffer, start: 0, end: buffer.length }
   try {
-    return { decodes: codec.decode(state) }
+    const value = codec.decode(state)
+    return { decodes: value, read: state.start }
   } catch {
     return { rejects: true }
   }
