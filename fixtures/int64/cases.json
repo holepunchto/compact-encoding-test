@@ -22,6 +22,14 @@
       "rules": ["decode-ceiling"]
     },
     {
+      "id": "int64-ceiling-before-unzigzag",
+      "note": "a reading one past the ceiling, which unzigzags to a value the ceiling would admit",
+      "input": {
+        "bytes": "0000000000000020"
+      },
+      "rules": ["decode-ceiling"]
+    },
+    {
       "id": "int64-past-range",
       "note": "one past the largest, refused however wide the codec is",
       "input": {
