@@ -106,6 +106,14 @@
       "rules": ["uint-truncated-rejected"]
     },
     {
+      "id": "uint-empty-input",
+      "note": "no bytes at all, so not even the first byte of a form",
+      "input": {
+        "bytes": ""
+      },
+      "rules": ["uint-truncated-rejected"]
+    },
+    {
       "id": "uint-negative",
       "note": "a negative handed to the varint form, which has no width to wrap into",
       "input": {

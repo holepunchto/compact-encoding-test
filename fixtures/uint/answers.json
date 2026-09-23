@@ -38,6 +38,9 @@
   "uint-truncated-prefix": {
     "rejects": true
   },
+  "uint-empty-input": {
+    "rejects": true
+  },
   "uint-negative": {
     "refused": true
   },

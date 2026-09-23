@@ -85,6 +85,7 @@
       "uint-overlong-uint16",
       "uint-overlong-uint32",
       "uint-truncated-prefix",
+      "uint-empty-input",
       "uint-negative",
       "uint-decode-ceiling"
     ],
@@ -135,7 +136,8 @@
     "intbe": [],
     "uint16be": [],
     "uint32be": [
-      "uint32be-byte-order"
+      "uint32be-byte-order",
+      "uint32be-short-input"
     ],
     "uint64be": [
       "uint64be-byte-order",

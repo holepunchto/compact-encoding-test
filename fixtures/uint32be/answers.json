@@ -1,5 +1,8 @@
 {
   "uint32be-byte-order": {
     "hex": "01020304"
+  },
+  "uint32be-short-input": {
+    "rejects": true
   }
 }
