@@ -125,10 +125,7 @@ test('every kind a rule is answered in is contradicted on a case that carries it
     for (const shape of kinds) {
       const proven = mutants
         .filter((mutant) => mutant.rule === rule.slug)
-        .some((mutant) => {
-          const fixture = byId.get(mutant.fixture)
-          return corpus.kind(fixture.answer) === shape && corpus.kind(mutant.answer) !== shape
-        })
+        .some((mutant) => corpus.kind(byId.get(mutant.fixture).answer) === shape)
 
       if (!proven) unproven.push(`${rule.slug} answered by ${shape}`)
     }

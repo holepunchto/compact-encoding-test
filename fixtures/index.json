@@ -28,6 +28,7 @@
     "float32": [
       "float32-one",
       "float32-rounds",
+      "float32-rounds-decode",
       "float32-rounds-integer",
       "float32-nan",
       "float32-negative-zero",
