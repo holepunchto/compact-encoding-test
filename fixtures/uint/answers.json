@@ -30,10 +30,12 @@
     "hex": "ffffffffffffff1f00"
   },
   "uint-overlong-uint16": {
-    "decodes": 1
+    "decodes": 1,
+    "read": 3
   },
   "uint-overlong-uint32": {
-    "decodes": 1
+    "decodes": 1,
+    "read": 5
   },
   "uint-truncated-prefix": {
     "rejects": true
@@ -48,6 +50,7 @@
     "rejects": true
   },
   "uint-trailing-bytes": {
-    "decodes": 1
+    "decodes": 1,
+    "read": 1
   }
 }

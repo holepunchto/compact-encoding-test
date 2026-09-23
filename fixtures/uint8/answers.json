@@ -12,6 +12,7 @@
     "refused": true
   },
   "uint8-trailing-bytes": {
-    "decodes": 1
+    "decodes": 1,
+    "read": 1
   }
 }

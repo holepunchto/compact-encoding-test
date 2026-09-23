@@ -8,7 +8,7 @@ Normative references: RFC 3629 (STD 63) for UTF-8, and the Unicode Standard, Ver
 
 Each rule carries a stable slug id, and every case under `fixtures/` names the rule slugs it exercises. A rule with no citing case fails the corpus build, so a rule cannot ship unchecked. A rule is marked `delegated`, in this document and in the capability taxonomy both, where another reasonable implementation would choose differently: the document states what the reference does, and says what the other choice would be, because a port reasoning from first principles will make it. The marker is a warning to copy rather than to reason. It does not mean a rule is vague - a rule this document cannot state is a rule with no case behind it, and the build refuses that.
 
-A case carries an input and the corpus carries its answer beside it, in `answers.json`, keyed by the case id. The input says which question the case asks. A `value` asks what it encodes to, answered by `hex` or by `refused` where the codec will not encode the value. `bytes` ask what a decoder makes of them, answered by `decodes` or by `rejects`.
+A case carries an input and the corpus carries its answer beside it, in `answers.json`, keyed by the case id. The input says which question the case asks. A `value` asks what it encodes to, answered by `hex` or by `refused` where the codec will not encode the value. `bytes` ask what a decoder makes of them, answered by `decodes` or by `rejects`. A `decodes` answer carries `read` beside it, the count of bytes the decoder took, so where a decoder stopped is part of the answer rather than something the corpus cannot see.
 
 The fixtures are JSON (RFC 8259). A `value` is a number where the codec carries one and a sequence of UTF-16 code units where it carries text, rather than a sequence of code points: `\ud800` is a single code unit, a surrogate with nothing after it to pair with. UTF-16 is Section 3.9 of the Unicode Standard and the surrogates it pairs are Section 3.8, which between them say which code units are surrogates and when two of them pair. A `decodes` answer is a value of the same two kinds, while `bytes` and `hex` are bytes written as pairs of hex digits. Every code unit outside ASCII is written as a `\uXXXX` escape, in the cases and the answers both.
 
@@ -40,7 +40,7 @@ A value that is not an integer is outside what these rules define. The reference
 
 A decoder reads from a buffer it does not own the end of, so how it treats what it was not asked for is part of the contract.
 
-- `decode-consumes-its-form` - a decoder given more bytes than its form needs returns what the leading bytes carry rather than rejecting the input: `uint` given `0161` returns 1, and `uint8` does the same. The reference stops at the end of its own form, leaving `61` for whoever reads next, but no case tells that apart from a decoder that reads to the end of the buffer and returns the same value, because an answer records what came back and not how far the reading went.
+- `decode-consumes-its-form` - a decoder reads the bytes its own form needs and leaves the rest where they are, rather than rejecting input that carries more. `uint` given `0161` returns 1 and stops after one byte, leaving `61` for whoever reads next, and `uint8` does the same, so a caller reading two values from one buffer gets the second one. An overlong form is read whole: `uint` takes all three bytes of `fd0100`.
 
 ## Fixed-width integers
 

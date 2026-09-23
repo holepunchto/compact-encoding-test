@@ -57,6 +57,16 @@ test('case ids are unique across the corpus', (t) => {
   t.alike(repeated, [], 'no id is claimed twice')
 })
 
+test('every decoded answer records how far the reading went', (t) => {
+  const silent = corpus
+    .allFixtures()
+    .filter((fixture) => corpus.kind(fixture.answer) === 'decodes')
+    .filter((fixture) => !Number.isInteger(fixture.answer.read))
+    .map((fixture) => fixture.id)
+
+  t.alike(silent, [], 'a decoded answer says how many bytes the decoder took')
+})
+
 test('a codec with no cases says why', (t) => {
   const silent = corpus
     .codecs()

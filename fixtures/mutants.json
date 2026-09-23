@@ -294,5 +294,14 @@
     "answer": {
       "rejects": true
     }
+  },
+  {
+    "rule": "decode-consumes-its-form",
+    "reading": "a decoder reads to the end of the buffer rather than stopping at its own form",
+    "fixture": "uint-trailing-bytes",
+    "answer": {
+      "decodes": 1,
+      "read": 2
+    }
   }
 ]
