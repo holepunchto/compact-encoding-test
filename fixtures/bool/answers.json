@@ -1,0 +1,12 @@
+{
+  "bool-true": {
+    "hex": "01"
+  },
+  "bool-false": {
+    "hex": "00"
+  },
+  "bool-other-byte": {
+    "decodes": false,
+    "read": 1
+  }
+}

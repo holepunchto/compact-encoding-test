@@ -1,0 +1,37 @@
+{
+  "category": "buffers",
+  "cases": [
+    {
+      "id": "optionalBuffer-bytes",
+      "note": "a buffer that is there, counted and written as buffer does it",
+      "input": {
+        "value": "616263"
+      },
+      "rules": ["buffer-count-then-bytes"]
+    },
+    {
+      "id": "optionalBuffer-absent",
+      "note": "nothing at all, which is a count of zero",
+      "input": {
+        "value": null
+      },
+      "rules": ["optional-buffer-zero-is-absent"]
+    },
+    {
+      "id": "optionalBuffer-empty",
+      "note": "an empty buffer, which writes the same byte absence does",
+      "input": {
+        "value": ""
+      },
+      "rules": ["optional-buffer-zero-is-absent"]
+    },
+    {
+      "id": "optionalBuffer-zero-decode",
+      "note": "that byte read back, which is an absence whichever of the two wrote it",
+      "input": {
+        "bytes": "00"
+      },
+      "rules": ["optional-buffer-zero-is-absent"]
+    }
+  ]
+}

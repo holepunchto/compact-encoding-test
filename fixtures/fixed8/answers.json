@@ -1,0 +1,11 @@
+{
+  "fixed8-bytes": {
+    "hex": "0102030405060708"
+  },
+  "fixed8-wrong-size": {
+    "refused": true
+  },
+  "fixed8-short-input": {
+    "rejects": true
+  }
+}

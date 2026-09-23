@@ -24,6 +24,36 @@
       "utf8-subpart-uncompletable"
     ]
   },
+  "booleans": {
+    "bool": [
+      "bool-true",
+      "bool-false",
+      "bool-other-byte"
+    ]
+  },
+  "buffers": {
+    "buffer": [
+      "buffer-bytes",
+      "buffer-empty",
+      "buffer-empty-decode"
+    ],
+    "fixed8": [
+      "fixed8-bytes",
+      "fixed8-wrong-size",
+      "fixed8-short-input"
+    ],
+    "none": [],
+    "optionalBuffer": [
+      "optionalBuffer-bytes",
+      "optionalBuffer-absent",
+      "optionalBuffer-empty",
+      "optionalBuffer-zero-decode"
+    ],
+    "raw": [
+      "raw-bytes",
+      "raw-decode"
+    ]
+  },
   "floats": {
     "float32": [
       "float32-one",

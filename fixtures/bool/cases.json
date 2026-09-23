@@ -1,0 +1,29 @@
+{
+  "category": "booleans",
+  "cases": [
+    {
+      "id": "bool-true",
+      "note": "true, the one byte a decoder reads as true",
+      "input": {
+        "value": true
+      },
+      "rules": ["bool-single-byte"]
+    },
+    {
+      "id": "bool-false",
+      "note": "false, which is the zero byte",
+      "input": {
+        "value": false
+      },
+      "rules": ["bool-single-byte"]
+    },
+    {
+      "id": "bool-other-byte",
+      "note": "a byte an encoder never writes, which is not an error and is not true",
+      "input": {
+        "bytes": "02"
+      },
+      "rules": ["bool-only-one-is-true"]
+    }
+  ]
+}

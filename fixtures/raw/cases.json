@@ -1,0 +1,21 @@
+{
+  "category": "buffers",
+  "cases": [
+    {
+      "id": "raw-bytes",
+      "note": "the bytes alone, with nothing announcing them",
+      "input": {
+        "value": "616263"
+      },
+      "rules": ["raw-no-count"]
+    },
+    {
+      "id": "raw-decode",
+      "note": "a decoder takes everything left rather than a form of its own",
+      "input": {
+        "bytes": "616263"
+      },
+      "rules": ["raw-takes-the-rest"]
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "raw-bytes": {
+    "hex": "616263"
+  },
+  "raw-decode": {
+    "decodes": "616263",
+    "read": 3
+  }
+}

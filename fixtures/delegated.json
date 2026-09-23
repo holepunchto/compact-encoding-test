@@ -3,5 +3,7 @@
   "utf8-replaces-unpaired-surrogate",
   "utf8-replaces-invalid-bytes",
   "float-nan-pattern",
-  "float-negative-zero"
+  "float-negative-zero",
+  "bool-only-one-is-true",
+  "optional-buffer-zero-is-absent"
 ]
