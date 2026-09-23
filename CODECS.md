@@ -4,6 +4,8 @@ This document is the normative definition of the codecs in `compact-encoding`. I
 
 Reference implementation: `compact-encoding` 3.5.0.
 
+Normative references: RFC 3629 (STD 63) for UTF-8, and the Unicode Standard, Version 18.0, for UTF-16, for surrogates and for the substitution of maximal subparts. A section number below is a section of that edition.
+
 Each rule carries a stable slug id, and every case under `fixtures/` names the rule slugs it exercises. A rule with no citing case fails the corpus build, so a rule cannot ship unchecked. A rule is marked `delegated`, in this document and in the capability taxonomy both, where another reasonable implementation would choose differently: the document states what the reference does, and says what the other choice would be, because a port reasoning from first principles will make it. The marker is a warning to copy rather than to reason. It does not mean a rule is vague - a rule this document cannot state is a rule with no case behind it, and the build refuses that.
 
 A case carries an input and the corpus carries its answer beside it, in `answers.json`, keyed by the case id. The input says which question the case asks. A `value` asks what it encodes to, answered by `hex` or by `refused` where the codec will not encode the value. `bytes` ask what a decoder makes of them, answered by `decodes` or by `rejects`.
