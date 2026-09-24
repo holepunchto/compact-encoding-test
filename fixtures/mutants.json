@@ -439,15 +439,15 @@
   {
     "rule": "fixed-no-count",
     "reading": "a fixed codec counts its bytes first, as buffer does",
-    "fixture": "fixed8-bytes",
+    "fixture": "fixed-8-bytes",
     "answer": {
       "hex": "080102030405060708"
     }
   },
   {
     "rule": "fixed-width-in-bytes",
-    "reading": "fixedN carries N bits, so fixed8 is one byte and refuses eight",
-    "fixture": "fixed8-bytes",
+    "reading": "fixedN carries N bits, so eight bytes are refused at a width of eight",
+    "fixture": "fixed-8-bytes",
     "answer": {
       "refused": true
     }
@@ -455,7 +455,7 @@
   {
     "rule": "fixed-refuses-wrong-size",
     "reading": "a buffer narrower than the width is padded out to it",
-    "fixture": "fixed8-wrong-size",
+    "fixture": "fixed-8-wrong-size",
     "answer": {
       "hex": "0102000000000000"
     }

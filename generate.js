@@ -52,14 +52,23 @@ function json(value) {
   return text + '\n'
 }
 
+function build(declaration) {
+  if (typeof declaration === 'number') return declaration
+
+  const built = (declaration.of || []).map(build)
+  const named = c[declaration.name]
+
+  return built.length === 0 ? named : named(...built)
+}
+
 function generate() {
   const files = {}
   const capabilities = {}
 
   for (const name of codecs()) {
-    const { category, cases } = loadCases(name)
+    const { category, cases, codec: declaration } = loadCases(name)
 
-    const codec = c[name]
+    const codec = build(declaration || { name })
     const usable = codec !== undefined && typeof codec.preencode === 'function'
     if (!usable && cases.length > 0) {
       throw new Error(`the reference has no codec named ${name}`)

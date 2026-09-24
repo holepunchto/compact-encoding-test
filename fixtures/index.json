@@ -37,10 +37,14 @@
       "buffer-empty",
       "buffer-empty-decode"
     ],
-    "fixed8": [
-      "fixed8-bytes",
-      "fixed8-wrong-size",
-      "fixed8-short-input"
+    "fixed-3": [
+      "fixed-3-bytes",
+      "fixed-3-wrong-size"
+    ],
+    "fixed-8": [
+      "fixed-8-bytes",
+      "fixed-8-wrong-size",
+      "fixed-8-short-input"
     ],
     "none": [],
     "optionalBuffer": [
