@@ -1,0 +1,5 @@
+{
+  "category": "typed-arrays",
+  "reason": "the reference implements it and no other implementation does; libcompact carries only the uint8 array",
+  "cases": []
+}

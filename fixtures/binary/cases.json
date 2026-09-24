@@ -1,0 +1,5 @@
+{
+  "category": "buffers",
+  "reason": "the reference implements it and no other implementation does; it writes what buffer writes",
+  "cases": []
+}

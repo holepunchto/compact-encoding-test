@@ -1,0 +1,5 @@
+{
+  "category": "big-integers",
+  "reason": "the reference carries it as a BigInt and no other implementation has an equivalent",
+  "cases": []
+}
