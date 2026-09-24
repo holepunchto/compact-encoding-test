@@ -10,10 +10,7 @@
   },
   "exports": {
     "./package": "./package.json",
-    ".": {
-      "types": "./index.d.ts",
-      "default": "./index.js"
-    }
+    ".": "./index.js"
   },
   "imports": {
     "fs": {
@@ -27,7 +24,6 @@
   },
   "files": [
     "index.js",
-    "index.d.ts",
     "CODECS.md",
     "fixtures",
     "NOTICE"
