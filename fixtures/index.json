@@ -1,4 +1,10 @@
 {
+  "documents": {
+    "any": [],
+    "date": [],
+    "json": [],
+    "ndjson": []
+  },
   "combinators": {
     "array-uint": [
       "array-uint-empty",
@@ -21,7 +27,21 @@
       "record-utf8-uint-decode",
       "record-utf8-uint-repeated-key",
       "record-utf8-uint-key-order"
-    ]
+    ],
+    "stringRecord": []
+  },
+  "typed-arrays": {
+    "arraybuffer": [],
+    "bigint64array": [],
+    "biguint64array": [],
+    "bitarray": [],
+    "float32array": [],
+    "float64array": [],
+    "int16array": [],
+    "int32array": [],
+    "int8array": [],
+    "uint16array": [],
+    "uint32array": []
   },
   "strings": {
     "ascii": [],
@@ -48,14 +68,14 @@
       "utf8-subpart-uncompletable"
     ]
   },
-  "booleans": {
-    "bool": [
-      "bool-true",
-      "bool-false",
-      "bool-other-byte"
-    ]
+  "big-integers": {
+    "bigint": [],
+    "bigint64": [],
+    "biguint": [],
+    "biguint64": []
   },
   "buffers": {
+    "binary": [],
     "buffer": [
       "buffer-bytes",
       "buffer-empty",
@@ -101,6 +121,13 @@
       "uint8array-bytes",
       "uint8array-empty",
       "uint8array-decode"
+    ]
+  },
+  "booleans": {
+    "bool": [
+      "bool-true",
+      "bool-false",
+      "bool-other-byte"
     ]
   },
   "floats": {
@@ -172,6 +199,7 @@
       "int8-truncates",
       "int8-signed-max"
     ],
+    "lexint": [],
     "uint": [
       "uint-zero",
       "uint-one",
@@ -247,5 +275,14 @@
       "uint64be-decode-ceiling"
     ],
     "uintbe": []
+  },
+  "network-addresses": {
+    "ip": [],
+    "ipAddress": [],
+    "ipv4": [],
+    "ipv4Address": [],
+    "ipv6": [],
+    "ipv6Address": [],
+    "port": []
   }
 }

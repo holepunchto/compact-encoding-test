@@ -1,0 +1,6 @@
+{
+  "category": "network-addresses",
+  "reason": "the reference implements it and no other implementation does",
+  "implementations": ["javascript"],
+  "cases": []
+}

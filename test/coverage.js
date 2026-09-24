@@ -1,4 +1,5 @@
 const test = require('brittle')
+const c = require('compact-encoding')
 const corpus = require('../lib/corpus')
 const { rules, ruleSlugs, malformed } = require('../lib/spec')
 
@@ -121,6 +122,49 @@ function carrier(declaration) {
 function carries(category, declaration) {
   return declaration ? carrier(declaration) : CARRIES[category] || Number.isFinite
 }
+
+test('the taxonomy accounts for every codec the reference exports', (t) => {
+  const accounted = new Set()
+
+  for (const name of corpus.codecs()) {
+    const { codec } = corpus.loadCases(name)
+    accounted.add(name)
+    if (codec) accounted.add(slug(codec).replace(/-/g, ''))
+  }
+
+  const absent = Object.keys(c)
+    .filter((name) => typeof c[name]?.preencode === 'function')
+    .filter((name) => !accounted.has(name))
+
+  t.alike(absent, [], 'a codec the reference exports is covered or recorded with a reason')
+})
+
+test('every codec the reference exports is a codec or a helper the corpus knows', (t) => {
+  const helpers = new Set([
+    'state',
+    'from',
+    'encode',
+    'decode',
+    'array',
+    'fixed',
+    'frame',
+    'record'
+  ])
+  const unknown = Object.keys(c)
+    .filter((name) => typeof c[name] === 'function')
+    .filter((name) => !helpers.has(name))
+
+  t.alike(unknown, [], 'a helper the reference grows is named here rather than passing unseen')
+})
+
+test('a codec with no cases says which implementations carry it', (t) => {
+  const silent = corpus
+    .codecs()
+    .filter((name) => corpus.loadCases(name).cases.length === 0)
+    .filter((name) => !Array.isArray(corpus.loadCases(name).implementations))
+
+  t.alike(silent, [], 'a codec the corpus does not cover names the implementations that have it')
+})
 
 test('every case states one well-formed input', (t) => {
   const HEX = /^([0-9a-f][0-9a-f])*$/

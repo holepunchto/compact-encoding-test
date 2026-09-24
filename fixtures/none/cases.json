@@ -1,5 +1,6 @@
 {
   "category": "buffers",
   "reason": "it carries no value, so a case could only restate that it writes nothing",
+  "implementations": ["javascript"],
   "cases": []
 }

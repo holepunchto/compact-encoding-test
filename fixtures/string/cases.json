@@ -1,5 +1,6 @@
 {
   "category": "strings",
   "reason": "another name for utf8, which this corpus covers",
+  "implementations": ["javascript"],
   "cases": []
 }

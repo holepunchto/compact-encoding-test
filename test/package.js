@@ -1,18 +1,19 @@
 const test = require('brittle')
 const fs = require('fs')
 const path = require('path')
-const corpus = require('..')
-const { allFixtures, capabilities } = require('../lib/corpus')
+const { fixturesDir, specPath } = require('..')
+const corpus = require('../lib/corpus')
+const { allFixtures, capabilities } = corpus
 const { pinned } = require('../lib/spec')
 const { devDependencies } = require('../package.json')
 
 test('the fixtures are installed', (t) => {
-  t.ok(fs.existsSync(path.join(corpus.fixturesDir, 'index.json')), 'the corpus ships a taxonomy')
+  t.ok(fs.existsSync(path.join(fixturesDir, 'index.json')), 'the corpus ships a taxonomy')
   t.ok(allFixtures().length > 0, 'the corpus ships fixtures')
 })
 
 test('the specification ships alongside the fixtures', (t) => {
-  t.ok(fs.existsSync(corpus.specPath), 'CODECS.md exists')
+  t.ok(fs.existsSync(specPath), 'CODECS.md exists')
 })
 
 test('the specification pins the reference the fixtures were generated from', (t) => {

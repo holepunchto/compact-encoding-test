@@ -1,0 +1,6 @@
+{
+  "category": "documents",
+  "reason": "excluded deliberately: it is JSON.stringify behind a length prefix, so it carries JavaScript object insertion order and the dropping of undefined into the bytes, and libcompact does not implement it",
+  "implementations": ["javascript", "python", "swift"],
+  "cases": []
+}

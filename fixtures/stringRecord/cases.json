@@ -1,0 +1,6 @@
+{
+  "category": "combinators",
+  "reason": "a record built on utf8 for both halves, which the record rules already state; the other implementations carry the parts rather than this name",
+  "implementations": ["javascript"],
+  "cases": []
+}
