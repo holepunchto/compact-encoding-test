@@ -1,0 +1,12 @@
+{
+  "uint8array-bytes": {
+    "hex": "03616263"
+  },
+  "uint8array-empty": {
+    "hex": "00"
+  },
+  "uint8array-decode": {
+    "decodes": "616263",
+    "read": 4
+  }
+}

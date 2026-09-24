@@ -1,0 +1,25 @@
+{
+  "category": "buffers",
+  "codec": {
+    "name": "fixed",
+    "of": [32]
+  },
+  "cases": [
+    {
+      "id": "fixed-32-bytes",
+      "note": "32 bytes written as they are, at the width the reference exports as fixed32",
+      "input": {
+        "value": "0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20"
+      },
+      "rules": ["fixed-no-count", "fixed-width-in-bytes"]
+    },
+    {
+      "id": "fixed-32-wrong-size",
+      "note": "one byte short of the width the codec was built for",
+      "input": {
+        "value": "0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f"
+      },
+      "rules": ["fixed-refuses-wrong-size"]
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "fixed-16-bytes": {
+    "hex": "0102030405060708090a0b0c0d0e0f10"
+  },
+  "fixed-16-wrong-size": {
+    "refused": true
+  }
+}

@@ -61,9 +61,25 @@
       "buffer-empty",
       "buffer-empty-decode"
     ],
+    "fixed-16": [
+      "fixed-16-bytes",
+      "fixed-16-wrong-size"
+    ],
+    "fixed-24": [
+      "fixed-24-bytes",
+      "fixed-24-wrong-size"
+    ],
     "fixed-3": [
       "fixed-3-bytes",
       "fixed-3-wrong-size"
+    ],
+    "fixed-32": [
+      "fixed-32-bytes",
+      "fixed-32-wrong-size"
+    ],
+    "fixed-64": [
+      "fixed-64-bytes",
+      "fixed-64-wrong-size"
     ],
     "fixed-8": [
       "fixed-8-bytes",
@@ -80,6 +96,11 @@
     "raw": [
       "raw-bytes",
       "raw-decode"
+    ],
+    "uint8array": [
+      "uint8array-bytes",
+      "uint8array-empty",
+      "uint8array-decode"
     ]
   },
   "floats": {

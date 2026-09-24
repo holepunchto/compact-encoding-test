@@ -583,5 +583,14 @@
     "answer": {
       "hex": "02016101016202"
     }
+  },
+  {
+    "rule": "buffer-count-then-bytes",
+    "reading": "the count is a byte of the buffer like any other, so it comes back with them",
+    "fixture": "uint8array-decode",
+    "answer": {
+      "decodes": "03616263",
+      "read": 4
+    }
   }
 ]
