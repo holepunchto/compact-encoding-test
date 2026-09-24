@@ -5,5 +5,7 @@
   "float-nan-pattern",
   "float-negative-zero",
   "bool-only-one-is-true",
-  "optional-buffer-zero-is-absent"
+  "optional-buffer-zero-is-absent",
+  "record-last-pair-wins",
+  "record-key-order-follows-the-value"
 ]

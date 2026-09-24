@@ -106,8 +106,20 @@ const CARRIES = {
   buffers: (value) => value === null || (typeof value === 'string' && BYTES.test(value))
 }
 
-function carries(category) {
-  return CARRIES[category] || Number.isFinite
+const BUILDS = {
+  array: () => Array.isArray,
+  record: () => (value) => value !== null && typeof value === 'object',
+  fixed: () => CARRIES.buffers,
+  frame: (declaration) => carrier(declaration.of[0])
+}
+
+function carrier(declaration) {
+  const build = BUILDS[declaration.name]
+  return build ? build(declaration) : carries(corpus.loadCases(declaration.name).category)
+}
+
+function carries(category, declaration) {
+  return declaration ? carrier(declaration) : CARRIES[category] || Number.isFinite
 }
 
 test('every case states one well-formed input', (t) => {
@@ -115,14 +127,17 @@ test('every case states one well-formed input', (t) => {
   const malformed = []
 
   for (const name of corpus.codecs()) {
-    const { category, cases } = corpus.loadCases(name)
+    const { category, cases, codec: declaration } = corpus.loadCases(name)
 
     for (const example of cases) {
       const keys = Object.keys(example.input)
 
       if (keys.length !== 1) {
         malformed.push(`${example.id}: states ${keys.length} inputs`)
-      } else if (example.input.value !== undefined && !carries(category)(example.input.value)) {
+      } else if (
+        example.input.value !== undefined &&
+        !carries(category, declaration)(example.input.value)
+      ) {
         malformed.push(`${example.id}: states a value the ${category} do not carry`)
       } else if (example.input.bytes !== undefined && !HEX.test(example.input.bytes)) {
         malformed.push(`${example.id}: states bytes that are not hex`)

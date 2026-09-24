@@ -1,0 +1,25 @@
+{
+  "array-uint-empty": {
+    "hex": "00"
+  },
+  "array-uint-three": {
+    "hex": "03010203"
+  },
+  "array-uint-wide-element": {
+    "hex": "01fdfd00"
+  },
+  "array-uint-decode": {
+    "decodes": [
+      1,
+      2,
+      3
+    ],
+    "read": 4
+  },
+  "array-uint-short-input": {
+    "rejects": true
+  },
+  "array-uint-impossible-count": {
+    "rejects": true
+  }
+}

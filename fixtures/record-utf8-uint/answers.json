@@ -1,0 +1,26 @@
+{
+  "record-utf8-uint-empty": {
+    "hex": "00"
+  },
+  "record-utf8-uint-one-pair": {
+    "hex": "01016101"
+  },
+  "record-utf8-uint-two-pairs": {
+    "hex": "02016101016202"
+  },
+  "record-utf8-uint-decode": {
+    "decodes": {
+      "a": 1
+    },
+    "read": 4
+  },
+  "record-utf8-uint-repeated-key": {
+    "decodes": {
+      "a": 2
+    },
+    "read": 7
+  },
+  "record-utf8-uint-key-order": {
+    "hex": "02016202016101"
+  }
+}

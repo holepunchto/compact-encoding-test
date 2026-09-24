@@ -1,4 +1,28 @@
 {
+  "combinators": {
+    "array-uint": [
+      "array-uint-empty",
+      "array-uint-three",
+      "array-uint-wide-element",
+      "array-uint-decode",
+      "array-uint-short-input",
+      "array-uint-impossible-count"
+    ],
+    "frame-uint": [
+      "frame-uint-value",
+      "frame-uint-wide-value",
+      "frame-uint-slack",
+      "frame-uint-bounds"
+    ],
+    "record-utf8-uint": [
+      "record-utf8-uint-empty",
+      "record-utf8-uint-one-pair",
+      "record-utf8-uint-two-pairs",
+      "record-utf8-uint-decode",
+      "record-utf8-uint-repeated-key",
+      "record-utf8-uint-key-order"
+    ]
+  },
   "strings": {
     "ascii": [],
     "base64": [],

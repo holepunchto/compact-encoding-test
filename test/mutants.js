@@ -13,7 +13,7 @@ function stated(answer) {
   return shape === 'hex'
     ? `bytes ${answer.hex}`
     : shape === 'decodes'
-      ? `decodes ${answer.decodes} after ${answer.read}`
+      ? `decodes ${JSON.stringify(answer.decodes)} after ${answer.read}`
       : shape
 }
 
