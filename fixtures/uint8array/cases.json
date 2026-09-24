@@ -1,0 +1,29 @@
+{
+  "category": "buffers",
+  "cases": [
+    {
+      "id": "uint8array-bytes",
+      "note": "a count by the uint rules, then the bytes, as buffer writes them",
+      "input": {
+        "value": "616263"
+      },
+      "rules": ["buffer-count-then-bytes"]
+    },
+    {
+      "id": "uint8array-empty",
+      "note": "the empty array, a count of zero and nothing after it",
+      "input": {
+        "value": ""
+      },
+      "rules": ["buffer-empty-is-a-count-of-zero"]
+    },
+    {
+      "id": "uint8array-decode",
+      "note": "those bytes read back, the count telling the decoder how many to take",
+      "input": {
+        "bytes": "03616263"
+      },
+      "rules": ["buffer-count-then-bytes"]
+    }
+  ]
+}
