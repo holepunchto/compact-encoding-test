@@ -67,6 +67,27 @@ test('every decoded answer records how far the reading went', (t) => {
   t.alike(silent, [], 'a decoded answer says how many bytes the decoder took')
 })
 
+function slug(declaration) {
+  const parts = [declaration.name]
+
+  for (const built of declaration.of || []) {
+    parts.push(typeof built === 'number' ? String(built) : slug(built))
+  }
+
+  return parts.join('-')
+}
+
+test('a constructed codec is named after what it was built from', (t) => {
+  const misnamed = []
+
+  for (const name of corpus.codecs()) {
+    const { codec } = corpus.loadCases(name)
+    if (codec && slug(codec) !== name) misnamed.push(`${name}: built as ${slug(codec)}`)
+  }
+
+  t.alike(misnamed, [], 'a directory says what its codec was built from')
+})
+
 test('a codec with no cases says why', (t) => {
   const silent = corpus
     .codecs()

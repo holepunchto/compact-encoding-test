@@ -1,0 +1,8 @@
+{
+  "fixed-3-bytes": {
+    "hex": "616263"
+  },
+  "fixed-3-wrong-size": {
+    "refused": true
+  }
+}

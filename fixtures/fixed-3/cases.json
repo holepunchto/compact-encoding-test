@@ -1,0 +1,25 @@
+{
+  "category": "buffers",
+  "codec": {
+    "name": "fixed",
+    "of": [3]
+  },
+  "cases": [
+    {
+      "id": "fixed-3-bytes",
+      "note": "three bytes written as they are, at a width the name does not carry",
+      "input": {
+        "value": "616263"
+      },
+      "rules": ["fixed-no-count", "fixed-width-in-bytes"]
+    },
+    {
+      "id": "fixed-3-wrong-size",
+      "note": "two bytes where the codec was built for three",
+      "input": {
+        "value": "6162"
+      },
+      "rules": ["fixed-refuses-wrong-size"]
+    }
+  ]
+}

@@ -37,6 +37,10 @@
       "buffer-empty",
       "buffer-empty-decode"
     ],
+    "fixed-3": [
+      "fixed-3-bytes",
+      "fixed-3-wrong-size"
+    ],
     "fixed8": [
       "fixed8-bytes",
       "fixed8-wrong-size",
