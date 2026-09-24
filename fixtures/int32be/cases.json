@@ -1,5 +1,6 @@
 {
   "category": "big-endian-integers",
   "reason": "the reference implementation has no int32be; libcompact only",
+  "implementations": ["c"],
   "cases": []
 }

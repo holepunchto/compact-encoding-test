@@ -1,5 +1,6 @@
 {
   "category": "strings",
   "reason": "another name for utf16le, which the reference alone implements",
+  "implementations": ["javascript"],
   "cases": []
 }

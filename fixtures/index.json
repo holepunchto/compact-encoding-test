@@ -3,8 +3,7 @@
     "any": [],
     "date": [],
     "json": [],
-    "ndjson": [],
-    "stringRecord": []
+    "ndjson": []
   },
   "combinators": {
     "array-uint": [
@@ -28,7 +27,8 @@
       "record-utf8-uint-decode",
       "record-utf8-uint-repeated-key",
       "record-utf8-uint-key-order"
-    ]
+    ],
+    "stringRecord": []
   },
   "typed-arrays": {
     "arraybuffer": [],
@@ -72,8 +72,7 @@
     "bigint": [],
     "bigint64": [],
     "biguint": [],
-    "biguint64": [],
-    "lexint": []
+    "biguint64": []
   },
   "buffers": {
     "binary": [],
@@ -200,6 +199,7 @@
       "int8-truncates",
       "int8-signed-max"
     ],
+    "lexint": [],
     "uint": [
       "uint-zero",
       "uint-one",

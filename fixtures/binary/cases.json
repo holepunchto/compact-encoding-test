@@ -1,5 +1,6 @@
 {
   "category": "buffers",
-  "reason": "the reference implements it and no other implementation does; it writes what buffer writes",
+  "reason": "the reference implements it and no other implementation does; it takes a string through utf8 or a buffer through buffer, and no rule here covers a codec that reads its input two ways",
+  "implementations": ["javascript"],
   "cases": []
 }

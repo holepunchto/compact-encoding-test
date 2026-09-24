@@ -1,5 +1,6 @@
 {
-  "category": "big-integers",
-  "reason": "the reference carries it as a BigInt and no other implementation has an equivalent",
+  "category": "integers",
+  "reason": "the reference implements it and no other implementation does",
+  "implementations": ["javascript"],
   "cases": []
 }
