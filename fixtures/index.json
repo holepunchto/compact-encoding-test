@@ -1,4 +1,27 @@
 {
+  "combinators": {
+    "array-uint": [
+      "array-uint-empty",
+      "array-uint-three",
+      "array-uint-wide-element",
+      "array-uint-decode",
+      "array-uint-short-input"
+    ],
+    "frame-uint": [
+      "frame-uint-value",
+      "frame-uint-wide-value",
+      "frame-uint-slack",
+      "frame-uint-bounds",
+      "frame-uint-length-past-end"
+    ],
+    "record-utf8-uint": [
+      "record-empty",
+      "record-one-pair",
+      "record-two-pairs",
+      "record-decode",
+      "record-repeated-key"
+    ]
+  },
   "strings": {
     "ascii": [],
     "base64": [],

@@ -1,0 +1,39 @@
+{
+  "category": "combinators",
+  "codec": {
+    "name": "array",
+    "of": [{ "name": "uint" }]
+  },
+  "cases": [
+    {
+      "id": "array-uint-empty",
+      "note": "an empty array, which is a count of zero and nothing after it",
+      "input": { "value": [] },
+      "rules": ["array-empty-is-a-count-of-zero"]
+    },
+    {
+      "id": "array-uint-three",
+      "note": "three elements each needing one byte, so count and length agree by accident",
+      "input": { "value": [1, 2, 3] },
+      "rules": ["array-count-then-elements"]
+    },
+    {
+      "id": "array-uint-wide-element",
+      "note": "one element needing three bytes, so a count of elements and a count of bytes differ",
+      "input": { "value": [253] },
+      "rules": ["array-count-then-elements"]
+    },
+    {
+      "id": "array-uint-decode",
+      "note": "the elements read back by the element codec, one after another",
+      "input": { "bytes": "03010203" },
+      "rules": ["array-count-then-elements"]
+    },
+    {
+      "id": "array-uint-short-input",
+      "note": "a count of three with one element following",
+      "input": { "bytes": "0301" },
+      "rules": ["array-count-then-elements"]
+    }
+  ]
+}

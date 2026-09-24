@@ -103,7 +103,8 @@ const CARRIES = {
   strings: (value) => typeof value === 'string',
   floats: (value) => Number.isFinite(value) || corpus.tokenised(value),
   booleans: (value) => typeof value === 'boolean',
-  buffers: (value) => value === null || (typeof value === 'string' && BYTES.test(value))
+  buffers: (value) => value === null || (typeof value === 'string' && BYTES.test(value)),
+  combinators: () => true
 }
 
 function carries(category) {

@@ -1,0 +1,23 @@
+{
+  "record-empty": {
+    "hex": "00"
+  },
+  "record-one-pair": {
+    "hex": "01016101"
+  },
+  "record-two-pairs": {
+    "hex": "02016101016202"
+  },
+  "record-decode": {
+    "decodes": {
+      "a": 1
+    },
+    "read": 4
+  },
+  "record-repeated-key": {
+    "decodes": {
+      "a": 2
+    },
+    "read": 7
+  }
+}

@@ -92,6 +92,19 @@ The buffer codecs carry bytes rather than a value read out of them, and differ i
 - `raw-no-count` - `raw` writes its bytes alone, as a fixed codec does, at whatever length the buffer happens to be.
 - `raw-takes-the-rest` - a decoder takes everything from where it starts to the end of the buffer, so `raw` has no form of its own to stop at and reaching the end is what `decode-consumes-its-form` means for it.
 
+## Combinators
+
+A combinator is a codec built from other codecs, and each says how many of something comes first. What that number counts is where they differ.
+
+- `array-count-then-elements` - an array encodes as the number of elements by the `uint` rules, then each element by the codec the array was built from. The count is elements rather than bytes, so `[253]` is `01fdfd00`: one element in three bytes.
+- `array-empty-is-a-count-of-zero` - an empty array is the single byte `00`, as an empty buffer is.
+- `frame-byte-length-then-value` - a frame encodes as the number of bytes its value takes, by the `uint` rules, then the value, so 300 through a frame around `uint` is `03fd2c01` - three bytes rather than one value.
+- `frame-bounds-its-value` - a decoder reads the value inside the length the frame announced and rejects one that would run past it, so `01fd0100` is a rejection although the bytes spell a value the inner codec would otherwise take.
+- `frame-skips-to-its-end` - a decoder leaves off at the end of the frame whatever the value took, so `0305ffff` decodes 5 and consumes four bytes rather than two.
+- `frame-length-unchecked` (delegated) - a frame announcing more bytes than follow it is not rejected: `0501` decodes 1 and leaves the reading past the end of the buffer, where the next read fails instead of this one. An implementation that checks the announced length against what is there rejects, and the two disagree on every truncated frame. <https://github.com/holepunchto/compact-encoding/issues/76> asks whether the check belongs here.
+- `record-count-then-pairs` - a record encodes as the number of pairs by the `uint` rules, then each key and value in turn rather than every key and then every value. The key is written by the codec the record was built from, so a record built on `utf8` writes keys by `utf8-count-then-bytes`, and the value by the other.
+- `record-last-pair-wins` (delegated) - a key that appears twice is not an error and the later pair replaces the earlier, so `02016101016102` decodes to one pair carrying 2. An implementation that rejects a repeated key, or keeps the first, disagrees with the reference on every record that carries one.
+
 ## Strings
 
 `utf8` carries text as a byte count followed by the bytes themselves. `string` is another name for the same codec, not a second one, and the count obeys the `uint` rules above rather than a form of its own.

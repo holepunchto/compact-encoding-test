@@ -476,5 +476,103 @@
       "decodes": "",
       "read": 0
     }
+  },
+  {
+    "rule": "array-count-then-elements",
+    "reading": "the count is the number of bytes the elements take, as a frame counts",
+    "fixture": "array-uint-wide-element",
+    "answer": {
+      "hex": "03fdfd00"
+    }
+  },
+  {
+    "rule": "array-empty-is-a-count-of-zero",
+    "reading": "an empty array writes nothing at all",
+    "fixture": "array-uint-empty",
+    "answer": {
+      "hex": ""
+    }
+  },
+  {
+    "rule": "frame-byte-length-then-value",
+    "reading": "the count is the number of values framed, as an array counts",
+    "fixture": "frame-uint-wide-value",
+    "answer": {
+      "hex": "01fd2c01"
+    }
+  },
+  {
+    "rule": "frame-bounds-its-value",
+    "reading": "a value may run past the length the frame announced",
+    "fixture": "frame-uint-bounds",
+    "answer": {
+      "decodes": 1,
+      "read": 4
+    }
+  },
+  {
+    "rule": "frame-skips-to-its-end",
+    "reading": "a decoder stops where the value ended rather than where the frame does",
+    "fixture": "frame-uint-slack",
+    "answer": {
+      "decodes": 5,
+      "read": 2
+    }
+  },
+  {
+    "rule": "frame-length-unchecked",
+    "reading": "a frame announcing more bytes than follow it is rejected",
+    "fixture": "frame-uint-length-past-end",
+    "answer": {
+      "rejects": true
+    }
+  },
+  {
+    "rule": "record-count-then-pairs",
+    "reading": "every key is written first and then every value",
+    "fixture": "record-two-pairs",
+    "answer": {
+      "hex": "02016101620102"
+    }
+  },
+  {
+    "rule": "record-last-pair-wins",
+    "reading": "the first pair stands and a later one for the same key is ignored",
+    "fixture": "record-repeated-key",
+    "answer": {
+      "decodes": {
+        "a": 1
+      },
+      "read": 7
+    }
+  },
+  {
+    "rule": "array-count-then-elements",
+    "reading": "the count stands as an element of its own as well as a count",
+    "fixture": "array-uint-decode",
+    "answer": {
+      "decodes": [3, 1, 2, 3],
+      "read": 4
+    }
+  },
+  {
+    "rule": "array-count-then-elements",
+    "reading": "a decoder returns the elements it managed to read rather than rejecting",
+    "fixture": "array-uint-short-input",
+    "answer": {
+      "decodes": [1],
+      "read": 2
+    }
+  },
+  {
+    "rule": "record-count-then-pairs",
+    "reading": "the count is a number of values rather than of pairs, so a key is read as a value",
+    "fixture": "record-decode",
+    "answer": {
+      "decodes": {
+        "a": 1
+      },
+      "read": 2
+    }
   }
 ]

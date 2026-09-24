@@ -1,0 +1,19 @@
+{
+  "frame-uint-value": {
+    "hex": "0105"
+  },
+  "frame-uint-wide-value": {
+    "hex": "03fd2c01"
+  },
+  "frame-uint-slack": {
+    "decodes": 5,
+    "read": 4
+  },
+  "frame-uint-bounds": {
+    "rejects": true
+  },
+  "frame-uint-length-past-end": {
+    "decodes": 1,
+    "read": 6
+  }
+}

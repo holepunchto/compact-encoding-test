@@ -1,0 +1,53 @@
+{
+  "category": "combinators",
+  "codec": {
+    "name": "frame",
+    "of": [
+      {
+        "name": "uint"
+      }
+    ]
+  },
+  "cases": [
+    {
+      "id": "frame-uint-value",
+      "note": "a value needing one byte, announced as one byte",
+      "input": {
+        "value": 5
+      },
+      "rules": ["frame-byte-length-then-value"]
+    },
+    {
+      "id": "frame-uint-wide-value",
+      "note": "a value needing three bytes, so the count is bytes rather than values",
+      "input": {
+        "value": 300
+      },
+      "rules": ["frame-byte-length-then-value"]
+    },
+    {
+      "id": "frame-uint-slack",
+      "note": "three bytes announced where the value needs one, so two are left inside the frame",
+      "input": {
+        "bytes": "0305ffff"
+      },
+      "rules": ["frame-skips-to-its-end"]
+    },
+    {
+      "id": "frame-uint-bounds",
+      "note": "a value spanning three bytes inside a frame that announced one",
+      "input": {
+        "bytes": "01fd0100"
+      },
+      "rules": ["frame-bounds-its-value"]
+    },
+    {
+      "id": "frame-uint-length-past-end",
+      "note": "a length longer than the bytes that follow it",
+      "input": {
+        "bytes": "0501"
+      },
+      "rules": ["frame-length-unchecked"]
+    }
+  ]
+}

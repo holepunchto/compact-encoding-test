@@ -5,5 +5,7 @@
   "float-nan-pattern",
   "float-negative-zero",
   "bool-only-one-is-true",
-  "optional-buffer-zero-is-absent"
+  "optional-buffer-zero-is-absent",
+  "frame-length-unchecked",
+  "record-last-pair-wins"
 ]
