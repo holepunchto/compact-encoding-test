@@ -1,0 +1,29 @@
+{
+  "category": "buffers",
+  "cases": [
+    {
+      "id": "fixed8-bytes",
+      "note": "eight bytes written as they are, with no count in front of them",
+      "input": {
+        "value": "0102030405060708"
+      },
+      "rules": ["fixed-no-count", "fixed-width-in-bytes"]
+    },
+    {
+      "id": "fixed8-wrong-size",
+      "note": "a buffer that is not the width the name announces",
+      "input": {
+        "value": "0102"
+      },
+      "rules": ["fixed-refuses-wrong-size"]
+    },
+    {
+      "id": "fixed8-short-input",
+      "note": "three bytes where the width needs eight",
+      "input": {
+        "bytes": "010203"
+      },
+      "rules": ["fixed-width-rejects-short-input"]
+    }
+  ]
+}

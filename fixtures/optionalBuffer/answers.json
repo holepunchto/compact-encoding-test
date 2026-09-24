@@ -1,0 +1,15 @@
+{
+  "optionalBuffer-bytes": {
+    "hex": "03616263"
+  },
+  "optionalBuffer-absent": {
+    "hex": "00"
+  },
+  "optionalBuffer-empty": {
+    "hex": "00"
+  },
+  "optionalBuffer-zero-decode": {
+    "decodes": null,
+    "read": 1
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "category": "buffers",
+  "cases": [
+    {
+      "id": "buffer-bytes",
+      "note": "a count by the uint rules, then the bytes themselves",
+      "input": {
+        "value": "616263"
+      },
+      "rules": ["buffer-count-then-bytes"]
+    },
+    {
+      "id": "buffer-empty",
+      "note": "the empty buffer, which is a count of zero and nothing after it",
+      "input": {
+        "value": ""
+      },
+      "rules": ["buffer-empty-is-a-count-of-zero"]
+    },
+    {
+      "id": "buffer-empty-decode",
+      "note": "that same byte read back, an empty buffer rather than an absence",
+      "input": {
+        "bytes": "00"
+      },
+      "rules": ["buffer-empty-is-a-count-of-zero"]
+    }
+  ]
+}

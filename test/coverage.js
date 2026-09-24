@@ -76,9 +76,13 @@ test('a codec with no cases says why', (t) => {
   t.alike(silent, [], 'a codec the corpus does not cover states its reason')
 })
 
+const BYTES = /^([0-9a-f][0-9a-f])*$/
+
 const CARRIES = {
   strings: (value) => typeof value === 'string',
-  floats: (value) => Number.isFinite(value) || corpus.tokenised(value)
+  floats: (value) => Number.isFinite(value) || corpus.tokenised(value),
+  booleans: (value) => typeof value === 'boolean',
+  buffers: (value) => value === null || (typeof value === 'string' && BYTES.test(value))
 }
 
 function carries(category) {

@@ -72,6 +72,26 @@ The fixed-width codecs write a set number of bytes with no prefix, so the reader
 - `float-nan-pattern` (delegated) - an encoder handed a NaN writes one of the many the format spells, `000000000000f87f` at 64 bits and `0000c07f` at 32, and another implementation may write a different quiet NaN and be right by IEEE 754 while disagreeing with the reference on the bytes. A NaN that came from bytes keeps the payload it arrived with: `010000000000f87f` decodes to a NaN that writes back unchanged. No case tells one NaN from another, because a decoded NaN is written as the token `NaN` whatever its bits.
 - `float-negative-zero` (delegated) - negative zero keeps its sign bit through an encode and comes back as negative zero rather than zero, so the two zeroes are distinct values at every width. An implementation whose numbers do not tell them apart normalises to positive zero and disagrees in both directions.
 
+## Booleans
+
+`bool` carries one byte, and only one of its values is written.
+
+- `bool-single-byte` - true is the byte `01` and false is the byte `00`, one byte either way.
+- `bool-only-one-is-true` (delegated) - a decoder reads `01` as true and every other byte as false, so `02` decodes false rather than true and rather than a rejection. An implementation that reads any non-zero byte as true, as C does, disagrees on every byte an encoder never writes.
+
+## Buffers
+
+The buffer codecs carry bytes rather than a value read out of them, and differ in what says how many. `buffer` and `optionalBuffer` count first; a fixed codec carries a width its name announces; `raw` carries whatever is left.
+
+- `buffer-count-then-bytes` - a buffer encodes as its length by the `uint` rules, then the bytes themselves, so three bytes are `03616263`.
+- `buffer-empty-is-a-count-of-zero` - the empty buffer is the single byte `00`, and `buffer` reads that byte back as an empty buffer rather than as nothing.
+- `optional-buffer-zero-is-absent` (delegated) - `optionalBuffer` writes `00` for an absent value and `00` for an empty buffer, and reads `00` as absent, so an empty buffer goes in as bytes and comes back as nothing. The two are told apart by which codec a caller picked rather than by the bytes: `buffer` reads `00` as empty and can never say absent, `optionalBuffer` reads it as absent and can never carry empty. An implementation that keeps them apart on the wire disagrees with the reference in both directions, and <https://github.com/holepunchto/compact-encoding/issues/70> asks whether the loss is intended.
+- `fixed-no-count` - a fixed codec writes its bytes with nothing in front of them, so eight bytes in are eight bytes out and a reader that expected a count would take the first byte of data for one.
+- `fixed-width-in-bytes` - `fixedN` carries N bytes where `uintN` carries N bits, so `fixed8` is eight bytes rather than one and `fixed32` is thirty-two rather than four.
+- `fixed-refuses-wrong-size` - a buffer that is not exactly the width the name announces is refused, rather than padded or cut to fit.
+- `raw-no-count` - `raw` writes its bytes alone, as a fixed codec does, at whatever length the buffer happens to be.
+- `raw-takes-the-rest` - a decoder takes everything from where it starts to the end of the buffer, so `raw` has no form of its own to stop at and reaching the end is what `decode-consumes-its-form` means for it.
+
 ## Strings
 
 `utf8` carries text as a byte count followed by the bytes themselves. `string` is another name for the same codec, not a second one, and the count obeys the `uint` rules above rather than a form of its own.

@@ -384,5 +384,97 @@
       "decodes": 0.1,
       "read": 4
     }
+  },
+  {
+    "rule": "bool-single-byte",
+    "reading": "true is any non-zero byte, so an encoder writes ff",
+    "fixture": "bool-true",
+    "answer": {
+      "hex": "ff"
+    }
+  },
+  {
+    "rule": "bool-only-one-is-true",
+    "reading": "any non-zero byte reads as true, as it does in C",
+    "fixture": "bool-other-byte",
+    "answer": {
+      "decodes": true,
+      "read": 1
+    }
+  },
+  {
+    "rule": "buffer-count-then-bytes",
+    "reading": "the bytes are written alone, as raw writes them",
+    "fixture": "buffer-bytes",
+    "answer": {
+      "hex": "616263"
+    }
+  },
+  {
+    "rule": "buffer-empty-is-a-count-of-zero",
+    "reading": "a count of zero reads as an absent value, as optionalBuffer reads it",
+    "fixture": "buffer-empty-decode",
+    "answer": {
+      "decodes": null,
+      "read": 1
+    }
+  },
+  {
+    "rule": "optional-buffer-zero-is-absent",
+    "reading": "an empty buffer is written apart from an absent one, with a count of its own",
+    "fixture": "optionalBuffer-empty",
+    "answer": {
+      "hex": "0100"
+    }
+  },
+  {
+    "rule": "optional-buffer-zero-is-absent",
+    "reading": "a count of zero reads as an empty buffer, as buffer reads it",
+    "fixture": "optionalBuffer-zero-decode",
+    "answer": {
+      "decodes": "",
+      "read": 1
+    }
+  },
+  {
+    "rule": "fixed-no-count",
+    "reading": "a fixed codec counts its bytes first, as buffer does",
+    "fixture": "fixed8-bytes",
+    "answer": {
+      "hex": "080102030405060708"
+    }
+  },
+  {
+    "rule": "fixed-width-in-bytes",
+    "reading": "fixedN carries N bits, so fixed8 is one byte and refuses eight",
+    "fixture": "fixed8-bytes",
+    "answer": {
+      "refused": true
+    }
+  },
+  {
+    "rule": "fixed-refuses-wrong-size",
+    "reading": "a buffer narrower than the width is padded out to it",
+    "fixture": "fixed8-wrong-size",
+    "answer": {
+      "hex": "0102000000000000"
+    }
+  },
+  {
+    "rule": "raw-no-count",
+    "reading": "raw counts its bytes first, as buffer does",
+    "fixture": "raw-bytes",
+    "answer": {
+      "hex": "03616263"
+    }
+  },
+  {
+    "rule": "raw-takes-the-rest",
+    "reading": "raw reads nothing without a count in front of it",
+    "fixture": "raw-decode",
+    "answer": {
+      "decodes": "",
+      "read": 0
+    }
   }
 ]

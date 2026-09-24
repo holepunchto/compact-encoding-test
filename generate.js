@@ -40,7 +40,7 @@ function decode(codec, hex) {
 
 function answer(codec, category, example) {
   return asks(example) === 'bytes'
-    ? encode(codec, category === 'floats' ? value(example.input.value) : example.input.value)
+    ? encode(codec, value(category, example.input.value))
     : decode(codec, example.input.bytes)
 }
 

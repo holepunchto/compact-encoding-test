@@ -1,0 +1,12 @@
+{
+  "buffer-bytes": {
+    "hex": "03616263"
+  },
+  "buffer-empty": {
+    "hex": "00"
+  },
+  "buffer-empty-decode": {
+    "decodes": "",
+    "read": 1
+  }
+}
