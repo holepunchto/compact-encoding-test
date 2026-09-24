@@ -27,9 +27,9 @@
     },
     {
       "id": "frame-uint-slack",
-      "note": "three bytes announced where the value needs one, so two are left inside the frame",
+      "note": "three bytes announced where the value needs one, with a byte after the frame as well",
       "input": {
-        "bytes": "0305ffff"
+        "bytes": "0305ffff61"
       },
       "rules": ["frame-skips-to-its-end"]
     },
@@ -40,14 +40,6 @@
         "bytes": "01fd0100"
       },
       "rules": ["frame-bounds-its-value"]
-    },
-    {
-      "id": "frame-uint-length-past-end",
-      "note": "a length longer than the bytes that follow it",
-      "input": {
-        "bytes": "0501"
-      },
-      "rules": ["frame-length-unchecked"]
     }
   ]
 }

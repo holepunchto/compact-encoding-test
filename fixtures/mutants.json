@@ -520,17 +520,9 @@
     }
   },
   {
-    "rule": "frame-length-unchecked",
-    "reading": "a frame announcing more bytes than follow it is rejected",
-    "fixture": "frame-uint-length-past-end",
-    "answer": {
-      "rejects": true
-    }
-  },
-  {
     "rule": "record-count-then-pairs",
     "reading": "every key is written first and then every value",
-    "fixture": "record-two-pairs",
+    "fixture": "record-utf8-uint-two-pairs",
     "answer": {
       "hex": "02016101620102"
     }
@@ -538,7 +530,7 @@
   {
     "rule": "record-last-pair-wins",
     "reading": "the first pair stands and a later one for the same key is ignored",
-    "fixture": "record-repeated-key",
+    "fixture": "record-utf8-uint-repeated-key",
     "answer": {
       "decodes": {
         "a": 1
@@ -556,7 +548,7 @@
     }
   },
   {
-    "rule": "array-count-then-elements",
+    "rule": "array-rejects-short-input",
     "reading": "a decoder returns the elements it managed to read rather than rejecting",
     "fixture": "array-uint-short-input",
     "answer": {
@@ -567,12 +559,29 @@
   {
     "rule": "record-count-then-pairs",
     "reading": "the count is a number of values rather than of pairs, so a key is read as a value",
-    "fixture": "record-decode",
+    "fixture": "record-utf8-uint-decode",
     "answer": {
       "decodes": {
         "a": 1
       },
       "read": 2
+    }
+  },
+  {
+    "rule": "array-count-ceiling",
+    "reading": "a count is read as given and the elements are attempted",
+    "fixture": "array-uint-impossible-count",
+    "answer": {
+      "decodes": [],
+      "read": 5
+    }
+  },
+  {
+    "rule": "record-key-order-follows-the-value",
+    "reading": "the pairs are sorted by key so the writing is deterministic",
+    "fixture": "record-utf8-uint-key-order",
+    "answer": {
+      "hex": "02016101016202"
     }
   }
 ]

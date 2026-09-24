@@ -6,6 +6,6 @@
   "float-negative-zero",
   "bool-only-one-is-true",
   "optional-buffer-zero-is-absent",
-  "frame-length-unchecked",
-  "record-last-pair-wins"
+  "record-last-pair-wins",
+  "record-key-order-follows-the-value"
 ]

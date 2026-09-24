@@ -18,5 +18,8 @@
   },
   "array-uint-short-input": {
     "rejects": true
+  },
+  "array-uint-impossible-count": {
+    "rejects": true
   }
 }

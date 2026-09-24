@@ -11,9 +11,5 @@
   },
   "frame-uint-bounds": {
     "rejects": true
-  },
-  "frame-uint-length-past-end": {
-    "decodes": 1,
-    "read": 6
   }
 }

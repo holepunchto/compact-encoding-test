@@ -2,38 +2,71 @@
   "category": "combinators",
   "codec": {
     "name": "record",
-    "of": [{ "name": "utf8" }, { "name": "uint" }]
+    "of": [
+      {
+        "name": "utf8"
+      },
+      {
+        "name": "uint"
+      }
+    ]
   },
   "cases": [
     {
-      "id": "record-empty",
+      "id": "record-utf8-uint-empty",
       "note": "no pairs at all, which is a count of zero",
-      "input": { "value": {} },
+      "input": {
+        "value": {}
+      },
       "rules": ["record-count-then-pairs"]
     },
     {
-      "id": "record-one-pair",
+      "id": "record-utf8-uint-one-pair",
       "note": "one pair, the key by the string rules and the value by its own codec",
-      "input": { "value": { "a": 1 } },
+      "input": {
+        "value": {
+          "a": 1
+        }
+      },
       "rules": ["record-count-then-pairs", "utf8-count-then-bytes"]
     },
     {
-      "id": "record-two-pairs",
+      "id": "record-utf8-uint-two-pairs",
       "note": "two pairs, written key and value in turn rather than keys then values",
-      "input": { "value": { "a": 1, "b": 2 } },
+      "input": {
+        "value": {
+          "a": 1,
+          "b": 2
+        }
+      },
       "rules": ["record-count-then-pairs"]
     },
     {
-      "id": "record-decode",
+      "id": "record-utf8-uint-decode",
       "note": "a pair read back, the key decoded as a string",
-      "input": { "bytes": "01016101" },
+      "input": {
+        "bytes": "01016101"
+      },
       "rules": ["record-count-then-pairs", "utf8-count-then-bytes"]
     },
     {
-      "id": "record-repeated-key",
+      "id": "record-utf8-uint-repeated-key",
       "note": "the same key twice, which a decoder does not treat as an error",
-      "input": { "bytes": "02016101016102" },
+      "input": {
+        "bytes": "02016101016102"
+      },
       "rules": ["record-last-pair-wins"]
+    },
+    {
+      "id": "record-utf8-uint-key-order",
+      "note": "keys given out of alphabetical order, written in the order they were given",
+      "input": {
+        "value": {
+          "b": 2,
+          "a": 1
+        }
+      },
+      "rules": ["record-key-order-follows-the-value"]
     }
   ]
 }
