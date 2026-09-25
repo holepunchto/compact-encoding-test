@@ -8,5 +8,8 @@
   "bool-other-byte": {
     "decodes": false,
     "read": 1
+  },
+  "bool-empty-input": {
+    "rejects": true
   }
 }

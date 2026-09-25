@@ -67,6 +67,14 @@
         }
       },
       "rules": ["record-key-order-follows-the-value"]
+    },
+    {
+      "id": "record-utf8-uint-short-input",
+      "note": "two pairs announced, with the first key and nothing after it",
+      "input": {
+        "bytes": "020161"
+      },
+      "rules": ["record-rejects-short-input"]
     }
   ]
 }

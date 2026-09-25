@@ -24,6 +24,14 @@
         "bytes": "02"
       },
       "rules": ["bool-only-one-is-true"]
+    },
+    {
+      "id": "bool-empty-input",
+      "note": "no bytes at all, where a decoder that treats absence as false would answer",
+      "input": {
+        "bytes": ""
+      },
+      "rules": ["bool-rejects-empty-input"]
     }
   ]
 }

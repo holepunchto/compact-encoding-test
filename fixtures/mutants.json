@@ -592,5 +592,32 @@
       "decodes": "03616263",
       "read": 4
     }
+  },
+  {
+    "rule": "bool-rejects-empty-input",
+    "reading": "an absent byte reads as false, since every byte other than 01 is false",
+    "fixture": "bool-empty-input",
+    "answer": {
+      "decodes": false,
+      "read": 0
+    }
+  },
+  {
+    "rule": "buffer-rejects-short-input",
+    "reading": "a decoder returns the bytes it has when the count announces more",
+    "fixture": "buffer-short-input",
+    "answer": {
+      "decodes": "61",
+      "read": 2
+    }
+  },
+  {
+    "rule": "record-rejects-short-input",
+    "reading": "a decoder returns the pairs it completed when the input runs out",
+    "fixture": "record-utf8-uint-short-input",
+    "answer": {
+      "decodes": {},
+      "read": 3
+    }
   }
 ]

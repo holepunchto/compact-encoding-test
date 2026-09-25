@@ -8,5 +8,8 @@
   "buffer-empty-decode": {
     "decodes": "",
     "read": 1
+  },
+  "buffer-short-input": {
+    "rejects": true
   }
 }
