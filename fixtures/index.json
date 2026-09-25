@@ -146,7 +146,10 @@
       "float32-nan",
       "float32-negative-zero",
       "float32-negative-zero-decode",
-      "float32-short-input"
+      "float32-short-input",
+      "float32-rounds-up-to-even",
+      "float32-infinity",
+      "float32-overflow"
     ],
     "float64": [
       "float64-one",

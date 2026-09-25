@@ -628,5 +628,21 @@
       "decodes": null,
       "read": 2
     }
+  },
+  {
+    "rule": "float32-rounds-to-nearest",
+    "reading": "a tie rounds away from zero rather than to an even last bit",
+    "fixture": "float32-rounds-integer",
+    "answer": {
+      "hex": "0100804b"
+    }
+  },
+  {
+    "rule": "float32-overflows-to-infinity",
+    "reading": "a value the width cannot reach is refused, as an integer past the ceiling is",
+    "fixture": "float32-overflow",
+    "answer": {
+      "refused": true
+    }
   }
 ]
