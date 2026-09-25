@@ -51,7 +51,7 @@ The fixed-width codecs write a set number of bytes with no prefix, so the reader
 - `fixed-width-big-endian` - a codec whose name ends `be` writes the same bytes most significant first.
 - `fixed-width-signed-zigzag` - a signed codec zigzags the value into an unsigned one before laying the bytes down, mapping -1 to 1 and 1 to 2, rather than storing two's complement. An implementer who writes two's complement agrees with the reference on no negative value at all.
 - `fixed-width-truncates-high-bytes` - a value the codec accepts but the width cannot hold keeps its low bytes, so `uint8` writes zero for 256 and `int8` writes zero for 128, whose zigzag is 256.
-- `fixed-width-rejects-short-input` - a decoder rejects input holding fewer bytes than the width announces, byte order making no difference: `uint32be` rejects three bytes where four are announced, as flatly as `uint16` rejects one byte where two are.
+- `fixed-width-rejects-short-input` - a decoder rejects input holding fewer bytes than the width announces, byte order making no difference: `uint32be` rejects three bytes where four are announced, as flatly as `uint16` rejects one byte where two are. A width is a width wherever it comes from - the codec's name, the number it was built with, or the form it writes - so this governs the fixed-width integers, `float32` and `float64`, and the fixed buffer codecs alike.
 
 ## int
 
@@ -77,6 +77,7 @@ The fixed-width codecs write a set number of bytes with no prefix, so the reader
 `bool` carries one byte, and only one of its values is written. What a decoder takes from the bytes is `decode-consumes-its-form`.
 
 - `bool-single-byte` - true is the byte `01` and false is the byte `00`, one byte either way.
+- `bool-rejects-empty-input` - a decoder rejects input with no byte in it, rather than reading an absent byte as false.
 - `bool-only-one-is-true` (delegated) - a decoder reads `01` as true and every other byte as false, so `02` decodes false rather than true and rather than a rejection. An implementation that reads any non-zero byte as true, as C does, disagrees on every byte an encoder never writes.
 
 ## Buffers

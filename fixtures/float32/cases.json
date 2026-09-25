@@ -56,6 +56,14 @@
         "bytes": "00000080"
       },
       "rules": ["float-negative-zero"]
+    },
+    {
+      "id": "float32-short-input",
+      "note": "three bytes where the width needs four",
+      "input": {
+        "bytes": "000080"
+      },
+      "rules": ["fixed-width-rejects-short-input"]
     }
   ]
 }
