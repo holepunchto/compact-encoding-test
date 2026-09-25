@@ -14,7 +14,7 @@ The fixtures are JSON (RFC 8259). A `value` is a number where the codec carries 
 
 ## uint
 
-`uint` encodes an unsigned integer as one of four forms, chosen by magnitude. The first byte is either the value itself or a marker selecting a fixed-width payload that follows it.
+`uint` encodes an unsigned integer as one of four forms, chosen by magnitude. The first byte is either the value itself or a marker selecting a fixed-width payload that follows it. What a decoder takes from the bytes is `decode-consumes-its-form`.
 
 - `uint-single-byte` - a value below `0xfd` encodes as that one byte, with nothing following.
 - `uint-uint16-prefix` - a value from `0xfd` through `0xffff` encodes as the byte `0xfd` followed by a two-byte payload.
@@ -38,13 +38,13 @@ A value that is not an integer is outside what these rules define. The reference
 
 ## What a decoder consumes
 
-A decoder reads from a buffer it does not own the end of, so how it treats what it was not asked for is part of the contract. It holds for every codec below, whatever family it belongs to.
+A decoder reads from a buffer it does not own the end of, so how it treats what it was not asked for is part of the contract. It holds for every codec here, whatever family it belongs to.
 
-- `decode-consumes-its-form` - a decoder reads the bytes its own form needs and leaves the rest where they are, rather than rejecting input that carries more. `uint` given `0161` returns 1 and stops after one byte, leaving `61` for whoever reads next, and `uint8` does the same, so a caller reading two values from one buffer gets the second one. What a form needs is whatever the codec's own rules say it writes: one byte for `bool`, its width for a fixed codec or a float, a count and then the bytes it announced for `buffer`, `optionalBuffer` and `utf8`, a count and then that many elements for an array or that many pairs for a record, and for `frame` the length it announced together with the bytes that announced it. An overlong form is read whole: `uint` takes all three bytes of `fd0100`. `raw` is the one codec with no form of its own, and `raw-takes-the-rest` says what it does instead.
+- `decode-consumes-its-form` - a decoder reads the bytes its own form needs and leaves the rest where they are, rather than rejecting input that carries more. `uint` given `0161` returns 1 and stops after one byte, leaving `61` for whoever reads next, and `uint8` does the same, so a caller reading two values from one buffer gets the second one. A `decodes` answer records that count as `read`. What a form needs is whatever the codec's own rules say it writes: one byte for `bool`, its width for a fixed codec or a float, a count and then the bytes it announced for `buffer`, `optionalBuffer` and `utf8`, a count and then that many elements for an array or that many pairs for a record, and for `frame` the length it announced together with the bytes that announced it. An overlong form is read whole: `uint` takes all three bytes of `fd0100`. `raw` is the one codec with no form of its own, and `raw-takes-the-rest` says what it does instead.
 
 ## Fixed-width integers
 
-The fixed-width codecs write a set number of bytes with no prefix, so the reader knows the length before it reads anything. `uint8` through `uint64` carry unsigned values, `int8` through `int64` signed ones, and `uint32be` and `uint64be` differ from their siblings only in byte order. The big-endian codecs are their own capability, since only two implementations provide any, and the ones the reference does not implement at all carry a capability with no cases and a reason.
+The fixed-width codecs write a set number of bytes with no prefix, so the reader knows the length before it reads anything. What a decoder takes from the bytes is `decode-consumes-its-form`. `uint8` through `uint64` carry unsigned values, `int8` through `int64` signed ones, and `uint32be` and `uint64be` differ from their siblings only in byte order. The big-endian codecs are their own capability, since only two implementations provide any, and the ones the reference does not implement at all carry a capability with no cases and a reason.
 
 - `fixed-width-width-from-name` - a codec named `uintN` or `intN` writes exactly N bits, so `uint24` writes three bytes and `int64` writes eight, whatever the value.
 - `fixed-width-little-endian` - a codec whose name has no suffix writes its bytes least significant first.
@@ -55,14 +55,14 @@ The fixed-width codecs write a set number of bytes with no prefix, so the reader
 
 ## int
 
-`int` carries a signed value in the space `uint` uses, by mapping it to an unsigned one first. A decoder needs no bound of its own: zigzag maps the whole unsigned range exactly onto the signed one, sending 9007199254740991 to -4503599627370496 and 9007199254740990 to 4503599627370495, so bytes carrying anything further out are already refused by `decode-ceiling`.
+`int` carries a signed value in the space `uint` uses, by mapping it to an unsigned one first. A decoder needs no bound of its own: zigzag maps the whole unsigned range exactly onto the signed one, sending 9007199254740991 to -4503599627370496 and 9007199254740990 to 4503599627370495, so bytes carrying anything further out are already refused by `decode-ceiling`. What a decoder takes from the bytes is `decode-consumes-its-form`.
 
 - `int-zigzag` - the value is zigzagged and the result encoded by the `uint` rules above. Zigzag doubles a value at or above zero and maps one below zero to its doubled magnitude less one, so `n` becomes `2n` when `n` is not negative and `-2n - 1` when it is, mapping 0 to 0, -1 to 1, 1 to 2 and -2 to 3. A decoder halves an even reading and negates the halved successor of an odd one.
 - `signed-range` - a signed codec accepts -4503599627370496 through 4503599627370495 and refuses anything beyond at either end, whatever its width. Accepting is not carrying: `int8` accepts the largest of them and writes `fe`, keeping the low byte under `fixed-width-truncates-high-bytes`. The range reaches one further below zero than above it, and it is half as wide as the unsigned ceiling because zigzag doubles the magnitude before the value is written.
 
 ## Floats
 
-`float32` and `float64` write a number in its IEEE 754 form, binary32 and binary64 respectively. They carry values the integer codecs refuse: a fraction, an infinity, and a NaN.
+`float32` and `float64` write a number in its IEEE 754 form, binary32 and binary64 respectively. What a decoder takes from the bytes is `decode-consumes-its-form`. They carry values the integer codecs refuse: a fraction, an infinity, and a NaN.
 
 - `float-ieee754` - a float is written in the IEEE 754 form its width names, so `float64` writes 1 as `000000000000f03f` and 0.5 as `000000000000e03f`.
 - `float-carries-infinity` - an infinity is a value these codecs carry rather than a bound they refuse, written as the exponent alone with no fraction: `000000000000f07f` and, with the sign bit, `000000000000f0ff`.
@@ -74,14 +74,14 @@ The fixed-width codecs write a set number of bytes with no prefix, so the reader
 
 ## Booleans
 
-`bool` carries one byte, and only one of its values is written.
+`bool` carries one byte, and only one of its values is written. What a decoder takes from the bytes is `decode-consumes-its-form`.
 
 - `bool-single-byte` - true is the byte `01` and false is the byte `00`, one byte either way.
 - `bool-only-one-is-true` (delegated) - a decoder reads `01` as true and every other byte as false, so `02` decodes false rather than true and rather than a rejection. An implementation that reads any non-zero byte as true, as C does, disagrees on every byte an encoder never writes.
 
 ## Buffers
 
-The buffer codecs carry bytes rather than a value read out of them, and differ in what says how many. `buffer` and `optionalBuffer` count first; a fixed codec carries a width its name announces; `raw` carries whatever is left. `uint8array` counts first too: the typed-array codecs write the number of elements rather than the number of bytes, and an element of a byte array is one byte, so it writes what `buffer` writes and the same rules check it. Only what a decoder hands back differs, which the bytes do not record. The wider typed arrays, where a count of elements and a count of bytes come apart, are not covered here.
+The buffer codecs carry bytes rather than a value read out of them, and differ in what says how many. `buffer` and `optionalBuffer` count first; a fixed codec carries a width its name announces; `raw` carries whatever is left. `uint8array` counts first too: the typed-array codecs write the number of elements rather than the number of bytes, and an element of a byte array is one byte, so it writes what `buffer` writes and the same rules check it. Only what a decoder hands back differs, which the bytes do not record. The wider typed arrays, where a count of elements and a count of bytes come apart, are not covered here. What a decoder takes from the bytes is `decode-consumes-its-form`.
 
 - `buffer-count-then-bytes` - a buffer encodes as its length by the `uint` rules, then the bytes themselves, so three bytes are `03616263`.
 - `buffer-empty-is-a-count-of-zero` - the empty buffer is the single byte `00`, and `buffer` reads that byte back as an empty buffer rather than as nothing.
@@ -94,7 +94,7 @@ The buffer codecs carry bytes rather than a value read out of them, and differ i
 
 ## Combinators
 
-A combinator is a codec built from other codecs, and each says how many of something comes first. What that number counts is where they differ.
+A combinator is a codec built from other codecs, and each says how many of something comes first. What that number counts is where they differ. What a decoder takes from the bytes is `decode-consumes-its-form`.
 
 - `array-count-then-elements` - an array encodes as the number of elements by the `uint` rules, then each element by the codec the array was built from. The count is elements rather than bytes, so `[253]` is `01fdfd00`: one element in three bytes.
 - `array-empty-is-a-count-of-zero` - an empty array is the single byte `00`, as an empty buffer is.
@@ -111,7 +111,7 @@ A frame announcing more bytes than follow it is outside what these rules define.
 
 ## Strings
 
-`utf8` carries text as a byte count followed by the bytes themselves. `string` is another name for the same codec, not a second one, and the count obeys the `uint` rules above rather than a form of its own.
+`utf8` carries text as a byte count followed by the bytes themselves. `string` is another name for the same codec, not a second one, and the count obeys the `uint` rules above rather than a form of its own. What a decoder takes from the bytes is `decode-consumes-its-form`.
 
 This document does not define UTF-8. The mapping from code points to bytes, and which byte sequences are ill-formed, are RFC 3629 (STD 63); how far a single replacement reaches is the U+FFFD substitution of maximal subparts in Section 3.9 of the Unicode Standard. The rules below build on both and restate neither.
 
