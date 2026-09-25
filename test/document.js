@@ -1,7 +1,7 @@
 const test = require('brittle')
 const fs = require('fs')
 const corpus = require('../lib/corpus')
-const { specPath } = require('..')
+const { fixturesDir, specPath } = require('..')
 const { ruleSlugs } = require('../lib/spec')
 const { devDependencies } = require('../package.json')
 
@@ -64,4 +64,25 @@ test('the example shows every shape an answer takes', (t) => {
   const missing = [...shapes(committed())].filter((shape) => !seen.has(shape))
 
   t.alike(missing, [], 'a shape the corpus uses is a shape the document shows')
+})
+
+function numbers(text) {
+  return text.replace(/"(\\.|[^"\\])*"/g, '""').match(/-?\d[\d.]*(?:e[+-]?\d+)?/gi) || []
+}
+
+test('a number in an answer is spelled the way JSON spells it', (t) => {
+  const odd = []
+
+  for (const name of corpus.codecs()) {
+    for (const file of ['answers.json']) {
+      const path = `${fixturesDir}/${name}/${file}`
+      if (!fs.existsSync(path)) continue
+
+      for (const spelling of numbers(fs.readFileSync(path, 'utf8'))) {
+        if (spelling !== String(Number(spelling))) odd.push(`${name}/${file}: ${spelling}`)
+      }
+    }
+  }
+
+  t.alike(odd, [], 'a number in an answer is written as JSON writes it')
 })
