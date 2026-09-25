@@ -30,11 +30,12 @@
   ],
   "scripts": {
     "generate": "node generate.js",
-    "test": "npm run test:bare && npm run test:node",
+    "test": "npm run test:bare && npm run test:node && npm run test:pack",
     "test:bare": "brittle-bare test.js",
     "test:node": "brittle-node test.js",
     "lint": "prettier . --check && lunte",
-    "format": "prettier . --write && lunte --fix"
+    "format": "prettier . --write && lunte --fix",
+    "test:pack": "brittle-node test/pack.js"
   },
   "bugs": {
     "url": "https://github.com/holepunchto/compact-encoding-test/issues"

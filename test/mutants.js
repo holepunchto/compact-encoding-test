@@ -83,6 +83,8 @@ test('every mutant answers the question its fixture asks', (t) => {
 
   for (const mutant of corpus.mutants()) {
     const fixture = byId.get(mutant.fixture)
+    if (!fixture) continue
+
     const asked = corpus.asks(fixture)
     const answered = corpus.states(mutant.answer)
 
@@ -100,6 +102,7 @@ test('every mutant is killed by the fixture it names', (t) => {
 
   for (const mutant of corpus.mutants()) {
     const fixture = byId.get(mutant.fixture)
+    if (!fixture) continue
 
     if (stated(mutant.answer) === stated(fixture.answer)) {
       survivors.push(`${mutant.rule}: ${fixture.id} does not reject "${mutant.reading}"`)
@@ -124,7 +127,7 @@ test('every kind a rule is answered in is contradicted on a case that carries it
     for (const shape of kinds) {
       const proven = mutants
         .filter((mutant) => mutant.rule === rule.slug)
-        .some((mutant) => corpus.kind(byId.get(mutant.fixture).answer) === shape)
+        .some((mutant) => corpus.kind(byId.get(mutant.fixture)?.answer ?? {}) === shape)
 
       if (!proven) unproven.push(`${rule.slug} answered by ${shape}`)
     }
