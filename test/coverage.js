@@ -3,6 +3,7 @@ const c = require('compact-encoding')
 const corpus = require('../lib/corpus')
 const { rules, ruleSlugs, malformed } = require('../lib/spec')
 const { carries, slug } = require('../lib/declaration')
+const { hex, tokenised } = require('../lib/notation')
 
 test('the specification states at least one rule', (t) => {
   t.ok(rules().length > 0, 'CODECS.md carries rules')
@@ -89,13 +90,11 @@ test('a codec with no cases says why', (t) => {
   t.alike(silent, [], 'a codec the corpus does not cover states its reason')
 })
 
-const BYTES = /^([0-9a-f][0-9a-f])*$/
-
 const CARRIES = {
   strings: (value) => typeof value === 'string',
-  floats: (value) => Number.isFinite(value) || corpus.tokenised(value),
+  floats: (value) => Number.isFinite(value) || tokenised(value),
   booleans: (value) => typeof value === 'boolean',
-  buffers: (value) => value === null || (typeof value === 'string' && BYTES.test(value))
+  buffers: (value) => value === null || (typeof value === 'string' && hex(value))
 }
 
 function byCategory(category) {
@@ -146,7 +145,6 @@ test('a codec with no cases says which implementations carry it', (t) => {
 })
 
 test('every case states one well-formed input', (t) => {
-  const HEX = /^([0-9a-f][0-9a-f])*$/
   const malformed = []
 
   for (const name of corpus.codecs()) {
@@ -164,7 +162,7 @@ test('every case states one well-formed input', (t) => {
         )
       ) {
         malformed.push(`${example.id}: states a value the ${category} do not carry`)
-      } else if (example.input.bytes !== undefined && !HEX.test(example.input.bytes)) {
+      } else if (example.input.bytes !== undefined && !hex(example.input.bytes)) {
         malformed.push(`${example.id}: states bytes that are not hex`)
       }
     }

@@ -1,8 +1,7 @@
 const test = require('brittle')
 const corpus = require('../lib/corpus')
 const { rules, ruleSlugs } = require('../lib/spec')
-
-const HEX = /^([0-9a-f][0-9a-f])*$/
+const { hex } = require('../lib/notation')
 
 function fixtures() {
   return new Map(corpus.allFixtures().map((fixture) => [fixture.id, fixture]))
@@ -29,7 +28,7 @@ test('every mutant states one well-formed answer', (t) => {
 
     if (keys.length !== 1) {
       malformed.push(`${mutant.rule}: states ${keys.length} answers`)
-    } else if (mutant.answer.hex !== undefined && !HEX.test(mutant.answer.hex)) {
+    } else if (mutant.answer.hex !== undefined && !hex(mutant.answer.hex)) {
       malformed.push(`${mutant.rule}: states bytes that are not hex`)
     } else if (mutant.answer.rejects !== undefined && mutant.answer.rejects !== true) {
       malformed.push(`${mutant.rule}: states a rejection that is not one`)
