@@ -81,7 +81,8 @@
       "buffer-bytes",
       "buffer-empty",
       "buffer-empty-decode",
-      "buffer-short-input"
+      "buffer-short-input",
+      "buffer-count-past-the-ceiling"
     ],
     "fixed-16": [
       "fixed-16-bytes",
@@ -113,11 +114,14 @@
       "optionalBuffer-bytes",
       "optionalBuffer-absent",
       "optionalBuffer-empty",
-      "optionalBuffer-zero-decode"
+      "optionalBuffer-zero-decode",
+      "optionalBuffer-one-byte"
     ],
     "raw": [
       "raw-bytes",
-      "raw-decode"
+      "raw-decode",
+      "raw-empty",
+      "raw-empty-decode"
     ],
     "uint8array": [
       "uint8array-bytes",

@@ -619,5 +619,14 @@
       "decodes": {},
       "read": 3
     }
+  },
+  {
+    "rule": "optional-buffer-non-zero-is-a-buffer",
+    "reading": "an optional buffer reads as absent whatever its count says",
+    "fixture": "optionalBuffer-one-byte",
+    "answer": {
+      "decodes": null,
+      "read": 2
+    }
   }
 ]

@@ -11,5 +11,8 @@
   },
   "buffer-short-input": {
     "rejects": true
+  },
+  "buffer-count-past-the-ceiling": {
+    "rejects": true
   }
 }

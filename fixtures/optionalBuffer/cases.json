@@ -32,6 +32,14 @@
         "bytes": "00"
       },
       "rules": ["optional-buffer-zero-is-absent"]
+    },
+    {
+      "id": "optionalBuffer-one-byte",
+      "note": "a count of one with a zero byte after it, which is a buffer and not an absence",
+      "input": {
+        "bytes": "0100"
+      },
+      "rules": ["optional-buffer-non-zero-is-a-buffer"]
     }
   ]
 }

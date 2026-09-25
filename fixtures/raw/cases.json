@@ -16,6 +16,22 @@
         "bytes": "616263"
       },
       "rules": ["raw-takes-the-rest"]
+    },
+    {
+      "id": "raw-empty",
+      "note": "the empty buffer, which writes nothing at all",
+      "input": {
+        "value": ""
+      },
+      "rules": ["raw-no-count"]
+    },
+    {
+      "id": "raw-empty-decode",
+      "note": "no bytes left to take, which is the empty buffer rather than a rejection",
+      "input": {
+        "bytes": ""
+      },
+      "rules": ["raw-takes-the-rest"]
     }
   ]
 }
