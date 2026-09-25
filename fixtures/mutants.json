@@ -96,7 +96,7 @@
     }
   },
   {
-    "rule": "fixed-width-rejects-short-input",
+    "rule": "decode-rejects-a-short-width",
     "reading": "a decoder zero fills the bytes it was not given",
     "fixture": "uint16-short-input",
     "answer": {

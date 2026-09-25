@@ -41,6 +41,7 @@ A value that is not an integer is outside what these rules define. The reference
 A decoder reads from a buffer it does not own the end of, so how it treats what it was not asked for is part of the contract. It holds for every codec here, whatever family it belongs to.
 
 - `decode-consumes-its-form` - a decoder reads the bytes its own form needs and leaves the rest where they are, rather than rejecting input that carries more. `uint` given `0161` returns 1 and stops after one byte, leaving `61` for whoever reads next, and `uint8` does the same, so a caller reading two values from one buffer gets the second one. A `decodes` answer records that count as `read`. What a form needs is whatever the codec's own rules say it writes: one byte for `bool`, its width for a fixed codec or a float, a count and then the bytes it announced for `buffer`, `optionalBuffer` and `utf8`, a count and then that many elements for an array or that many pairs for a record, and for `frame` the length it announced together with the bytes that announced it. An overlong form is read whole: `uint` takes all three bytes of `fd0100`. `raw` is the one codec with no form of its own, and `raw-takes-the-rest` says what it does instead.
+- `decode-rejects-a-short-width` - a decoder rejects input holding fewer bytes than the width announces, byte order making no difference: `uint32be` rejects three bytes where four are announced, as flatly as `uint16` rejects one byte where two are. A width is a width wherever it comes from: the codec's name, the number it was built with, or the form it writes.
 
 ## Fixed-width integers
 
@@ -51,7 +52,6 @@ The fixed-width codecs write a set number of bytes with no prefix, so the reader
 - `fixed-width-big-endian` - a codec whose name ends `be` writes the same bytes most significant first.
 - `fixed-width-signed-zigzag` - a signed codec zigzags the value into an unsigned one before laying the bytes down, mapping -1 to 1 and 1 to 2, rather than storing two's complement. An implementer who writes two's complement agrees with the reference on no negative value at all.
 - `fixed-width-truncates-high-bytes` - a value the codec accepts but the width cannot hold keeps its low bytes, so `uint8` writes zero for 256 and `int8` writes zero for 128, whose zigzag is 256.
-- `fixed-width-rejects-short-input` - a decoder rejects input holding fewer bytes than the width announces, byte order making no difference: `uint32be` rejects three bytes where four are announced, as flatly as `uint16` rejects one byte where two are. A width is a width wherever it comes from: the codec's name, the number it was built with, or the form it writes.
 
 ## int
 
