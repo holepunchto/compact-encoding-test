@@ -86,11 +86,11 @@ The fixed-width codecs write a set number of bytes with no prefix, so the reader
 
 ## Booleans
 
-`bool` carries one byte, and only one of its values is written. What a decoder takes from the bytes is `decode-consumes-its-form`.
+`bool` carries one byte, and of the two hundred and fifty six it could hold, an encoder writes two and a decoder reads one of them as true. What a decoder takes from the bytes is `decode-consumes-its-form`.
 
 - `bool-single-byte` - true is the byte `01` and false is the byte `00`, one byte either way.
 - `bool-rejects-empty-input` - a decoder rejects input with no byte in it, rather than reading an absent byte as false.
-- `bool-only-one-is-true` (delegated) - a decoder reads `01` as true and every other byte as false, so `02` decodes false rather than true and rather than a rejection. An implementation that reads any non-zero byte as true, as C does, disagrees on every byte an encoder never writes.
+- `bool-only-one-is-true` (delegated) - a decoder reads `01` as true and every other byte as false, so `02` decodes false rather than true and rather than a rejection. This constrains decoders only: an encoder writes `00` or `01` and nothing else, so the bytes it produces are read the same way under either reading. An implementation that reads any non-zero byte as true, as C does, disagrees on every byte an encoder never writes.
 
 ## Buffers
 
