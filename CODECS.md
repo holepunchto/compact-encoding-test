@@ -81,7 +81,7 @@ The fixed-width codecs write a set number of bytes with no prefix, so the reader
 
 ## Buffers
 
-The buffer codecs carry bytes rather than a value read out of them, and differ in what says how many. `buffer` and `optionalBuffer` count first; a fixed codec carries a width its name announces; `raw` carries whatever is left.
+The buffer codecs carry bytes rather than a value read out of them, and differ in what says how many. `buffer` and `optionalBuffer` count first; a fixed codec carries a width its name announces; `raw` carries whatever is left. `uint8array` counts first too: the typed-array codecs write the number of elements rather than the number of bytes, and an element of a byte array is one byte, so it writes what `buffer` writes and the same rules check it. Only what a decoder hands back differs, which the bytes do not record. The wider typed arrays, where a count of elements and a count of bytes come apart, are not covered here.
 
 - `buffer-count-then-bytes` - a buffer encodes as its length by the `uint` rules, then the bytes themselves, so three bytes are `03616263`.
 - `buffer-empty-is-a-count-of-zero` - the empty buffer is the single byte `00`, and `buffer` reads that byte back as an empty buffer rather than as nothing.
