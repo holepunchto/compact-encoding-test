@@ -24,5 +24,14 @@
   },
   "float32-short-input": {
     "rejects": true
+  },
+  "float32-rounds-up-to-even": {
+    "hex": "0200804b"
+  },
+  "float32-infinity": {
+    "hex": "0000807f"
+  },
+  "float32-overflow": {
+    "hex": "0000807f"
   }
 }

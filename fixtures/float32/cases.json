@@ -64,6 +64,30 @@
         "bytes": "000080"
       },
       "rules": ["decode-rejects-a-short-width"]
+    },
+    {
+      "id": "float32-rounds-up-to-even",
+      "note": "the midpoint above, which rounds the other way because the even neighbour is higher",
+      "input": {
+        "value": 16777219
+      },
+      "rules": ["float32-rounds-to-nearest"]
+    },
+    {
+      "id": "float32-infinity",
+      "note": "an infinity at the narrower width",
+      "input": {
+        "value": "Infinity"
+      },
+      "rules": ["float-carries-infinity"]
+    },
+    {
+      "id": "float32-overflow",
+      "note": "a value binary32 cannot reach, which saturates rather than being refused",
+      "input": {
+        "value": 1e39
+      },
+      "rules": ["float32-overflows-to-infinity"]
     }
   ]
 }
