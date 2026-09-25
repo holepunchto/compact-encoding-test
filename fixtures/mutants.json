@@ -644,5 +644,22 @@
     "answer": {
       "refused": true
     }
+  },
+  {
+    "rule": "record-empty-is-a-count-of-zero",
+    "reading": "a record with no pairs writes nothing at all, as it has nothing to write",
+    "fixture": "record-utf8-uint-empty",
+    "answer": {
+      "hex": ""
+    }
+  },
+  {
+    "rule": "record-empty-is-a-count-of-zero",
+    "reading": "a count of zero reads as an absence, as it does for an optional buffer",
+    "fixture": "record-utf8-uint-empty-decode",
+    "answer": {
+      "decodes": null,
+      "read": 1
+    }
   }
 ]

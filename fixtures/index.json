@@ -22,6 +22,7 @@
     ],
     "record-utf8-uint": [
       "record-utf8-uint-empty",
+      "record-utf8-uint-empty-decode",
       "record-utf8-uint-one-pair",
       "record-utf8-uint-two-pairs",
       "record-utf8-uint-decode",

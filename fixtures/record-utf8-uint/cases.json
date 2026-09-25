@@ -18,7 +18,15 @@
       "input": {
         "value": {}
       },
-      "rules": ["record-count-then-pairs"]
+      "rules": ["record-empty-is-a-count-of-zero"]
+    },
+    {
+      "id": "record-utf8-uint-empty-decode",
+      "note": "that byte read back, a record with no pairs rather than an absence",
+      "input": {
+        "bytes": "00"
+      },
+      "rules": ["record-empty-is-a-count-of-zero"]
     },
     {
       "id": "record-utf8-uint-one-pair",
