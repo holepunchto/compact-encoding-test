@@ -2,7 +2,7 @@ const test = require('brittle')
 const c = require('compact-encoding')
 const corpus = require('../lib/corpus')
 const { rules, ruleSlugs, malformed } = require('../lib/spec')
-const { carries: carriesDeclared, slug } = require('../lib/declaration')
+const { carries, slug } = require('../lib/declaration')
 
 test('the specification states at least one rule', (t) => {
   t.ok(rules().length > 0, 'CODECS.md carries rules')
@@ -98,13 +98,8 @@ const CARRIES = {
   buffers: (value) => value === null || (typeof value === 'string' && BYTES.test(value))
 }
 
-const CARRIERS = {
-  of: (category) => CARRIES[category] || Number.isFinite,
-  category: (name) => corpus.loadCases(name).category
-}
-
-function carries(category, declaration) {
-  return declaration ? carriesDeclared(declaration, CARRIERS) : CARRIERS.of(category)
+function byCategory(category) {
+  return CARRIES[category] || Number.isFinite
 }
 
 test('the taxonomy accounts for every codec the reference exports', (t) => {
@@ -164,7 +159,9 @@ test('every case states one well-formed input', (t) => {
         malformed.push(`${example.id}: states ${keys.length} inputs`)
       } else if (
         example.input.value !== undefined &&
-        !carries(category, declaration)(example.input.value)
+        !(declaration ? carries(declaration, byCategory) : byCategory(category))(
+          example.input.value
+        )
       ) {
         malformed.push(`${example.id}: states a value the ${category} do not carry`)
       } else if (example.input.bytes !== undefined && !HEX.test(example.input.bytes)) {
