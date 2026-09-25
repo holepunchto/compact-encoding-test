@@ -40,9 +40,9 @@ function decode(codec, hex) {
   }
 }
 
-function answer(codec, category, example) {
+function answer(codec, category, declaration, example) {
   return asks(example) === 'bytes'
-    ? encode(codec, value(category, example.input.value))
+    ? encode(codec, value(category, example.input.value, declaration))
     : decode(codec, example.input.bytes)
 }
 
@@ -68,7 +68,7 @@ function generate() {
     }
 
     const answers = {}
-    for (const example of cases) answers[example.id] = answer(codec, category, example)
+    for (const example of cases) answers[example.id] = answer(codec, category, declaration, example)
 
     files[path.join(fixturesDir, name, 'answers.json')] = json(answers)
     capabilities[category] = {
