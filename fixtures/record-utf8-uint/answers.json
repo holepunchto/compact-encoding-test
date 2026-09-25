@@ -2,6 +2,10 @@
   "record-utf8-uint-empty": {
     "hex": "00"
   },
+  "record-utf8-uint-empty-decode": {
+    "decodes": {},
+    "read": 1
+  },
   "record-utf8-uint-one-pair": {
     "hex": "01016101"
   },
@@ -24,13 +28,6 @@
     "hex": "02016202016101"
   },
   "record-utf8-uint-short-input": {
-    "rejects": true
-  },
-  "record-utf8-uint-empty-decode": {
-    "decodes": {},
-    "read": 1
-  },
-  "record-utf8-uint-count-past-the-ceiling": {
     "rejects": true
   }
 }

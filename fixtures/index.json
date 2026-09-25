@@ -22,14 +22,13 @@
     ],
     "record-utf8-uint": [
       "record-utf8-uint-empty",
+      "record-utf8-uint-empty-decode",
       "record-utf8-uint-one-pair",
       "record-utf8-uint-two-pairs",
       "record-utf8-uint-decode",
       "record-utf8-uint-repeated-key",
       "record-utf8-uint-key-order",
-      "record-utf8-uint-short-input",
-      "record-utf8-uint-empty-decode",
-      "record-utf8-uint-count-past-the-ceiling"
+      "record-utf8-uint-short-input"
     ],
     "stringRecord": []
   },

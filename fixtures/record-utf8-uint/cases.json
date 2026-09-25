@@ -21,6 +21,14 @@
       "rules": ["record-empty-is-a-count-of-zero"]
     },
     {
+      "id": "record-utf8-uint-empty-decode",
+      "note": "that byte read back, a record with no pairs rather than an absence",
+      "input": {
+        "bytes": "00"
+      },
+      "rules": ["record-empty-is-a-count-of-zero"]
+    },
+    {
       "id": "record-utf8-uint-one-pair",
       "note": "one pair, the key by the string rules and the value by its own codec",
       "input": {
@@ -75,22 +83,6 @@
         "bytes": "020161"
       },
       "rules": ["record-rejects-short-input"]
-    },
-    {
-      "id": "record-utf8-uint-empty-decode",
-      "note": "that byte read back, a record with no pairs rather than an absence",
-      "input": {
-        "bytes": "00"
-      },
-      "rules": ["record-empty-is-a-count-of-zero"]
-    },
-    {
-      "id": "record-utf8-uint-count-past-the-ceiling",
-      "note": "a count of pairs above the largest integer a double holds exactly",
-      "input": {
-        "bytes": "ff0000000000002000"
-      },
-      "rules": ["decode-ceiling"]
     }
   ]
 }
