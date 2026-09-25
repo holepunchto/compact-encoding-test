@@ -149,7 +149,8 @@
       "float32-short-input",
       "float32-rounds-up-to-even",
       "float32-infinity",
-      "float32-overflow"
+      "float32-overflow",
+      "float32-negative-infinity"
     ],
     "float64": [
       "float64-one",

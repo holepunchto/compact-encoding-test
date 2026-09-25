@@ -87,7 +87,15 @@
       "input": {
         "value": 400000000000000000000000000000000000000
       },
-      "rules": ["float32-overflows-to-infinity"]
+      "rules": ["float-overflows-to-an-infinity"]
+    },
+    {
+      "id": "float32-negative-infinity",
+      "note": "the same with the sign bit, at the narrower width",
+      "input": {
+        "value": "-Infinity"
+      },
+      "rules": ["float-carries-infinity"]
     }
   ]
 }

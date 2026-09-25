@@ -33,5 +33,8 @@
   },
   "float32-overflow": {
     "hex": "0000807f"
+  },
+  "float32-negative-infinity": {
+    "hex": "000080ff"
   }
 }
