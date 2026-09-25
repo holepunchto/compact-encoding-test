@@ -114,8 +114,7 @@ test('every code unit outside ASCII is written as an escape', (t) => {
       const path = `${fixturesDir}/${name}/${file}`
       if (!fs.existsSync(path)) continue
 
-      // eslint-disable-next-line no-control-regex
-      if (/[^\x00-\x7f]/.test(fs.readFileSync(path, 'utf8'))) raw.push(`${name}/${file}`)
+      if (/[\u0080-\uffff]/.test(fs.readFileSync(path, 'utf8'))) raw.push(`${name}/${file}`)
     }
   }
 

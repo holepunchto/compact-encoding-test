@@ -20,19 +20,19 @@ test('the specification pins the reference the fixtures were generated from', (t
   )
 })
 
-test('the taxonomy names a category, a codec and its cases', (t) => {
-  const taxonomy = capabilities()
-  const listed = Object.entries(taxonomy).flatMap(([category, codecs]) =>
-    Object.entries(codecs).map(([codec, cases]) => ({ category, codec, cases }))
-  )
+function listed() {
+  return Object.values(capabilities()).flatMap((codecs) => Object.entries(codecs))
+}
+
+test('the taxonomy names a codec under a category', (t) => {
+  t.ok(listed().length > 0, 'the taxonomy carries a codec')
+})
+
+test('every case the taxonomy names is a case the corpus carries', (t) => {
   const ids = new Set(allFixtures().map((fixture) => fixture.id))
+  const dangling = listed()
+    .flatMap(([codec, cases]) => cases.map((id) => `${codec}: ${id}`))
+    .filter((named) => !ids.has(named.split(': ')[1]))
 
-  t.ok(listed.length > 0, 'the taxonomy carries a codec under a category')
-
-  const dangling = listed
-    .flatMap(({ codec, cases }) => cases.map((id) => ({ codec, id })))
-    .filter(({ id }) => !ids.has(id))
-    .map(({ codec, id }) => `${codec}: ${id}`)
-
-  t.alike(dangling, [], 'a case the taxonomy names is a case the corpus carries')
+  t.alike(dangling, [], 'a case id in the taxonomy names a case')
 })

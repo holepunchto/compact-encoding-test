@@ -33,9 +33,9 @@
     "test": "npm run test:bare && npm run test:node && npm run test:pack",
     "test:bare": "brittle-bare test.js",
     "test:node": "brittle-node test.js",
+    "test:pack": "brittle-node test-pack.js",
     "lint": "prettier . --check && lunte",
-    "format": "prettier . --write && lunte --fix",
-    "test:pack": "brittle-node test/pack.js"
+    "format": "prettier . --write && lunte --fix"
   },
   "bugs": {
     "url": "https://github.com/holepunchto/compact-encoding-test/issues"
