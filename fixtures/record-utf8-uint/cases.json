@@ -16,7 +16,7 @@
       "id": "record-utf8-uint-empty",
       "note": "no pairs at all, which is a count of zero",
       "input": {
-        "value": {}
+        "value": []
       },
       "rules": ["record-empty-is-a-count-of-zero"]
     },
@@ -32,9 +32,7 @@
       "id": "record-utf8-uint-one-pair",
       "note": "one pair, the key by the string rules and the value by its own codec",
       "input": {
-        "value": {
-          "a": 1
-        }
+        "value": [["a", 1]]
       },
       "rules": ["record-count-then-pairs", "utf8-count-then-bytes"]
     },
@@ -42,10 +40,10 @@
       "id": "record-utf8-uint-two-pairs",
       "note": "two pairs, written key and value in turn rather than keys then values",
       "input": {
-        "value": {
-          "a": 1,
-          "b": 2
-        }
+        "value": [
+          ["a", 1],
+          ["b", 2]
+        ]
       },
       "rules": ["record-count-then-pairs"]
     },
@@ -69,10 +67,10 @@
       "id": "record-utf8-uint-key-order",
       "note": "keys given out of alphabetical order, written in the order they were given",
       "input": {
-        "value": {
-          "b": 2,
-          "a": 1
-        }
+        "value": [
+          ["b", 2],
+          ["a", 1]
+        ]
       },
       "rules": ["record-key-order-follows-the-value"]
     },

@@ -86,3 +86,22 @@ test('a number in an answer is spelled the way JSON spells it', (t) => {
 
   t.alike(odd, [], 'a number in an answer is written as JSON writes it')
 })
+
+test('a record case carries pairs the reference keeps in order', (t) => {
+  const reordered = []
+
+  for (const name of corpus.codecs()) {
+    const { codec, cases } = corpus.loadCases(name)
+    if (!codec || codec.name !== 'record') continue
+
+    for (const example of cases) {
+      const pairs = example.input.value
+      if (pairs === undefined) continue
+
+      const keys = pairs.map(([key]) => key)
+      if (Object.keys(Object.fromEntries(pairs)).join() !== keys.join()) reordered.push(example.id)
+    }
+  }
+
+  t.alike(reordered, [], 'a record case states an order the reference can write')
+})

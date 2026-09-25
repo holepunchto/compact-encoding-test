@@ -4,7 +4,7 @@ const c = require('compact-encoding')
 const { fixturesDir } = require('.')
 const { asks, codecs, loadCases } = require('./lib/corpus')
 const { token, value } = require('./lib/notation')
-const { build } = require('./lib/declaration')
+const { build, shaped } = require('./lib/declaration')
 
 function encode(codec, value) {
   const state = c.state()
@@ -40,9 +40,9 @@ function decode(codec, hex) {
   }
 }
 
-function answer(codec, category, example) {
+function answer(codec, category, declaration, example) {
   return asks(example) === 'bytes'
-    ? encode(codec, value(category, example.input.value))
+    ? encode(codec, shaped(declaration, value(category, example.input.value)))
     : decode(codec, example.input.bytes)
 }
 
@@ -59,16 +59,19 @@ function generate() {
   const capabilities = {}
 
   for (const name of codecs()) {
-    const { category, cases, codec: declaration } = loadCases(name)
+    const { category, cases, codec } = loadCases(name)
+    const declaration = codec || { name }
 
-    const codec = build(declaration || { name }, c)
-    const usable = codec !== undefined && typeof codec.preencode === 'function'
+    const built = build(declaration, c)
+    const usable = built !== undefined && typeof built.preencode === 'function'
     if (!usable && cases.length > 0) {
       throw new Error(`the reference has no codec named ${name}`)
     }
 
     const answers = {}
-    for (const example of cases) answers[example.id] = answer(codec, category, example)
+    for (const example of cases) {
+      answers[example.id] = answer(built, category, declaration, example)
+    }
 
     files[path.join(fixturesDir, name, 'answers.json')] = json(answers)
     capabilities[category] = {
