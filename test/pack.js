@@ -1,11 +1,10 @@
 const test = require('brittle')
-const { execFileSync } = require('child_process')
-const corpus = require('./lib/corpus')
+const { spawnSync } = require('child_process')
+const corpus = require('../lib/corpus')
 
 function packed() {
-  const [tarball] = JSON.parse(
-    execFileSync('npm', ['pack', '--dry-run', '--json'], { encoding: 'utf8' })
-  )
+  const { stdout } = spawnSync('npm', ['pack', '--dry-run', '--json'])
+  const [tarball] = JSON.parse(stdout.toString())
 
   return tarball.files.map((file) => file.path)
 }
