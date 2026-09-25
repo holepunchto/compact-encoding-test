@@ -29,5 +29,8 @@
   },
   "record-utf8-uint-short-input": {
     "rejects": true
+  },
+  "record-utf8-uint-count-past-the-ceiling": {
+    "rejects": true
   }
 }
