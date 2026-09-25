@@ -46,7 +46,7 @@ A decoder reads from a buffer it does not own the end of, so how it treats what 
 
 The fixed-width codecs write a set number of bytes with no prefix, so the reader knows the length before it reads anything. What a decoder takes from the bytes is `decode-consumes-its-form`. `uint8` through `uint64` carry unsigned values, `int8` through `int64` signed ones, and `uint32be` and `uint64be` differ from their siblings only in byte order. The big-endian codecs are their own capability, since only two implementations provide any, and the ones the reference does not implement at all carry a capability with no cases and a reason.
 
-- `fixed-width-width-from-name` - a codec named `uintN` or `intN` writes exactly N bits, so `uint24` writes three bytes and `int64` writes eight, whatever the value.
+- `fixed-width-width-from-name` - a codec named `uintN` or `intN` writes exactly N bits, so `uint24` writes three bytes and `int64` writes eight, whatever the value. N counts bits here and bytes in the buffer codecs named the same way, which `fixed-width-in-bytes` states.
 - `fixed-width-little-endian` - a codec whose name has no suffix writes its bytes least significant first.
 - `fixed-width-big-endian` - a codec whose name ends `be` writes the same bytes most significant first.
 - `fixed-width-signed-zigzag` - a signed codec zigzags the value into an unsigned one before laying the bytes down, mapping -1 to 1 and 1 to 2, rather than storing two's complement. An implementer who writes two's complement agrees with the reference on no negative value at all.
@@ -88,9 +88,9 @@ The buffer codecs carry bytes rather than a value read out of them, and differ i
 - `buffer-empty-is-a-count-of-zero` - the empty buffer is the single byte `00`, and `buffer` reads that byte back as an empty buffer rather than as nothing.
 - `buffer-rejects-short-input` - a decoder rejects a count announcing more bytes than the input holds, rather than returning the bytes it has. `optionalBuffer` and `uint8array` count the same way and reject the same input.
 - `optional-buffer-zero-is-absent` (delegated) - `optionalBuffer` writes `00` for an absent value and `00` for an empty buffer, and reads `00` as absent, so an empty buffer goes in as bytes and comes back as nothing. The two are told apart by which codec a caller picked rather than by the bytes: `buffer` reads `00` as empty and can never say absent, `optionalBuffer` reads it as absent and can never carry empty. An implementation that keeps them apart on the wire disagrees with the reference in both directions, and <https://github.com/holepunchto/compact-encoding/issues/70> asks whether the loss is intended.
-- `fixed-no-count` - a fixed codec writes its bytes with nothing in front of them, so eight bytes in are eight bytes out and a reader that expected a count would take the first byte of data for one.
+- `fixed-no-count` - a fixed codec writes its bytes with nothing in front of them, so a buffer of the width it was built with comes out at that same length and a reader that expected a count would take the first byte of data for one.
 - `fixed-width-in-bytes` - a fixed codec carries a width counted in bytes, the number it was built with: `fixed(8)` carries eight bytes where `uint8` carries eight bits. The reference exports the common widths ready built, so its `fixed8` is `fixed(8)` under a shorter name rather than a codec of its own.
-- `fixed-refuses-wrong-size` - a buffer that is not exactly the width the name announces is refused, rather than padded or cut to fit.
+- `fixed-refuses-wrong-size` - a buffer that is not exactly the width the codec was built with is refused, rather than padded or cut to fit.
 - `raw-no-count` - `raw` writes its bytes alone, as a fixed codec does, at whatever length the buffer happens to be.
 - `raw-takes-the-rest` - a decoder takes everything from where it starts to the end of the buffer, so `raw` has no form of its own to stop at and reaching the end is what `decode-consumes-its-form` means for it.
 
