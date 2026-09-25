@@ -2,7 +2,8 @@ const fs = require('fs')
 const path = require('path')
 const c = require('compact-encoding')
 const { fixturesDir } = require('.')
-const { asks, codecs, loadCases, token, value } = require('./lib/corpus')
+const { asks, codecs, loadCases } = require('./lib/corpus')
+const { token, value } = require('./lib/notation')
 const { build } = require('./lib/declaration')
 
 function encode(codec, value) {
