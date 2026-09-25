@@ -72,6 +72,14 @@
         "value": "-Infinity"
       },
       "rules": ["float-carries-infinity", "float-little-endian"]
+    },
+    {
+      "id": "float64-short-input",
+      "note": "seven bytes where the width needs eight",
+      "input": {
+        "bytes": "00000000000080"
+      },
+      "rules": ["fixed-width-rejects-short-input"]
     }
   ]
 }

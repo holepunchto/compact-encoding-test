@@ -26,7 +26,8 @@
       "record-utf8-uint-two-pairs",
       "record-utf8-uint-decode",
       "record-utf8-uint-repeated-key",
-      "record-utf8-uint-key-order"
+      "record-utf8-uint-key-order",
+      "record-utf8-uint-short-input"
     ],
     "stringRecord": []
   },
@@ -79,7 +80,8 @@
     "buffer": [
       "buffer-bytes",
       "buffer-empty",
-      "buffer-empty-decode"
+      "buffer-empty-decode",
+      "buffer-short-input"
     ],
     "fixed-16": [
       "fixed-16-bytes",
@@ -151,7 +153,8 @@
       "float64-negative-zero",
       "float64-negative-zero-decode",
       "float64-infinity",
-      "float64-negative-infinity"
+      "float64-negative-infinity",
+      "float64-short-input"
     ]
   },
   "integers": {

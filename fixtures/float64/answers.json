@@ -27,5 +27,8 @@
   },
   "float64-negative-infinity": {
     "hex": "000000000000f0ff"
+  },
+  "float64-short-input": {
+    "rejects": true
   }
 }

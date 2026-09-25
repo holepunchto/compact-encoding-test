@@ -22,5 +22,8 @@
   },
   "record-utf8-uint-key-order": {
     "hex": "02016202016101"
+  },
+  "record-utf8-uint-short-input": {
+    "rejects": true
   }
 }

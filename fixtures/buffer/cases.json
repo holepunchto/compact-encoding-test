@@ -24,6 +24,14 @@
         "bytes": "00"
       },
       "rules": ["buffer-empty-is-a-count-of-zero"]
+    },
+    {
+      "id": "buffer-short-input",
+      "note": "a count of three with one byte following",
+      "input": {
+        "bytes": "0361"
+      },
+      "rules": ["buffer-rejects-short-input"]
     }
   ]
 }
