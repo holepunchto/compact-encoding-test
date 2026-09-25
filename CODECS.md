@@ -38,9 +38,9 @@ A value that is not an integer is outside what these rules define. The reference
 
 ## What a decoder consumes
 
-A decoder reads from a buffer it does not own the end of, so how it treats what it was not asked for is part of the contract.
+A decoder reads from a buffer it does not own the end of, so how it treats what it was not asked for is part of the contract. It holds for every codec below, whatever family it belongs to.
 
-- `decode-consumes-its-form` - a decoder reads the bytes its own form needs and leaves the rest where they are, rather than rejecting input that carries more. `uint` given `0161` returns 1 and stops after one byte, leaving `61` for whoever reads next, and `uint8` does the same, so a caller reading two values from one buffer gets the second one. An overlong form is read whole: `uint` takes all three bytes of `fd0100`.
+- `decode-consumes-its-form` - a decoder reads the bytes its own form needs and leaves the rest where they are, rather than rejecting input that carries more. `uint` given `0161` returns 1 and stops after one byte, leaving `61` for whoever reads next, and `uint8` does the same, so a caller reading two values from one buffer gets the second one. What a form needs is whatever the codec's own rules say it writes: one byte for `bool`, its width for a fixed codec or a float, a count and then the bytes it announced for `buffer`, `optionalBuffer` and `utf8`, a count and then that many elements for an array or that many pairs for a record, and for `frame` the length it announced together with the bytes that announced it. An overlong form is read whole: `uint` takes all three bytes of `fd0100`. `raw` is the one codec with no form of its own, and `raw-takes-the-rest` says what it does instead.
 
 ## Fixed-width integers
 
