@@ -86,7 +86,7 @@ The fixed-width codecs write a set number of bytes with no prefix, so the reader
 
 ## Booleans
 
-`bool` carries one byte, and of the two hundred and fifty six it could hold, an encoder writes two and a decoder reads one of them as true. What a decoder takes from the bytes is `decode-consumes-its-form`.
+`bool` carries one byte, and of the 256 values that byte could hold a decoder reads exactly one as true. What a decoder takes from the bytes is `decode-consumes-its-form`.
 
 - `bool-single-byte` - true is the byte `01` and false is the byte `00`, one byte either way.
 - `bool-rejects-empty-input` - a decoder rejects input with no byte in it, rather than reading an absent byte as false.
