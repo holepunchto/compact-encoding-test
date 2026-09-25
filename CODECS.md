@@ -8,9 +8,18 @@ Normative references: RFC 3629 (STD 63) for UTF-8, the Unicode Standard, Version
 
 Each rule carries a stable slug id, and every case under `fixtures/` names the rule slugs it exercises. A rule with no citing case fails the corpus build, so a rule cannot ship unchecked. A rule is marked `delegated`, in this document and in the capability taxonomy both, where another reasonable implementation would choose differently: the document states what the reference does, and says what the other choice would be, because a port reasoning from first principles will make it. The marker is a warning to copy rather than to reason. It does not mean a rule is vague - a rule this document cannot state is a rule with no case behind it, and the build refuses that.
 
-A case carries an input and the corpus carries its answer beside it, in `answers.json`, keyed by the case id. The input says which question the case asks. A `value` asks what it encodes to, answered by `hex` or by `refused` where the codec will not encode the value. `bytes` ask what a decoder makes of them, answered by `decodes` or by `rejects`. A `decodes` answer carries `read` beside it, the count of bytes the decoder took, so where a decoder stopped is part of the answer rather than something the corpus cannot see. A value JSON cannot carry is written as a token - `NaN`, `Infinity`, `-Infinity` or `-0` - in a case and in a `decodes` answer both, since JSON turns the first three into null and the last into 0. A directory covers one codec, and where that codec is built rather than exported under a name, `cases.json` says how: `codec` names the factory and `of` lists what it was built from, each a codec or a number, and the directory is named after them, so `fixed-3` is `fixed(3)`.
+A case carries an input and the corpus carries its answer beside it, in `answers.json`, keyed by the case id. The input says which question the case asks. A `value` asks what it encodes to, answered by `hex` or by `refused` where the codec will not encode the value. `bytes` ask what a decoder makes of them, answered by `decodes` or by `rejects`. A `decodes` answer carries `read` beside it, the count of bytes the decoder took, so where a decoder stopped is part of the answer rather than something the corpus cannot see. A value JSON cannot carry is written as a token - `NaN`, `Infinity`, `-Infinity` or `-0` - in a case and in a `decodes` answer both, since JSON turns the first three into null and the last into 0. An answer states one outcome and nothing else, so `refused` and `rejects` are flags rather than reasons:
 
-The fixtures are JSON (RFC 8259). A `value` is a number where the codec carries one and a sequence of UTF-16 code units where it carries text, rather than a sequence of code points: `\ud800` is a single code unit, a surrogate with nothing after it to pair with. UTF-16 is Section 3.9 of the Unicode Standard and the surrogates it pairs are Section 3.8, which between them say which code units are surrogates and when two of them pair. A `decodes` answer is a value of the same two kinds, while `bytes` and `hex` are bytes written as pairs of hex digits. Every code unit outside ASCII is written as a `\uXXXX` escape, in the cases and the answers both.
+```json
+{ "hex": "03616263" }
+{ "refused": true }
+{ "decodes": "abc", "read": 4 }
+{ "rejects": true }
+```
+
+A directory covers one codec, and where that codec is built rather than exported under a name, `cases.json` says how: `codec` names the factory and `of` lists what it was built from, each a codec or a number, and the directory is named after them, so `fixed-3` is `fixed(3)`.
+
+The fixtures are JSON (RFC 8259). A `value` is a number where the codec carries one and a sequence of UTF-16 code units where it carries text, rather than a sequence of code points: `\ud800` is a single code unit, a surrogate with nothing after it to pair with. UTF-16 is Section 3.9 of the Unicode Standard and the surrogates it pairs are Section 3.8, which between them say which code units are surrogates and when two of them pair. A `value` and a `decodes` answer carry whatever the codec carries, which is a number or text for the codecs above, `true` or `false` for `bool`, hex for the buffer codecs and `null` where one is absent, and an array or an object for the combinators. `bytes` and `hex` are always bytes written as pairs of hex digits. Every code unit outside ASCII is written as a `\uXXXX` escape, in the cases and the answers both.
 
 ## uint
 
@@ -96,12 +105,12 @@ The buffer codecs carry bytes rather than a value read out of them, and differ i
 
 ## Combinators
 
-A combinator is a codec built from other codecs, and each says how many of something comes first. What that number counts is where they differ. What a decoder takes from the bytes is `decode-consumes-its-form`.
+A combinator is a codec built from other codecs, and each says how many of something comes first. What that number counts is where they differ: `array` counts elements, `record` counts pairs, and `frame` counts the bytes its value takes. What a decoder takes from the bytes is `decode-consumes-its-form`.
 
 - `array-count-then-elements` - an array encodes as the number of elements by the `uint` rules, then each element by the codec the array was built from. The count is elements rather than bytes, so `[253]` is `01fdfd00`: one element in three bytes.
 - `array-empty-is-a-count-of-zero` - an empty array is the single byte `00`, as an empty buffer is.
 - `array-rejects-short-input` - a decoder rejects input that runs out before the count is satisfied, so a count of three with one element following is a rejection rather than the elements it managed to read.
-- `array-count-ceiling` - a decoder rejects a count above 1048576 before it reads an element, so a hostile count costs nothing to refuse. The bound is the count rather than the bytes: `fe01001000` is refused on its count alone.
+- `array-count-ceiling` - a decoder rejects a count above 1048576 before it reads an element, so a hostile count costs nothing to reject. The bound is the count rather than the bytes: `fe01001000` is rejected on its count alone.
 - `frame-byte-length-then-value` - a frame encodes as the number of bytes its value takes, by the `uint` rules, then the value, so 300 through a frame around `uint` is `03fd2c01` - three bytes rather than one value.
 - `frame-bounds-its-value` - a decoder reads the value inside the length the frame announced and rejects one that would run past it, so `01fd0100` is a rejection although the bytes spell a value the inner codec would otherwise take.
 - `frame-skips-to-its-end` - a decoder leaves off at the end of the frame whatever the value took, so `0305ffff` decodes 5 and consumes four bytes rather than two.
