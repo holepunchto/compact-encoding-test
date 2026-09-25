@@ -638,7 +638,7 @@
     }
   },
   {
-    "rule": "float32-overflows-to-infinity",
+    "rule": "float-overflows-to-an-infinity",
     "reading": "a value the width cannot reach is refused, as an integer past the ceiling is",
     "fixture": "float32-overflow",
     "answer": {
