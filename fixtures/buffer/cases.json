@@ -32,6 +32,14 @@
         "bytes": "0361"
       },
       "rules": ["buffer-rejects-short-input"]
+    },
+    {
+      "id": "buffer-count-past-the-ceiling",
+      "note": "a count above the largest integer a double holds exactly, refused before the input is consulted",
+      "input": {
+        "bytes": "ff0000000000002000"
+      },
+      "rules": ["decode-ceiling"]
     }
   ]
 }

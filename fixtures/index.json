@@ -81,7 +81,8 @@
       "buffer-bytes",
       "buffer-empty",
       "buffer-empty-decode",
-      "buffer-short-input"
+      "buffer-short-input",
+      "buffer-count-past-the-ceiling"
     ],
     "fixed-16": [
       "fixed-16-bytes",
