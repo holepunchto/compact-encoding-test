@@ -63,7 +63,7 @@
       "input": {
         "bytes": "000080"
       },
-      "rules": ["fixed-width-rejects-short-input"]
+      "rules": ["decode-rejects-a-short-width"]
     }
   ]
 }

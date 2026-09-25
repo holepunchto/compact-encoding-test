@@ -27,7 +27,7 @@
       "input": {
         "bytes": "010203"
       },
-      "rules": ["fixed-width-rejects-short-input"]
+      "rules": ["decode-rejects-a-short-width"]
     }
   ]
 }
