@@ -2,6 +2,7 @@ const test = require('brittle')
 const c = require('compact-encoding')
 const corpus = require('../lib/corpus')
 const { rules, ruleSlugs, malformed } = require('../lib/spec')
+const { carries, slug } = require('../lib/declaration')
 
 test('the specification states at least one rule', (t) => {
   t.ok(rules().length > 0, 'CODECS.md carries rules')
@@ -68,16 +69,6 @@ test('every decoded answer records how far the reading went', (t) => {
   t.alike(silent, [], 'a decoded answer says how many bytes the decoder took')
 })
 
-function slug(declaration) {
-  const parts = [declaration.name]
-
-  for (const built of declaration.of || []) {
-    parts.push(typeof built === 'number' ? String(built) : slug(built))
-  }
-
-  return parts.join('-')
-}
-
 test('a constructed codec is named after what it was built from', (t) => {
   const misnamed = []
 
@@ -107,20 +98,8 @@ const CARRIES = {
   buffers: (value) => value === null || (typeof value === 'string' && BYTES.test(value))
 }
 
-const BUILDS = {
-  array: () => Array.isArray,
-  record: () => (value) => value !== null && typeof value === 'object',
-  fixed: () => CARRIES.buffers,
-  frame: (declaration) => carrier(declaration.of[0])
-}
-
-function carrier(declaration) {
-  const build = BUILDS[declaration.name]
-  return build ? build(declaration) : carries(corpus.loadCases(declaration.name).category)
-}
-
-function carries(category, declaration) {
-  return declaration ? carrier(declaration) : CARRIES[category] || Number.isFinite
+function byCategory(category) {
+  return CARRIES[category] || Number.isFinite
 }
 
 test('the taxonomy accounts for every codec the reference exports', (t) => {
@@ -180,7 +159,9 @@ test('every case states one well-formed input', (t) => {
         malformed.push(`${example.id}: states ${keys.length} inputs`)
       } else if (
         example.input.value !== undefined &&
-        !carries(category, declaration)(example.input.value)
+        !(declaration ? carries(declaration, byCategory) : byCategory(category))(
+          example.input.value
+        )
       ) {
         malformed.push(`${example.id}: states a value the ${category} do not carry`)
       } else if (example.input.bytes !== undefined && !HEX.test(example.input.bytes)) {
