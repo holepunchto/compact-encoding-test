@@ -11,5 +11,9 @@
   "optionalBuffer-zero-decode": {
     "decodes": null,
     "read": 1
+  },
+  "optionalBuffer-one-byte": {
+    "decodes": "00",
+    "read": 2
   }
 }

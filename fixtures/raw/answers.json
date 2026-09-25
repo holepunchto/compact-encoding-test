@@ -5,5 +5,12 @@
   "raw-decode": {
     "decodes": "616263",
     "read": 3
+  },
+  "raw-empty": {
+    "hex": ""
+  },
+  "raw-empty-decode": {
+    "decodes": "",
+    "read": 0
   }
 }
