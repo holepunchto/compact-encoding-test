@@ -1,5 +1,6 @@
 require('./test/package')
 require('./test/coverage')
+require('./test/document')
 require('./test/markers')
 require('./test/mutants')
 require('./test/regenerate')
