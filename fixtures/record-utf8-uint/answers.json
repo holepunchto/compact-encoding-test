@@ -25,5 +25,12 @@
   },
   "record-utf8-uint-short-input": {
     "rejects": true
+  },
+  "record-utf8-uint-empty-decode": {
+    "decodes": {},
+    "read": 1
+  },
+  "record-utf8-uint-count-past-the-ceiling": {
+    "rejects": true
   }
 }
