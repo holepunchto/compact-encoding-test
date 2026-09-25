@@ -85,7 +85,7 @@
       "id": "float32-overflow",
       "note": "a value binary32 cannot reach, which saturates rather than being refused",
       "input": {
-        "value": 1e39
+        "value": 400000000000000000000000000000000000000
       },
       "rules": ["float-overflows-to-an-infinity"]
     },
