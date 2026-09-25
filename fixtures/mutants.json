@@ -273,7 +273,7 @@
   },
   {
     "rule": "utf8-count-after-substitution",
-    "reading": "the count is taken before substitution, so a lone surrogate announces the two bytes it occupied",
+    "reading": "the count is the width the string occupies in memory, so a lone surrogate announces two",
     "fixture": "utf8-unpaired-surrogate",
     "answer": {
       "hex": "02efbfbd"
