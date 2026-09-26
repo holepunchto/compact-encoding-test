@@ -1,3 +1,4 @@
+require('./test/pack')
 require('./test/package')
 require('./test/coverage')
 require('./test/document')

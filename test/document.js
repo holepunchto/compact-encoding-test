@@ -105,3 +105,18 @@ test('a record case carries pairs the reference keeps in order', (t) => {
 
   t.alike(reordered, [], 'a record case states an order the reference can write')
 })
+
+test('every code unit outside ASCII is written as an escape', (t) => {
+  const raw = []
+
+  for (const name of corpus.codecs()) {
+    for (const file of ['cases.json', 'answers.json']) {
+      const path = `${fixturesDir}/${name}/${file}`
+      if (!fs.existsSync(path)) continue
+
+      if (/[\u0080-\uffff]/.test(fs.readFileSync(path, 'utf8'))) raw.push(`${name}/${file}`)
+    }
+  }
+
+  t.alike(raw, [], 'a fixture file is ASCII throughout, as the preamble says')
+})

@@ -1,7 +1,7 @@
 const test = require('brittle')
 const fs = require('fs')
 const path = require('path')
-const { fixturesDir, specPath } = require('..')
+const { fixturesDir } = require('..')
 const corpus = require('../lib/corpus')
 const { allFixtures, capabilities } = corpus
 const { pinned } = require('../lib/spec')
@@ -12,10 +12,6 @@ test('the fixtures are installed', (t) => {
   t.ok(allFixtures().length > 0, 'the corpus ships fixtures')
 })
 
-test('the specification ships alongside the fixtures', (t) => {
-  t.ok(fs.existsSync(specPath), 'CODECS.md exists')
-})
-
 test('the specification pins the reference the fixtures were generated from', (t) => {
   t.is(
     pinned(),
@@ -24,10 +20,19 @@ test('the specification pins the reference the fixtures were generated from', (t
   )
 })
 
-test('the taxonomy names a category, a codec and its cases', (t) => {
-  const taxonomy = capabilities()
-  const categories = Object.keys(taxonomy)
+function listed() {
+  return Object.values(capabilities()).flatMap((codecs) => Object.entries(codecs))
+}
 
-  t.ok(categories.length > 0, 'the taxonomy carries a category')
-  t.ok(Object.keys(taxonomy[categories[0]]).length > 0, 'a category carries a codec')
+test('the taxonomy names a codec under a category', (t) => {
+  t.ok(listed().length > 0, 'the taxonomy carries a codec')
+})
+
+test('every case the taxonomy names is a case the corpus carries', (t) => {
+  const ids = new Set(allFixtures().map((fixture) => fixture.id))
+  const dangling = listed()
+    .flatMap(([codec, cases]) => cases.map((id) => `${codec}: ${id}`))
+    .filter((named) => !ids.has(named.split(': ')[1]))
+
+  t.alike(dangling, [], 'a case id in the taxonomy names a case')
 })
