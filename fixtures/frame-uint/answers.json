@@ -11,5 +11,8 @@
   },
   "frame-uint-bounds": {
     "rejects": true
+  },
+  "frame-uint-length-past-the-end": {
+    "rejects": true
   }
 }

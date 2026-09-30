@@ -2,7 +2,7 @@
 
 This document is the normative definition of the codecs in `compact-encoding`. It is written against the reference implementation at the version pinned below, not against any other documentation.
 
-Reference implementation: `compact-encoding` 3.5.0.
+Reference implementation: `compact-encoding` 3.5.2.
 
 Normative references: RFC 3629 (STD 63) for UTF-8, the Unicode Standard, Version 18.0, for UTF-16, for surrogates and for the substitution of maximal subparts, and IEEE 754-2019 for the binary32 and binary64 forms the float codecs write. A section number below is a section of the Unicode edition named here.
 
@@ -117,14 +117,13 @@ A combinator is a codec built from other codecs, and each says how many of somet
 - `array-count-ceiling` - a decoder rejects a count above 1048576 before it reads an element, so a hostile count costs nothing to reject. The bound is the count rather than the bytes: `fe01001000` is rejected on its count alone.
 - `frame-byte-length-then-value` - a frame encodes as the number of bytes its value takes, by the `uint` rules, then the value, so 300 through a frame around `uint` is `03fd2c01` - three bytes rather than one value.
 - `frame-bounds-its-value` - a decoder reads the value inside the length the frame announced and rejects one that would run past it, so `01fd0100` is a rejection although the bytes spell a value the inner codec would otherwise take.
+- `frame-rejects-a-length-past-the-end` - a decoder rejects a frame announcing more bytes than follow it, rather than reading the value and leaving off past the end of the input, so `0501` is a rejection and not a 1.
 - `frame-skips-to-its-end` - a decoder leaves off at the end of the frame whatever the value took, so `0305ffff` decodes 5 and consumes four bytes rather than two.
 - `record-count-then-pairs` - a record encodes as the number of pairs by the `uint` rules, then each key and value in turn rather than every key and then every value. The key is written by the codec the record was built from, so a record built on `utf8` writes keys by `utf8-count-then-bytes`, and the value by the other.
 - `record-empty-is-a-count-of-zero` - a record with no pairs is the single byte `00`, as an empty array is, and a decoder reads that same byte back as a record with no pairs rather than as an absence.
 - `record-key-order-follows-the-value` (delegated) - the pairs are written in the order the value carries them rather than sorted, so a record built from `b` then `a` writes `b` first. The reference reads a record's pairs with `Object.keys`, which puts a key that looks like an integer before the rest whatever order it was given in, so no case here carries one. An implementation whose map has no order of its own, or which sorts keys to be deterministic, writes a different sequence of the same pairs and disagrees on any record with more than one key. The reference does not intend this order to carry: <https://github.com/holepunchto/compact-encoding/issues/78> is deciding between leaving the order to the implementation and fixing a total order such as a natural sort, and a port should expect this rule to change rather than build on it.
 - `record-rejects-short-input` - a decoder rejects input that runs out before the count of pairs is satisfied, whether it ends between a key and its value or before the next pair. A count of pairs carries no ceiling of its own, unlike `array-count-ceiling`: it is bounded by `decode-ceiling`, which the `uint` reading it is held to, and then by what the input holds, and no input can hold the number of pairs that ceiling allows.
 - `record-last-pair-wins` (delegated) - a key that appears twice is not an error and the later pair replaces the earlier, so `02016101016102` decodes to one pair carrying 2. An implementation that rejects a repeated key, or keeps the first, disagrees with the reference on every record that carries one.
-
-A frame announcing more bytes than follow it is outside what these rules define. The reference neither rejects it nor bounds the reading: `0501` returns 1 and leaves the reading at 6 on a buffer of two, so the failure surfaces on a later read. The corpus states no rule and carries no case, because the sibling codecs all check and this one looks like the oversight rather than the design, and pinning it would make the check a breaking change. <https://github.com/holepunchto/compact-encoding/issues/76> asks whether it belongs here.
 
 ## Strings
 

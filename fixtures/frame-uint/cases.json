@@ -40,6 +40,14 @@
         "bytes": "01fd0100"
       },
       "rules": ["frame-bounds-its-value"]
+    },
+    {
+      "id": "frame-uint-length-past-the-end",
+      "note": "a length longer than the bytes that follow it",
+      "input": {
+        "bytes": "0501"
+      },
+      "rules": ["frame-rejects-a-length-past-the-end"]
     }
   ]
 }

@@ -18,7 +18,8 @@
       "frame-uint-value",
       "frame-uint-wide-value",
       "frame-uint-slack",
-      "frame-uint-bounds"
+      "frame-uint-bounds",
+      "frame-uint-length-past-the-end"
     ],
     "record-utf8-uint": [
       "record-utf8-uint-empty",
