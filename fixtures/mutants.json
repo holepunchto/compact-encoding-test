@@ -661,5 +661,14 @@
       "decodes": null,
       "read": 1
     }
+  },
+  {
+    "rule": "frame-rejects-a-length-past-the-end",
+    "reading": "a frame's length is taken on trust, so the value is read and the reading lands past the end",
+    "fixture": "frame-uint-length-past-the-end",
+    "answer": {
+      "decodes": 1,
+      "read": 6
+    }
   }
 ]
