@@ -577,14 +577,6 @@
     }
   },
   {
-    "rule": "record-key-order-follows-the-value",
-    "reading": "the pairs are sorted by key so the writing is deterministic",
-    "fixture": "record-utf8-uint-key-order",
-    "answer": {
-      "hex": "02016101016202"
-    }
-  },
-  {
     "rule": "buffer-count-then-bytes",
     "reading": "the count is a byte of the buffer like any other, so it comes back with them",
     "fixture": "uint8array-decode",

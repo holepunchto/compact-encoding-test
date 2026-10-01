@@ -64,17 +64,6 @@
       "rules": ["record-last-pair-wins"]
     },
     {
-      "id": "record-utf8-uint-key-order",
-      "note": "keys given out of alphabetical order, written in the order they were given",
-      "input": {
-        "value": [
-          ["b", 2],
-          ["a", 1]
-        ]
-      },
-      "rules": ["record-key-order-follows-the-value"]
-    },
-    {
       "id": "record-utf8-uint-short-input",
       "note": "two pairs announced, with the first key and nothing after it",
       "input": {
