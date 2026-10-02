@@ -42,7 +42,7 @@ An encoder picks the narrowest form that holds the value, which is what makes th
 
 Every integer codec here carries its value as a double, an IEEE 754 binary64, whose largest exactly held integer is `2^53 - 1`, or 9007199254740991. Bounds therefore cut across the family regardless of what a codec's own form allows. The unsigned bound is stated here; the signed one is narrower and stated with `int`.
 
-- `unsigned-refuses-negative` - an unsigned codec refuses a negative value rather than wrapping it, whatever form it writes, so `uint` refuses -1 as flatly as `uint8` does and `fixed-width-truncates-high-bytes` reaches only values a codec carries in the first place.
+- `unsigned-refuses-negative` - an unsigned codec refuses a negative value rather than wrapping it, whatever form it writes, so `uint` refuses -1 as flatly as `uint8` does.
 - `encode-ceiling` - an encoder refuses an unsigned value above 9007199254740991 rather than writing an approximation of it, whatever the codec's own form allows. A signed codec is held to the narrower `signed-range` instead, so this bound never governs one.
 - `decode-ceiling` - a decoder rejects bytes that would decode above 9007199254740991, the largest integer a double holds exactly. `uint64` rejects eight bytes of ones while `uint48` decodes six of them cleanly, and `uint` rejects its eight-byte form carrying the same number, so the ceiling belongs to the value rather than to the codec. A signed codec is held to it on the reading, before the reading is unzigzagged: `int64` rejects the eight bytes carrying 9007199254740992 rather than returning the 4503599627370496 they unzigzag to. This is where an implementation with a real 64-bit integer type parts from the reference.
 
@@ -63,14 +63,15 @@ The fixed-width codecs write a set number of bytes with no prefix, so the reader
 - `fixed-width-little-endian` - a codec whose name has no suffix writes its bytes least significant first.
 - `fixed-width-big-endian` - a codec whose name ends `be` writes the same bytes most significant first.
 - `fixed-width-signed-zigzag` - a signed codec zigzags the value into an unsigned one before laying the bytes down, mapping -1 to 1 and 1 to 2, rather than storing two's complement. An implementer who writes two's complement agrees with the reference on no negative value at all.
-- `fixed-width-truncates-high-bytes` - a value the codec accepts but the width cannot hold keeps its low bytes, so `uint8` writes zero for 256 and `int8` writes zero for 128, whose zigzag is 256.
+
+A value a fixed-width codec accepts but its width cannot hold is outside what these rules define. The reference keeps the low bytes, so `uint8` writes zero for 256 and `int8` writes zero for 128, whose zigzag is 256: the value is lost and nothing says so, which is the only boundary where this library is quiet about losing one. The corpus states no rule and carries no case here, because the behaviour follows from writing a number into a byte rather than from a decision, and pinning it would make the obvious fix a breaking change. It is also unreachable from most languages: the Python port refuses such a value, and a language whose fixed-width types are its own cannot express the call at all. <https://github.com/holepunchto/compact-encoding/issues/81> proposes refusing it, as every other boundary already is.
 
 ## int
 
 `int` carries a signed value in the space `uint` uses, by mapping it to an unsigned one first. A decoder needs no bound of its own: zigzag maps the whole unsigned range exactly onto the signed one, sending 9007199254740991 to -4503599627370496 and 9007199254740990 to 4503599627370495, so bytes carrying anything further out are already refused by `decode-ceiling`. What a decoder takes from the bytes is `decode-consumes-its-form`.
 
 - `int-zigzag` - the value is zigzagged and the result encoded by the `uint` rules above. Zigzag doubles a value at or above zero and maps one below zero to its doubled magnitude less one, so `n` becomes `2n` when `n` is not negative and `-2n - 1` when it is, mapping 0 to 0, -1 to 1, 1 to 2 and -2 to 3. A decoder halves an even reading and negates the halved successor of an odd one.
-- `signed-range` - a signed codec accepts -4503599627370496 through 4503599627370495 and refuses anything beyond at either end, whatever its width. Accepting is not carrying: `int8` accepts the largest of them and writes `fe`, keeping the low byte under `fixed-width-truncates-high-bytes`. The range reaches one further below zero than above it, and it is half as wide as the unsigned ceiling because zigzag doubles the magnitude before the value is written.
+- `signed-range` - a signed codec accepts -4503599627370496 through 4503599627370495 and refuses anything beyond at either end, whatever its width. The range reaches one further below zero than above it, and it is half as wide as the unsigned ceiling because zigzag doubles the magnitude before the value is written.
 
 ## Floats
 

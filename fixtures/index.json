@@ -213,9 +213,7 @@
     "int8": [
       "int8-minus-one",
       "int8-min",
-      "int8-max",
-      "int8-truncates",
-      "int8-signed-max"
+      "int8-max"
     ],
     "lexint": [],
     "uint": [
@@ -273,7 +271,6 @@
     "uint8": [
       "uint8-value",
       "uint8-max",
-      "uint8-truncates",
       "uint8-negative",
       "uint8-trailing-bytes"
     ]

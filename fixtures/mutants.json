@@ -88,14 +88,6 @@
     }
   },
   {
-    "rule": "fixed-width-truncates-high-bytes",
-    "reading": "a value past the width saturates at the largest the width holds",
-    "fixture": "uint8-truncates",
-    "answer": {
-      "hex": "ff"
-    }
-  },
-  {
     "rule": "decode-rejects-a-short-width",
     "reading": "a decoder zero fills the bytes it was not given",
     "fixture": "uint16-short-input",
@@ -149,14 +141,6 @@
     "fixture": "int-past-range-min",
     "answer": {
       "hex": "ff0100000000002000"
-    }
-  },
-  {
-    "rule": "fixed-width-truncates-high-bytes",
-    "reading": "an encoder refuses a value the width cannot hold rather than keeping its low bytes",
-    "fixture": "uint8-truncates",
-    "answer": {
-      "refused": true
     }
   },
   {

@@ -5,9 +5,6 @@
   "uint8-max": {
     "hex": "ff"
   },
-  "uint8-truncates": {
-    "hex": "00"
-  },
   "uint8-negative": {
     "refused": true
   },
