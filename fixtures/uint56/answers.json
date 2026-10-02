@@ -6,6 +6,7 @@
     "hex": "ffffffffffff1f"
   },
   "uint56-decode-ceiling": {
-    "rejects": true
+    "decodes": "9007199254740992n",
+    "read": 7
   }
 }

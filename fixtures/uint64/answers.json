@@ -6,9 +6,10 @@
     "hex": "ffffffffffff1f00"
   },
   "uint64-decode-ceiling": {
-    "rejects": true
+    "decodes": "18446744073709551615n",
+    "read": 8
   },
   "uint64-encode-ceiling": {
-    "refused": true
+    "hex": "0000000000002000"
   }
 }

@@ -23,7 +23,11 @@
       "input": {
         "bytes": "00000000000020"
       },
-      "rules": ["decode-ceiling"]
+      "rules": ["decode-ceiling"],
+      "answer": {
+        "decodes": "9007199254740992n",
+        "read": 7
+      }
     }
   ]
 }

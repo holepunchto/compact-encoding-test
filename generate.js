@@ -2,7 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const c = require('compact-encoding')
 const { fixturesDir } = require('.')
-const { asks, codecs, loadCases } = require('./lib/corpus')
+const { asks, codecs, loadCases, unrepresentable } = require('./lib/corpus')
 const { token, value } = require('./lib/notation')
 const { build, shaped } = require('./lib/declaration')
 
@@ -44,10 +44,32 @@ function whichNaN(codec, decoded) {
   return Number.isNaN(decoded) ? { bits: encode(codec, decoded).hex } : {}
 }
 
-function answer(codec, category, declaration, example) {
+const TWINS = { uint64: c.biguint64, int64: c.bigint64 }
+
+function ask(codec, category, declaration, example) {
   return asks(example) === 'bytes'
     ? encode(codec, shaped(declaration, value(category, example.input.value)))
     : decode(codec, example.input.bytes)
+}
+
+function refuses(answer) {
+  return answer.refused === true || answer.rejects === true
+}
+
+function answer(name, codec, category, declaration, example) {
+  const reference = ask(codec, category, declaration, example)
+
+  if (example.answer !== undefined) {
+    if (!refuses(reference)) throw new Error(`${example.id} states an answer the reference gives`)
+    return example.answer
+  }
+
+  const marked = example.rules.some((slug) => unrepresentable().includes(slug))
+  if (!marked || !refuses(reference) || TWINS[name] === undefined) return reference
+
+  return asks(example) === 'bytes'
+    ? encode(TWINS[name], BigInt(value(category, example.input.value)))
+    : decode(TWINS[name], example.input.bytes)
 }
 
 function json(value) {
@@ -74,7 +96,7 @@ function generate() {
 
     const answers = {}
     for (const example of cases) {
-      answers[example.id] = answer(built, category, declaration, example)
+      answers[example.id] = answer(name, built, category, declaration, example)
     }
 
     files[path.join(fixturesDir, name, 'answers.json')] = json(answers)

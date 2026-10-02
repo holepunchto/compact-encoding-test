@@ -3,15 +3,17 @@
     "hex": "0300000000000000"
   },
   "int64-decode-ceiling": {
-    "rejects": true
+    "decodes": "-9223372036854775808n",
+    "read": 8
   },
   "int64-ceiling-before-unzigzag": {
-    "rejects": true
+    "decodes": 4503599627370496,
+    "read": 8
   },
   "int64-past-range": {
-    "refused": true
+    "hex": "0000000000002000"
   },
   "int64-past-range-min": {
-    "refused": true
+    "hex": "0100000000002000"
   }
 }
