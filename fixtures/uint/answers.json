@@ -46,6 +46,9 @@
   "uint-negative": {
     "refused": true
   },
+  "uint-encode-ceiling": {
+    "refused": true
+  },
   "uint-decode-ceiling": {
     "rejects": true
   },

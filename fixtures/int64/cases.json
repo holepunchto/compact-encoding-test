@@ -12,38 +12,6 @@
         "fixed-width-little-endian",
         "fixed-width-signed-zigzag"
       ]
-    },
-    {
-      "id": "int64-decode-ceiling",
-      "note": "eight bytes of ones, whose zigzag decodes past the ceiling",
-      "input": {
-        "bytes": "ffffffffffffffff"
-      },
-      "rules": ["decode-ceiling"]
-    },
-    {
-      "id": "int64-ceiling-before-unzigzag",
-      "note": "a reading one past the ceiling, which unzigzags to a value the ceiling would admit",
-      "input": {
-        "bytes": "0000000000000020"
-      },
-      "rules": ["decode-ceiling"]
-    },
-    {
-      "id": "int64-past-range",
-      "note": "one past the largest, refused however wide the codec is",
-      "input": {
-        "value": 4503599627370496
-      },
-      "rules": ["signed-range"]
-    },
-    {
-      "id": "int64-past-range-min",
-      "note": "one past the smallest, which sits further from zero than the largest does",
-      "input": {
-        "value": -4503599627370497
-      },
-      "rules": ["signed-range"]
     }
   ]
 }

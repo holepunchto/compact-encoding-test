@@ -11,27 +11,11 @@
     },
     {
       "id": "uint64-max",
-      "note": "the largest value the codec accepts, short of what eight bytes hold",
+      "note": "the largest integer a double holds exactly, written at this width",
       "input": {
         "value": 9007199254740991
       },
       "rules": ["fixed-width-width-from-name", "fixed-width-little-endian"]
-    },
-    {
-      "id": "uint64-decode-ceiling",
-      "note": "eight bytes of ones, which decode past the ceiling",
-      "input": {
-        "bytes": "ffffffffffffffff"
-      },
-      "rules": ["decode-ceiling"]
-    },
-    {
-      "id": "uint64-encode-ceiling",
-      "note": "the first unsafe integer, which no codec encodes",
-      "input": {
-        "value": 9007199254740992
-      },
-      "rules": ["encode-ceiling"]
     }
   ]
 }

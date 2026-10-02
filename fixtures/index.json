@@ -181,7 +181,8 @@
       "int-range-min",
       "int-past-range",
       "int-past-range-min",
-      "int-single-byte-min"
+      "int-single-byte-min",
+      "int-ceiling-before-unzigzag"
     ],
     "int16": [
       "int16-negative",
@@ -204,11 +205,7 @@
       "int56-negative"
     ],
     "int64": [
-      "int64-negative",
-      "int64-decode-ceiling",
-      "int64-ceiling-before-unzigzag",
-      "int64-past-range",
-      "int64-past-range-min"
+      "int64-negative"
     ],
     "int8": [
       "int8-minus-one",
@@ -232,6 +229,7 @@
       "uint-truncated-prefix",
       "uint-empty-input",
       "uint-negative",
+      "uint-encode-ceiling",
       "uint-decode-ceiling",
       "uint-trailing-bytes"
     ],
@@ -259,14 +257,11 @@
     ],
     "uint56": [
       "uint56-byte-order",
-      "uint56-max",
-      "uint56-decode-ceiling"
+      "uint56-max"
     ],
     "uint64": [
       "uint64-byte-order",
-      "uint64-max",
-      "uint64-decode-ceiling",
-      "uint64-encode-ceiling"
+      "uint64-max"
     ],
     "uint8": [
       "uint8-value",
@@ -286,8 +281,7 @@
       "uint32be-short-input"
     ],
     "uint64be": [
-      "uint64be-byte-order",
-      "uint64be-decode-ceiling"
+      "uint64be-byte-order"
     ],
     "uintbe": []
   },

@@ -122,6 +122,14 @@
       "rules": ["unsigned-refuses-negative"]
     },
     {
+      "id": "uint-encode-ceiling",
+      "note": "one past the largest integer a double holds exactly, which goes to biguint instead",
+      "input": {
+        "value": 9007199254740992
+      },
+      "rules": ["encode-ceiling"]
+    },
+    {
       "id": "uint-decode-ceiling",
       "note": "the eight-byte form carrying the first unsafe integer",
       "input": {

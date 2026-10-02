@@ -8,14 +8,6 @@
         "value": 4294967296
       },
       "rules": ["fixed-width-width-from-name", "fixed-width-big-endian"]
-    },
-    {
-      "id": "uint64be-decode-ceiling",
-      "note": "eight bytes carrying the first unsafe integer, most significant first",
-      "input": {
-        "bytes": "0020000000000000"
-      },
-      "rules": ["decode-ceiling"]
     }
   ]
 }

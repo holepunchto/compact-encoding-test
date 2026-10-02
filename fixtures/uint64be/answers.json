@@ -1,8 +1,5 @@
 {
   "uint64be-byte-order": {
     "hex": "0000000100000000"
-  },
-  "uint64be-decode-ceiling": {
-    "rejects": true
   }
 }

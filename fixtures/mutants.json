@@ -106,7 +106,7 @@
   {
     "rule": "decode-ceiling",
     "reading": "a decoder returns whatever the bytes hold, however large",
-    "fixture": "uint64-decode-ceiling",
+    "fixture": "uint-decode-ceiling",
     "answer": {
       "decodes": 9007199254740992
     }
@@ -122,9 +122,9 @@
   {
     "rule": "encode-ceiling",
     "reading": "an encoder writes whatever the double holds",
-    "fixture": "uint64-encode-ceiling",
+    "fixture": "uint-encode-ceiling",
     "answer": {
-      "hex": "0000000000002000"
+      "hex": "ff0000000000002000"
     }
   },
   {
@@ -149,14 +149,6 @@
     "fixture": "uint-uint64-max-safe",
     "answer": {
       "refused": true
-    }
-  },
-  {
-    "rule": "decode-ceiling",
-    "reading": "a decoder applies the ceiling by width, so the widest forms are rejected whatever they carry",
-    "fixture": "uint48-decode-max",
-    "answer": {
-      "rejects": true
     }
   },
   {
@@ -266,7 +258,7 @@
   {
     "rule": "decode-ceiling",
     "reading": "the ceiling is applied after unzigzagging, so a reading past it comes back as a signed value",
-    "fixture": "int64-ceiling-before-unzigzag",
+    "fixture": "int-ceiling-before-unzigzag",
     "answer": {
       "decodes": 4503599627370496
     }

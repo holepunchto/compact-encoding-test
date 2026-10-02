@@ -19,11 +19,11 @@
     },
     {
       "id": "uint48-decode-max",
-      "note": "six bytes of ones, which stay inside the ceiling",
+      "note": "six bytes of ones, the largest value the width spells",
       "input": {
         "bytes": "ffffffffffff"
       },
-      "rules": ["decode-ceiling"]
+      "rules": ["decode-consumes-its-form"]
     }
   ]
 }

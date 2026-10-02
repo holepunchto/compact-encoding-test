@@ -28,5 +28,8 @@
   },
   "int-single-byte-min": {
     "hex": "fb"
+  },
+  "int-ceiling-before-unzigzag": {
+    "rejects": true
   }
 }

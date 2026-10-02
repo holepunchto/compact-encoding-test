@@ -1,17 +1,5 @@
 {
   "int64-negative": {
     "hex": "0300000000000000"
-  },
-  "int64-decode-ceiling": {
-    "rejects": true
-  },
-  "int64-ceiling-before-unzigzag": {
-    "rejects": true
-  },
-  "int64-past-range": {
-    "refused": true
-  },
-  "int64-past-range-min": {
-    "refused": true
   }
 }

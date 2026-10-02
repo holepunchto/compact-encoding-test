@@ -80,6 +80,14 @@
         "value": -126
       },
       "rules": ["int-zigzag"]
+    },
+    {
+      "id": "int-ceiling-before-unzigzag",
+      "note": "bytes whose unsigned reading is one past the ceiling, which would unzigzag to a value the signed range admits",
+      "input": {
+        "bytes": "ff0000000000002000"
+      },
+      "rules": ["decode-ceiling"]
     }
   ]
 }
