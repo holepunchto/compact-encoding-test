@@ -34,10 +34,14 @@ function decode(codec, hex) {
   const state = { buffer, start: 0, end: buffer.length }
   try {
     const decoded = codec.decode(state)
-    return { decodes: token(decoded), read: state.start }
+    return { decodes: token(decoded), ...whichNaN(codec, decoded), read: state.start }
   } catch {
     return { rejects: true }
   }
+}
+
+function whichNaN(codec, decoded) {
+  return Number.isNaN(decoded) ? { bits: encode(codec, decoded).hex } : null
 }
 
 function answer(codec, category, declaration, example) {

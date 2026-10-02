@@ -12,8 +12,12 @@ function stated(answer) {
   return shape === 'hex'
     ? `bytes ${answer.hex}`
     : shape === 'decodes'
-      ? `decodes ${JSON.stringify(answer.decodes)} after ${answer.read}`
+      ? `decodes ${JSON.stringify(answer.decodes)}${carrying(answer)} after ${answer.read}`
       : shape
+}
+
+function carrying(answer) {
+  return answer.bits === undefined ? '' : ` carrying ${answer.bits}`
 }
 
 test('mutants exist', (t) => {
@@ -24,7 +28,7 @@ test('every mutant states one well-formed answer', (t) => {
   const malformed = []
 
   for (const mutant of corpus.mutants()) {
-    const keys = Object.keys(mutant.answer).filter((key) => key !== 'read')
+    const keys = Object.keys(mutant.answer).filter((key) => key !== 'read' && key !== 'bits')
 
     if (keys.length !== 1) {
       malformed.push(`${mutant.rule}: states ${keys.length} answers`)

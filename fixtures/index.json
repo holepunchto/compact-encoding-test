@@ -146,6 +146,7 @@
       "float32-rounds-decode",
       "float32-rounds-integer",
       "float32-nan",
+      "float32-nan-payload",
       "float32-negative-zero",
       "float32-negative-zero-decode",
       "float32-short-input",

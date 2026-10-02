@@ -13,6 +13,7 @@
   },
   "float64-nan-payload": {
     "decodes": "NaN",
+    "bits": "010000000000f87f",
     "read": 8
   },
   "float64-negative-zero": {

@@ -15,6 +15,11 @@
   "float32-nan": {
     "hex": "0000c07f"
   },
+  "float32-nan-payload": {
+    "decodes": "NaN",
+    "bits": "0100c07f",
+    "read": 4
+  },
   "float32-negative-zero": {
     "hex": "00000080"
   },
