@@ -684,13 +684,23 @@
     }
   },
   {
-    "rule": "float32-quiets-a-signalling-nan",
+    "rule": "float-nan-quiet-bit",
     "reading": "a decoder keeps the signal at 32 bits, as one holding a native binary32 does",
     "fixture": "float32-nan-signalling",
     "answer": {
       "decodes": "NaN",
       "bits": "0100807f",
       "read": 4
+    }
+  },
+  {
+    "rule": "float-nan-quiet-bit",
+    "reading": "a decoder quiets the signal at every width, not only where it narrows",
+    "fixture": "float64-nan-signalling",
+    "answer": {
+      "decodes": "NaN",
+      "bits": "010000000000f87f",
+      "read": 8
     }
   }
 ]

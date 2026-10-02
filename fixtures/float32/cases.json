@@ -55,7 +55,7 @@
       "input": {
         "bytes": "0100807f"
       },
-      "rules": ["float32-quiets-a-signalling-nan"]
+      "rules": ["float-nan-quiet-bit"]
     },
     {
       "id": "float32-negative-zero",

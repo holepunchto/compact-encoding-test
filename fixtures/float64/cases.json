@@ -43,11 +43,11 @@
     },
     {
       "id": "float64-nan-signalling",
-      "note": "the same NaN at the wider width, where the signal survives",
+      "note": "the same payload with the quiet bit clear, which survives at this width",
       "input": {
         "bytes": "010000000000f07f"
       },
-      "rules": ["float32-quiets-a-signalling-nan"]
+      "rules": ["float-nan-quiet-bit"]
     },
     {
       "id": "float64-negative-zero",
