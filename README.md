@@ -31,10 +31,11 @@ An `input` asks one of two questions. A `value` asks what it encodes to, answere
 
 Values JSON cannot carry are written as tokens: `NaN`, `Infinity`, `-Infinity` and `-0`. A buffer value is hex, and an absent one is `null`. Everything outside ASCII is escaped, so every file is ASCII throughout.
 
-Three files sit beside the directories.
+Four files sit beside the directories.
 
 - `index.json` - the capability taxonomy: category, then codec, then the ids of its cases. A codec with an empty list is one the corpus does not cover, and its `cases.json` says why.
 - `delegated.json` - the rules where the reference's answer is one reasonable choice among several. A port copies these rather than reasoning them out, and the same marker appears in `CODECS.md`.
+- `unrepresentable.json` - the rules concerning a value an implementation's types may not hold. A case citing one accepts its answer or `unrepresentable`, and the same marker appears in `CODECS.md`.
 - `mutants.json` - plausible wrong readings, each naming a rule, the reading, the case that refutes it and the answer that reading would give. A reading no case refutes fails the build.
 
 ## Tests

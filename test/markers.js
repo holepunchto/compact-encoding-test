@@ -14,3 +14,16 @@ test('the delegated markers agree', (t) => {
     'the taxonomy and the specification mark the same rules delegated'
   )
 })
+
+test('the unrepresentable markers agree', (t) => {
+  const inSpec = rules()
+    .filter((rule) => rule.unrepresentable)
+    .map((rule) => rule.slug)
+    .sort()
+
+  t.alike(
+    corpus.unrepresentable().slice().sort(),
+    inSpec,
+    'the taxonomy and the specification mark the same rules unrepresentable'
+  )
+})
