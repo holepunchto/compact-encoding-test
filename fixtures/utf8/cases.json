@@ -45,7 +45,7 @@
       "id": "utf8-unpaired-surrogate",
       "note": "half a surrogate pair, which the encoder replaces rather than refuses",
       "input": {
-        "value": "\ud800"
+        "value": { "units": [55296] }
       },
       "rules": ["utf8-replaces-unpaired-surrogate", "utf8-count-after-substitution"]
     },
