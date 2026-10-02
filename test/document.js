@@ -43,6 +43,50 @@ function shapes(answers) {
   return new Set(Object.values(answers).map((answer) => Object.keys(answer).sort().join('+')))
 }
 
+const ESCAPE = /\\u([0-9a-fA-F]{4})/g
+
+function lone(text) {
+  const units = [...text.matchAll(ESCAPE)].map((m) => ({ code: parseInt(m[1], 16), at: m.index }))
+  const out = []
+
+  for (let i = 0; i < units.length; i++) {
+    const { code, at } = units[i]
+    if (code < 0xd800 || code > 0xdfff) continue
+
+    const next = units[i + 1]
+    if (
+      code <= 0xdbff &&
+      next &&
+      next.at === at + 6 &&
+      next.code >= 0xdc00 &&
+      next.code <= 0xdfff
+    ) {
+      i++
+      continue
+    }
+
+    out.push(code.toString(16))
+  }
+
+  return out
+}
+
+test('no fixture carries a surrogate with nothing to pair with', (t) => {
+  const stranded = []
+
+  for (const name of corpus.codecs()) {
+    for (const file of ['cases.json', 'answers.json']) {
+      const path = `${fixturesDir}/${name}/${file}`
+      if (!fs.existsSync(path)) continue
+      for (const code of lone(fs.readFileSync(path, 'utf8'))) {
+        stranded.push(`${name}/${file}: \\u${code}`)
+      }
+    }
+  }
+
+  t.alike(stranded, [], 'a strict JSON parser reads every fixture the corpus ships')
+})
+
 test('a slug the document cites names a rule it states', (t) => {
   const known = ruleSlugs()
   const dangling = [...cited()].filter((slug) => !known.has(slug))

@@ -3,7 +3,7 @@ const c = require('compact-encoding')
 const corpus = require('../lib/corpus')
 const { rules, ruleSlugs, malformed } = require('../lib/spec')
 const { carries, slug } = require('../lib/declaration')
-const { hex, tokenised } = require('../lib/notation')
+const { hex, tokenised, units } = require('../lib/notation')
 
 test('the specification states at least one rule', (t) => {
   t.ok(rules().length > 0, 'CODECS.md carries rules')
@@ -102,7 +102,7 @@ test('a codec with no cases says why', (t) => {
 })
 
 const CARRIES = {
-  strings: (value) => typeof value === 'string',
+  strings: (value) => typeof value === 'string' || units(value),
   floats: (value) => Number.isFinite(value) || tokenised(value),
   booleans: (value) => typeof value === 'boolean',
   buffers: (value) => value === null || (typeof value === 'string' && hex(value))
