@@ -345,6 +345,26 @@
     }
   },
   {
+    "rule": "float-nan-pattern",
+    "reading": "a decoder canonicalises the payload away, so every NaN comes back the same",
+    "fixture": "float64-nan-payload",
+    "answer": {
+      "decodes": "NaN",
+      "bits": "000000000000f87f",
+      "read": 8
+    }
+  },
+  {
+    "rule": "float-nan-pattern",
+    "reading": "a decoded NaN writes back at the width of a double whatever width read it",
+    "fixture": "float32-nan-payload",
+    "answer": {
+      "decodes": "NaN",
+      "bits": "000000200000f87f",
+      "read": 4
+    }
+  },
+  {
     "rule": "float-negative-zero",
     "reading": "negative zero normalises to positive zero as it is written",
     "fixture": "float64-negative-zero",

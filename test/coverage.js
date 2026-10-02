@@ -70,6 +70,17 @@ test('every decoded answer records how far the reading went', (t) => {
   t.alike(silent, [], 'a decoded answer says how many bytes the decoder took')
 })
 
+test('every NaN a decoder returns says which NaN it is', (t) => {
+  const silent = corpus
+    .allFixtures()
+    .filter((fixture) => corpus.kind(fixture.answer) === 'decodes')
+    .filter((fixture) => fixture.answer.decodes === 'NaN')
+    .filter((fixture) => !fixture.answer.bits || !hex(fixture.answer.bits))
+    .map((fixture) => fixture.id)
+
+  t.alike(silent, [], 'a decoded NaN is one NaN rather than any NaN')
+})
+
 test('a constructed codec is named after what it was built from', (t) => {
   const misnamed = []
 

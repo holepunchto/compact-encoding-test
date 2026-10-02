@@ -42,6 +42,14 @@
       "rules": ["float-nan-pattern"]
     },
     {
+      "id": "float32-nan-payload",
+      "note": "a NaN carrying a payload at the narrower width, which the answer tells from any other",
+      "input": {
+        "bytes": "0100c07f"
+      },
+      "rules": ["float-nan-pattern"]
+    },
+    {
       "id": "float32-negative-zero",
       "note": "negative zero written at the narrower width",
       "input": {
