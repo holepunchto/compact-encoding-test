@@ -3,6 +3,8 @@ const corpus = require('../lib/corpus')
 const { rules, ruleSlugs } = require('../lib/spec')
 const { hex } = require('../lib/notation')
 
+const BESIDE = new Set(['read', 'bits'])
+
 function fixtures() {
   return new Map(corpus.allFixtures().map((fixture) => [fixture.id, fixture]))
 }
@@ -28,12 +30,14 @@ test('every mutant states one well-formed answer', (t) => {
   const malformed = []
 
   for (const mutant of corpus.mutants()) {
-    const keys = Object.keys(mutant.answer).filter((key) => key !== 'read' && key !== 'bits')
+    const keys = Object.keys(mutant.answer).filter((key) => !BESIDE.has(key))
 
     if (keys.length !== 1) {
       malformed.push(`${mutant.rule}: states ${keys.length} answers`)
     } else if (mutant.answer.hex !== undefined && !hex(mutant.answer.hex)) {
       malformed.push(`${mutant.rule}: states bytes that are not hex`)
+    } else if (mutant.answer.bits !== undefined && !hex(mutant.answer.bits)) {
+      malformed.push(`${mutant.rule}: states bits that are not hex`)
     } else if (mutant.answer.rejects !== undefined && mutant.answer.rejects !== true) {
       malformed.push(`${mutant.rule}: states a rejection that is not one`)
     } else if (mutant.answer.refused !== undefined && mutant.answer.refused !== true) {

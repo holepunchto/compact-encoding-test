@@ -41,7 +41,7 @@ function decode(codec, hex) {
 }
 
 function whichNaN(codec, decoded) {
-  return Number.isNaN(decoded) ? { bits: encode(codec, decoded).hex } : null
+  return Number.isNaN(decoded) ? { bits: encode(codec, decoded).hex } : {}
 }
 
 function answer(codec, category, declaration, example) {

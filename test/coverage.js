@@ -75,7 +75,7 @@ test('every NaN a decoder returns says which NaN it is', (t) => {
     .allFixtures()
     .filter((fixture) => corpus.kind(fixture.answer) === 'decodes')
     .filter((fixture) => fixture.answer.decodes === 'NaN')
-    .filter(({ answer }) => !answer.bits || !hex(answer.bits))
+    .filter((fixture) => !fixture.answer.bits || !hex(fixture.answer.bits))
     .map((fixture) => fixture.id)
 
   t.alike(silent, [], 'a decoded NaN is one NaN rather than any NaN')
