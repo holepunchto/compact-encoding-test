@@ -42,6 +42,14 @@
       "rules": ["float-nan-pattern"]
     },
     {
+      "id": "float64-nan-signalling",
+      "note": "the same NaN at the wider width, where the signal survives",
+      "input": {
+        "bytes": "010000000000f07f"
+      },
+      "rules": ["float32-quiets-a-signalling-nan"]
+    },
+    {
       "id": "float64-negative-zero",
       "note": "negative zero, which the sign bit alone distinguishes from positive zero",
       "input": {

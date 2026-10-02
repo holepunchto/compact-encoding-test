@@ -4,6 +4,7 @@
   "utf8-replaces-invalid-bytes",
   "float-nan-pattern",
   "float-negative-zero",
+  "float32-quiets-a-signalling-nan",
   "bool-only-one-is-true",
   "optional-buffer-zero-is-absent",
   "record-last-pair-wins"

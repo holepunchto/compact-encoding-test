@@ -682,5 +682,15 @@
       "decodes": 1,
       "read": 6
     }
+  },
+  {
+    "rule": "float32-quiets-a-signalling-nan",
+    "reading": "a decoder keeps the signal at 32 bits, as one holding a native binary32 does",
+    "fixture": "float32-nan-signalling",
+    "answer": {
+      "decodes": "NaN",
+      "bits": "0100807f",
+      "read": 4
+    }
   }
 ]
