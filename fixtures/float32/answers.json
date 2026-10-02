@@ -20,6 +20,11 @@
     "bits": "0100c07f",
     "read": 4
   },
+  "float32-nan-signalling": {
+    "decodes": "NaN",
+    "bits": "0100c07f",
+    "read": 4
+  },
   "float32-negative-zero": {
     "hex": "00000080"
   },

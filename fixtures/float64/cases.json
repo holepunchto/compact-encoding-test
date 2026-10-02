@@ -42,6 +42,14 @@
       "rules": ["float-nan-pattern"]
     },
     {
+      "id": "float64-nan-signalling",
+      "note": "the same payload with the quiet bit clear, which survives at this width",
+      "input": {
+        "bytes": "010000000000f07f"
+      },
+      "rules": ["float-nan-quiet-bit"]
+    },
+    {
       "id": "float64-negative-zero",
       "note": "negative zero, which the sign bit alone distinguishes from positive zero",
       "input": {

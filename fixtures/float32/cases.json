@@ -50,6 +50,14 @@
       "rules": ["float-nan-pattern"]
     },
     {
+      "id": "float32-nan-signalling",
+      "note": "a NaN with the quiet bit clear, which comes back quieted at this width",
+      "input": {
+        "bytes": "0100807f"
+      },
+      "rules": ["float-nan-quiet-bit"]
+    },
+    {
       "id": "float32-negative-zero",
       "note": "negative zero written at the narrower width",
       "input": {
