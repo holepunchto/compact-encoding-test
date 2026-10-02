@@ -25,7 +25,7 @@
       "id": "int64-ceiling-before-unzigzag",
       "note": "a reading one past the ceiling, which unzigzags to a value the ceiling would admit",
       "input": {
-        "bytes": "0000000000000020"
+        "bytes": "0000000000002000"
       },
       "rules": ["decode-ceiling"]
     },
