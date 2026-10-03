@@ -6,6 +6,9 @@ const { asks, codecs, loadCases, unrepresentable } = require('./lib/corpus')
 const { token, value } = require('./lib/notation')
 const { build, shaped } = require('./lib/declaration')
 
+const TWINS = { uint64: c.biguint64, int64: c.bigint64 }
+const MARKED = new Set(unrepresentable())
+
 function encode(codec, value) {
   const state = c.state()
 
@@ -44,8 +47,6 @@ function whichNaN(codec, decoded) {
   return Number.isNaN(decoded) ? { bits: encode(codec, decoded).hex } : {}
 }
 
-const TWINS = { uint64: c.biguint64, int64: c.bigint64 }
-
 function ask(codec, category, declaration, example) {
   return asks(example) === 'bytes'
     ? encode(codec, shaped(declaration, value(category, example.input.value)))
@@ -64,7 +65,7 @@ function answer(name, codec, category, declaration, example) {
     return example.answer
   }
 
-  const marked = example.rules.some((slug) => unrepresentable().includes(slug))
+  const marked = example.rules.some((slug) => MARKED.has(slug))
   if (!marked || !refuses(reference) || TWINS[name] === undefined) return reference
 
   return asks(example) === 'bytes'

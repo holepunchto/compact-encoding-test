@@ -113,10 +113,10 @@
   },
   {
     "rule": "decode-ceiling",
-    "reading": "a decoder returns whatever the bytes hold, however large",
+    "reading": "a decoder rejects bytes past the ceiling of a double, as the reference does",
     "fixture": "uint64-decode-ceiling",
     "answer": {
-      "decodes": 9007199254740992
+      "rejects": true
     }
   },
   {
@@ -260,7 +260,7 @@
     "reading": "each invalid byte becomes its own replacement",
     "fixture": "utf8-subpart-completable",
     "answer": {
-      "decodes": "��a"
+      "decodes": "\ufffd\ufffda"
     }
   },
   {
