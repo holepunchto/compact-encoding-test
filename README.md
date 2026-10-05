@@ -24,12 +24,12 @@ A port that cannot resolve a JavaScript package resolves `compact-encoding-test/
 
 One directory per codec, named after it. A codec the corpus builds rather than looks up is named after what it was built from, and says so.
 
-- `cases.json` - the questions. Each case carries an `id`, a `note`, an `input` and the `rules` it exercises. The file names the `category` the codec belongs to, and, where the codec is constructed, a `codec` declaration: `{ "name": "fixed", "of": [3] }` is `fixed(3)`.
+- `cases.json` - the questions. Each case carries an `id`, a `note`, an `input` and the `rules` it exercises, and an `answer` where it states the format's answer itself because the reference refuses the value. The file names the `category` the codec belongs to, and, where the codec is constructed, a `codec` declaration: `{ "name": "fixed", "of": [3] }` is `fixed(3)`.
 - `answers.json` - what the reference answers, keyed by case id. Generated from the pinned reference and committed, so a port asserts against bytes rather than against a re-derivation of them.
 
 An `input` asks one of two questions. A `value` asks what it encodes to, answered by `hex` or by `refused`. `bytes` ask what a decoder makes of them, answered by `decodes` and `read` - the number of bytes the decoder took - or by `rejects`. A `decodes` answer whose value is a NaN carries `bits` as well, the bytes that NaN writes back, since every NaN answers as the same token.
 
-Values JSON cannot carry are written as tokens: `NaN`, `Infinity`, `-Infinity` and `-0`. A buffer value is hex, and an absent one is `null`. Everything outside ASCII is escaped, so every file is ASCII throughout.
+Values JSON cannot carry are written as tokens: `NaN`, `Infinity`, `-Infinity` and `-0`, and an integer a JSON number cannot hold exactly as its digits followed by `n`. A buffer value is hex, and an absent one is `null`. Everything outside ASCII is escaped, so every file is ASCII throughout.
 
 Four files sit beside the directories.
 

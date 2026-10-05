@@ -113,10 +113,10 @@
   },
   {
     "rule": "decode-ceiling",
-    "reading": "a decoder returns whatever the bytes hold, however large",
+    "reading": "a decoder rejects bytes past the ceiling of a double, as the reference does",
     "fixture": "uint64-decode-ceiling",
     "answer": {
-      "decodes": 9007199254740992
+      "rejects": true
     }
   },
   {
@@ -129,26 +129,26 @@
   },
   {
     "rule": "encode-ceiling",
-    "reading": "an encoder writes whatever the double holds",
+    "reading": "an encoder refuses past the ceiling of a double, as the reference does",
     "fixture": "uint64-encode-ceiling",
     "answer": {
-      "hex": "0000000000002000"
+      "refused": true
     }
   },
   {
     "rule": "signed-range",
-    "reading": "a 64-bit implementation zigzags and writes the largest values without checking the bound",
+    "reading": "a signed codec refuses past the range a double carries after zigzag, as the reference does",
     "fixture": "int-past-range",
     "answer": {
-      "hex": "ff0000000000002000"
+      "refused": true
     }
   },
   {
     "rule": "signed-range",
-    "reading": "a 64-bit implementation zigzags and writes the smallest values without checking the bound",
+    "reading": "a signed codec refuses below the range a double carries after zigzag, as the reference does",
     "fixture": "int-past-range-min",
     "answer": {
-      "hex": "ff0100000000002000"
+      "refused": true
     }
   },
   {
@@ -281,10 +281,10 @@
   },
   {
     "rule": "decode-ceiling",
-    "reading": "the ceiling is applied after unzigzagging, so a reading past it comes back as a signed value",
+    "reading": "a decoder rejects a reading past the ceiling of a double before unzigzagging, as the reference does",
     "fixture": "int64-ceiling-before-unzigzag",
     "answer": {
-      "decodes": 4503599627370496
+      "rejects": true
     }
   },
   {

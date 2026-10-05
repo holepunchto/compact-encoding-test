@@ -35,11 +35,11 @@
     },
     {
       "id": "buffer-count-past-the-ceiling",
-      "note": "a count above the largest integer a double holds exactly, refused before the input is consulted",
+      "note": "a count of 2^53 with no bytes behind it",
       "input": {
         "bytes": "ff0000000000002000"
       },
-      "rules": ["decode-ceiling"]
+      "rules": ["buffer-rejects-short-input"]
     }
   ]
 }

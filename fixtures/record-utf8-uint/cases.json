@@ -73,11 +73,11 @@
     },
     {
       "id": "record-utf8-uint-count-past-the-ceiling",
-      "note": "a count of pairs above the largest integer a double holds exactly",
+      "note": "a count of 2^53 pairs with none behind it",
       "input": {
         "bytes": "ff0000000000002000"
       },
-      "rules": ["decode-ceiling"]
+      "rules": ["record-rejects-short-input"]
     }
   ]
 }

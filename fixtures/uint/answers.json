@@ -47,7 +47,8 @@
     "refused": true
   },
   "uint-decode-ceiling": {
-    "rejects": true
+    "decodes": "9007199254740992n",
+    "read": 9
   },
   "uint-trailing-bytes": {
     "decodes": 1,

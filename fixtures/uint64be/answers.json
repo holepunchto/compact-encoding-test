@@ -3,6 +3,7 @@
     "hex": "0000000100000000"
   },
   "uint64be-decode-ceiling": {
-    "rejects": true
+    "decodes": "9007199254740992n",
+    "read": 8
   }
 }

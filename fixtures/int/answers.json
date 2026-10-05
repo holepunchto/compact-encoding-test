@@ -21,10 +21,10 @@
     "hex": "ffffffffffffff1f00"
   },
   "int-past-range": {
-    "refused": true
+    "hex": "ff0000000000002000"
   },
   "int-past-range-min": {
-    "refused": true
+    "hex": "ff0100000000002000"
   },
   "int-single-byte-min": {
     "hex": "fb"

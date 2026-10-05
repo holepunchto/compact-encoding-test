@@ -127,7 +127,11 @@
       "input": {
         "bytes": "ff0000000000002000"
       },
-      "rules": ["decode-ceiling"]
+      "rules": ["decode-ceiling"],
+      "answer": {
+        "decodes": "9007199254740992n",
+        "read": 9
+      }
     },
     {
       "id": "uint-trailing-bytes",

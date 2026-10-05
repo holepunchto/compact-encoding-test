@@ -63,7 +63,10 @@
       "input": {
         "value": 4503599627370496
       },
-      "rules": ["signed-range"]
+      "rules": ["signed-range"],
+      "answer": {
+        "hex": "ff0000000000002000"
+      }
     },
     {
       "id": "int-past-range-min",
@@ -71,7 +74,10 @@
       "input": {
         "value": -4503599627370497
       },
-      "rules": ["signed-range"]
+      "rules": ["signed-range"],
+      "answer": {
+        "hex": "ff0100000000002000"
+      }
     },
     {
       "id": "int-single-byte-min",
