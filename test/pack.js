@@ -16,7 +16,12 @@ function carried() {
     out.push(`fixtures/${name}/cases.json`, `fixtures/${name}/answers.json`)
   }
 
-  return out.concat(['fixtures/index.json', 'fixtures/delegated.json', 'fixtures/mutants.json'])
+  return out.concat([
+    'fixtures/index.json',
+    'fixtures/delegated.json',
+    'fixtures/unrepresentable.json',
+    'fixtures/mutants.json'
+  ])
 }
 
 test('the package ships every file a consumer reads', (t) => {
