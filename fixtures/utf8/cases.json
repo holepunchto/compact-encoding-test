@@ -120,6 +120,62 @@
         "bytes": "03e08041"
       },
       "rules": ["utf8-maximal-subpart", "utf8-replaces-invalid-bytes"]
+    },
+    {
+      "id": "utf8-four-byte",
+      "note": "U+1F600, a surrogate pair that becomes one four-byte sequence",
+      "input": {
+        "value": { "units": [55357, 56832] }
+      },
+      "rules": ["utf8-count-then-bytes"]
+    },
+    {
+      "id": "utf8-four-byte-among-ascii",
+      "note": "a surrogate pair between single-byte characters, so the count spans both widths",
+      "input": {
+        "value": { "units": [97, 55357, 56832, 98] }
+      },
+      "rules": ["utf8-count-then-bytes"]
+    },
+    {
+      "id": "utf8-max-code-point",
+      "note": "U+10FFFF, the last code point the encoding reaches",
+      "input": {
+        "value": { "units": [56319, 57343] }
+      },
+      "rules": ["utf8-count-then-bytes"]
+    },
+    {
+      "id": "utf8-unpaired-after-pair",
+      "note": "half a surrogate pair between a whole one and a character, which an encoder pairing greedily would swallow",
+      "input": {
+        "value": { "units": [55357, 56832, 55296, 97] }
+      },
+      "rules": ["utf8-replaces-unpaired-surrogate", "utf8-count-after-substitution"]
+    },
+    {
+      "id": "utf8-decode-four-byte",
+      "note": "a four-byte sequence, which decodes to U+1F600",
+      "input": {
+        "bytes": "04f09f9880"
+      },
+      "rules": ["utf8-count-then-bytes"]
+    },
+    {
+      "id": "utf8-overlong-four-byte",
+      "note": "a null spelled in four bytes where one holds it",
+      "input": {
+        "bytes": "04f0808080"
+      },
+      "rules": ["utf8-invalid-forms", "utf8-replaces-invalid-bytes"]
+    },
+    {
+      "id": "utf8-decode-four-byte-then-ascii",
+      "note": "a single-byte character after a four-byte sequence, so the decoder resumes on the right byte",
+      "input": {
+        "bytes": "05f09f988061"
+      },
+      "rules": ["utf8-count-then-bytes"]
     }
   ]
 }

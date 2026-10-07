@@ -68,7 +68,14 @@
       "utf8-encoded-surrogate",
       "utf8-above-max-code-point",
       "utf8-subpart-completable",
-      "utf8-subpart-uncompletable"
+      "utf8-subpart-uncompletable",
+      "utf8-four-byte",
+      "utf8-four-byte-among-ascii",
+      "utf8-max-code-point",
+      "utf8-unpaired-after-pair",
+      "utf8-decode-four-byte",
+      "utf8-overlong-four-byte",
+      "utf8-decode-four-byte-then-ascii"
     ]
   },
   "big-integers": {

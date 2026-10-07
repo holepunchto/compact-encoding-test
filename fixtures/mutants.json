@@ -280,6 +280,39 @@
     }
   },
   {
+    "rule": "utf8-count-then-bytes",
+    "reading": "an encoder writes each half of a surrogate pair as its own three bytes",
+    "fixture": "utf8-four-byte",
+    "answer": {
+      "hex": "06eda0bdedb880"
+    }
+  },
+  {
+    "rule": "utf8-count-then-bytes",
+    "reading": "an encoder joins a surrogate pair without the 0x10000 offset the pair is relative to",
+    "fixture": "utf8-max-code-point",
+    "answer": {
+      "hex": "04f3bfbfbf"
+    }
+  },
+  {
+    "rule": "utf8-replaces-unpaired-surrogate",
+    "reading": "an encoder pairs a high surrogate with whatever follows, so the lone half swallows the character after it",
+    "fixture": "utf8-unpaired-after-pair",
+    "answer": {
+      "hex": "07f09f9880efbfbd"
+    }
+  },
+  {
+    "rule": "utf8-invalid-forms",
+    "reading": "a four-byte encoding wider than the code point needs still names that code point",
+    "fixture": "utf8-overlong-four-byte",
+    "answer": {
+      "decodes": "\u0000",
+      "read": 5
+    }
+  },
+  {
     "rule": "decode-ceiling",
     "reading": "a decoder rejects a reading past the ceiling of a double before unzigzagging, as the reference does",
     "fixture": "int64-ceiling-before-unzigzag",

@@ -50,5 +50,29 @@
   "utf8-subpart-uncompletable": {
     "decodes": "\ufffd\ufffdA",
     "read": 4
+  },
+  "utf8-four-byte": {
+    "hex": "04f09f9880"
+  },
+  "utf8-four-byte-among-ascii": {
+    "hex": "0661f09f988062"
+  },
+  "utf8-max-code-point": {
+    "hex": "04f48fbfbf"
+  },
+  "utf8-unpaired-after-pair": {
+    "hex": "08f09f9880efbfbd61"
+  },
+  "utf8-decode-four-byte": {
+    "decodes": "\ud83d\ude00",
+    "read": 5
+  },
+  "utf8-overlong-four-byte": {
+    "decodes": "\ufffd\ufffd\ufffd\ufffd",
+    "read": 5
+  },
+  "utf8-decode-four-byte-then-ascii": {
+    "decodes": "\ud83d\ude00a",
+    "read": 6
   }
 }
