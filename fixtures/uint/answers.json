@@ -53,5 +53,20 @@
   "uint-trailing-bytes": {
     "decodes": 1,
     "read": 1
+  },
+  "uint-uint16-high-bit": {
+    "decodes": 255,
+    "read": 3
+  },
+  "uint-uint32-high-bit": {
+    "decodes": 8454144,
+    "read": 5
+  },
+  "uint-uint64-high-bit": {
+    "decodes": 140737488355328,
+    "read": 9
+  },
+  "uint-uint64-top-byte": {
+    "hex": "ff0000000000000080"
   }
 }

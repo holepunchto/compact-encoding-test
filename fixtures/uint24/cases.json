@@ -16,6 +16,14 @@
         "value": 16777215
       },
       "rules": ["fixed-width-width-from-name", "fixed-width-little-endian"]
+    },
+    {
+      "id": "uint24-decode-high-bit",
+      "note": "a byte with its high bit set below a zero one, which a decoder extending the sign would read as negative",
+      "input": {
+        "bytes": "800000"
+      },
+      "rules": ["fixed-width-little-endian"]
     }
   ]
 }

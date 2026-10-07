@@ -4,5 +4,9 @@
   },
   "uint24-max": {
     "hex": "ffffff"
+  },
+  "uint24-decode-high-bit": {
+    "decodes": 128,
+    "read": 3
   }
 }

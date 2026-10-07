@@ -140,6 +140,41 @@
         "bytes": "0161"
       },
       "rules": ["decode-consumes-its-form"]
+    },
+    {
+      "id": "uint-uint16-high-bit",
+      "note": "a payload byte with its high bit set below a zero one, which a decoder extending the sign would read as negative",
+      "input": {
+        "bytes": "fdff00"
+      },
+      "rules": ["uint-little-endian"]
+    },
+    {
+      "id": "uint-uint32-high-bit",
+      "note": "a payload byte with its high bit set below a zero one, which a decoder extending the sign would read as negative",
+      "input": {
+        "bytes": "fe00008100"
+      },
+      "rules": ["uint-little-endian"]
+    },
+    {
+      "id": "uint-uint64-high-bit",
+      "note": "a payload byte with its high bit set below a zero one, which a decoder extending the sign would read as negative",
+      "input": {
+        "bytes": "ff0000000000800000"
+      },
+      "rules": ["uint-little-endian"]
+    },
+    {
+      "id": "uint-uint64-top-byte",
+      "note": "the first value that sets the last payload byte, which is past the ceiling",
+      "input": {
+        "value": 9223372036854775808
+      },
+      "rules": ["encode-ceiling", "uint-little-endian"],
+      "answer": {
+        "hex": "ff0000000000000080"
+      }
     }
   ]
 }

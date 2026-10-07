@@ -8,5 +8,9 @@
   "uint56-decode-ceiling": {
     "decodes": "9007199254740992n",
     "read": 7
+  },
+  "uint56-decode-high-bit": {
+    "decodes": 128,
+    "read": 7
   }
 }

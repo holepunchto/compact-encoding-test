@@ -11,5 +11,12 @@
   },
   "uint64-encode-ceiling": {
     "hex": "0000000000002000"
+  },
+  "uint64-decode-high-bit": {
+    "decodes": 128,
+    "read": 8
+  },
+  "uint64-encode-top-byte": {
+    "hex": "0000000000000080"
   }
 }

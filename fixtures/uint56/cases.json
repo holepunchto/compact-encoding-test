@@ -28,6 +28,14 @@
         "decodes": "9007199254740992n",
         "read": 7
       }
+    },
+    {
+      "id": "uint56-decode-high-bit",
+      "note": "a byte with its high bit set below a zero one, which a decoder extending the sign would read as negative",
+      "input": {
+        "bytes": "80000000000000"
+      },
+      "rules": ["fixed-width-little-endian"]
     }
   ]
 }

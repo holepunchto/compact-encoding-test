@@ -24,6 +24,14 @@
         "bytes": "00"
       },
       "rules": ["decode-rejects-a-short-width"]
+    },
+    {
+      "id": "uint16-decode-high-bit",
+      "note": "a byte with its high bit set below a zero one, which a decoder extending the sign would read as negative",
+      "input": {
+        "bytes": "8000"
+      },
+      "rules": ["fixed-width-little-endian"]
     }
   ]
 }
