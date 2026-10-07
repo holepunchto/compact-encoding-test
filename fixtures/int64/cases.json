@@ -44,6 +44,22 @@
         "value": -4503599627370497
       },
       "rules": ["signed-range"]
+    },
+    {
+      "id": "int64-decode-minus-one",
+      "note": "one, which unzigzags to minus one",
+      "input": {
+        "bytes": "0100000000000000"
+      },
+      "rules": ["fixed-width-signed-zigzag"]
+    },
+    {
+      "id": "int64-decode-one",
+      "note": "two, which unzigzags to one",
+      "input": {
+        "bytes": "0200000000000000"
+      },
+      "rules": ["fixed-width-signed-zigzag"]
     }
   ]
 }

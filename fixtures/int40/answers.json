@@ -1,5 +1,9 @@
 {
   "int40-negative": {
     "hex": "0300000000"
+  },
+  "int40-decode-minus-one": {
+    "decodes": -1,
+    "read": 5
   }
 }

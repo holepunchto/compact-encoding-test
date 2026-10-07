@@ -4,5 +4,9 @@
   },
   "int32-max": {
     "hex": "feffffff"
+  },
+  "int32-decode-minus-one": {
+    "decodes": -1,
+    "read": 4
   }
 }

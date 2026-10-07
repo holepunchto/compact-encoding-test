@@ -15,5 +15,13 @@
   },
   "int64-past-range-min": {
     "hex": "0100000000002000"
+  },
+  "int64-decode-minus-one": {
+    "decodes": -1,
+    "read": 8
+  },
+  "int64-decode-one": {
+    "decodes": 1,
+    "read": 8
   }
 }

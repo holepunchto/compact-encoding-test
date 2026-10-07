@@ -12,6 +12,14 @@
         "fixed-width-little-endian",
         "fixed-width-signed-zigzag"
       ]
+    },
+    {
+      "id": "int40-decode-minus-one",
+      "note": "one, which unzigzags to minus one",
+      "input": {
+        "bytes": "0100000000"
+      },
+      "rules": ["fixed-width-signed-zigzag"]
     }
   ]
 }

@@ -181,41 +181,57 @@
       "int-range-min",
       "int-past-range",
       "int-past-range-min",
-      "int-single-byte-min"
+      "int-single-byte-min",
+      "int-decode-minus-one",
+      "int-decode-one",
+      "int-decode-single-byte-min",
+      "int-decode-two-byte",
+      "int-decode-range-min"
     ],
     "int16": [
       "int16-negative",
-      "int16-max"
+      "int16-max",
+      "int16-decode-minus-one",
+      "int16-decode-max"
     ],
     "int24": [
-      "int24-negative"
+      "int24-negative",
+      "int24-decode-minus-one"
     ],
     "int32": [
       "int32-negative",
-      "int32-max"
+      "int32-max",
+      "int32-decode-minus-one"
     ],
     "int40": [
-      "int40-negative"
+      "int40-negative",
+      "int40-decode-minus-one"
     ],
     "int48": [
-      "int48-negative"
+      "int48-negative",
+      "int48-decode-minus-one"
     ],
     "int56": [
-      "int56-negative"
+      "int56-negative",
+      "int56-decode-minus-one"
     ],
     "int64": [
       "int64-negative",
       "int64-decode-ceiling",
       "int64-ceiling-before-unzigzag",
       "int64-past-range",
-      "int64-past-range-min"
+      "int64-past-range-min",
+      "int64-decode-minus-one",
+      "int64-decode-one"
     ],
     "int8": [
       "int8-minus-one",
       "int8-min",
       "int8-max",
       "int8-truncates",
-      "int8-signed-max"
+      "int8-signed-max",
+      "int8-decode-minus-one",
+      "int8-decode-max"
     ],
     "lexint": [],
     "uint": [

@@ -40,6 +40,22 @@
         "value": 4503599627370495
       },
       "rules": ["signed-range", "fixed-width-truncates-high-bytes"]
+    },
+    {
+      "id": "int8-decode-minus-one",
+      "note": "one, which unzigzags to minus one",
+      "input": {
+        "bytes": "01"
+      },
+      "rules": ["fixed-width-signed-zigzag"]
+    },
+    {
+      "id": "int8-decode-max",
+      "note": "the largest positive value one byte holds, read back",
+      "input": {
+        "bytes": "fe"
+      },
+      "rules": ["fixed-width-signed-zigzag"]
     }
   ]
 }
