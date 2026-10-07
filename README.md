@@ -38,6 +38,13 @@ Four files sit beside the directories.
 - `unrepresentable.json` - the rules concerning a value an implementation's types may not hold. A case citing one accepts its answer or `unrepresentable`, and the same marker appears in `CODECS.md`.
 - `mutants.json` - plausible wrong readings, each naming a rule, the reading, the case that refutes it and the answer that reading would give. A reading no case refutes fails the build.
 
+## Implementations
+
+- [compact-encoding](https://github.com/holepunchto/compact-encoding) - JavaScript
+- [compact-encoding-swift](https://github.com/holepunchto/compact-encoding-swift) - Swift
+- [compact-encoding-python](https://github.com/holepunchto/compact-encoding-python) - Python
+- [libcompact](https://github.com/holepunchto/libcompact) - C
+
 ## Tests
 
 ```sh
