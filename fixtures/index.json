@@ -258,24 +258,32 @@
       "uint-empty-input",
       "uint-negative",
       "uint-decode-ceiling",
-      "uint-trailing-bytes"
+      "uint-trailing-bytes",
+      "uint-uint16-high-bit",
+      "uint-uint32-high-bit",
+      "uint-uint64-high-bit",
+      "uint-uint64-top-byte"
     ],
     "uint16": [
       "uint16-byte-order",
       "uint16-max",
-      "uint16-short-input"
+      "uint16-short-input",
+      "uint16-decode-high-bit"
     ],
     "uint24": [
       "uint24-byte-order",
-      "uint24-max"
+      "uint24-max",
+      "uint24-decode-high-bit"
     ],
     "uint32": [
       "uint32-byte-order",
-      "uint32-max"
+      "uint32-max",
+      "uint32-decode-high-bit"
     ],
     "uint40": [
       "uint40-byte-order",
-      "uint40-max"
+      "uint40-max",
+      "uint40-decode-high-bit"
     ],
     "uint48": [
       "uint48-byte-order",
@@ -285,13 +293,16 @@
     "uint56": [
       "uint56-byte-order",
       "uint56-max",
-      "uint56-decode-ceiling"
+      "uint56-decode-ceiling",
+      "uint56-decode-high-bit"
     ],
     "uint64": [
       "uint64-byte-order",
       "uint64-max",
       "uint64-decode-ceiling",
-      "uint64-encode-ceiling"
+      "uint64-encode-ceiling",
+      "uint64-decode-high-bit",
+      "uint64-encode-top-byte"
     ],
     "uint8": [
       "uint8-value",

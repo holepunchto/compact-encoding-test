@@ -32,6 +32,22 @@
         "value": 9007199254740992
       },
       "rules": ["encode-ceiling"]
+    },
+    {
+      "id": "uint64-decode-high-bit",
+      "note": "a byte with its high bit set below a zero one, which a decoder extending the sign would read as negative",
+      "input": {
+        "bytes": "8000000000000000"
+      },
+      "rules": ["fixed-width-little-endian"]
+    },
+    {
+      "id": "uint64-encode-top-byte",
+      "note": "the first value that sets the eighth byte, which is past the ceiling",
+      "input": {
+        "value": 9223372036854775808
+      },
+      "rules": ["encode-ceiling", "fixed-width-little-endian"]
     }
   ]
 }

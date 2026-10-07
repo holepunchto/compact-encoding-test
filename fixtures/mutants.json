@@ -8,6 +8,15 @@
     }
   },
   {
+    "rule": "uint-little-endian",
+    "reading": "a decoder extends the sign of each byte",
+    "fixture": "uint-uint16-high-bit",
+    "answer": {
+      "decodes": -1,
+      "read": 3
+    }
+  },
+  {
     "rule": "uint-uint16-prefix",
     "reading": "the threshold is exclusive, so 0xfd itself still encodes as one byte",
     "fixture": "uint-uint16-min",
@@ -69,6 +78,23 @@
     "fixture": "uint16-byte-order",
     "answer": {
       "hex": "0201"
+    }
+  },
+  {
+    "rule": "fixed-width-little-endian",
+    "reading": "a decoder extends the sign of each byte",
+    "fixture": "uint16-decode-high-bit",
+    "answer": {
+      "decodes": -128,
+      "read": 2
+    }
+  },
+  {
+    "rule": "fixed-width-little-endian",
+    "reading": "an encoder never sets the top byte of a uint64",
+    "fixture": "uint64-encode-top-byte",
+    "answer": {
+      "hex": "0000000000000000"
     }
   },
   {
