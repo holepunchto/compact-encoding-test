@@ -24,6 +24,22 @@
         "fixed-width-little-endian",
         "fixed-width-signed-zigzag"
       ]
+    },
+    {
+      "id": "int16-decode-minus-one",
+      "note": "one, which unzigzags to minus one",
+      "input": {
+        "bytes": "0100"
+      },
+      "rules": ["fixed-width-signed-zigzag"]
+    },
+    {
+      "id": "int16-decode-max",
+      "note": "the largest positive value two bytes hold, read back",
+      "input": {
+        "bytes": "feff"
+      },
+      "rules": ["fixed-width-signed-zigzag"]
     }
   ]
 }

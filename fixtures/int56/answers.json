@@ -1,5 +1,9 @@
 {
   "int56-negative": {
     "hex": "03000000000000"
+  },
+  "int56-decode-minus-one": {
+    "decodes": -1,
+    "read": 7
   }
 }

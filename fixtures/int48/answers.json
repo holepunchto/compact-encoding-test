@@ -1,5 +1,9 @@
 {
   "int48-negative": {
     "hex": "030000000000"
+  },
+  "int48-decode-minus-one": {
+    "decodes": -1,
+    "read": 6
   }
 }

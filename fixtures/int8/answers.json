@@ -13,5 +13,13 @@
   },
   "int8-signed-max": {
     "hex": "fe"
+  },
+  "int8-decode-minus-one": {
+    "decodes": -1,
+    "read": 1
+  },
+  "int8-decode-max": {
+    "decodes": 127,
+    "read": 1
   }
 }

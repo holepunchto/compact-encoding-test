@@ -4,5 +4,13 @@
   },
   "int16-max": {
     "hex": "feff"
+  },
+  "int16-decode-minus-one": {
+    "decodes": -1,
+    "read": 2
+  },
+  "int16-decode-max": {
+    "decodes": 32767,
+    "read": 2
   }
 }

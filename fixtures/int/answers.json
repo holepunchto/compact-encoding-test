@@ -28,5 +28,25 @@
   },
   "int-single-byte-min": {
     "hex": "fb"
+  },
+  "int-decode-minus-one": {
+    "decodes": -1,
+    "read": 1
+  },
+  "int-decode-one": {
+    "decodes": 1,
+    "read": 1
+  },
+  "int-decode-single-byte-min": {
+    "decodes": -126,
+    "read": 1
+  },
+  "int-decode-two-byte": {
+    "decodes": -127,
+    "read": 3
+  },
+  "int-decode-range-min": {
+    "decodes": -4503599627370496,
+    "read": 9
   }
 }

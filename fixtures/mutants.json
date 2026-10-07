@@ -702,5 +702,40 @@
       "bits": "010000000000f87f",
       "read": 8
     }
+  },
+  {
+    "rule": "int-zigzag",
+    "reading": "a decoder halves the reading and drops the sign",
+    "fixture": "int-decode-minus-one",
+    "answer": {
+      "decodes": 0,
+      "read": 1
+    }
+  },
+  {
+    "rule": "fixed-width-signed-zigzag",
+    "reading": "a decoder halves the reading and drops the sign",
+    "fixture": "int8-decode-minus-one",
+    "answer": {
+      "decodes": 0,
+      "read": 1
+    }
+  },
+  {
+    "rule": "fixed-width-signed-zigzag",
+    "reading": "a signed codec reads two's complement",
+    "fixture": "int8-decode-max",
+    "answer": {
+      "decodes": -2,
+      "read": 1
+    }
+  },
+  {
+    "rule": "signed-range",
+    "reading": "the range is symmetric, so a decoder rejects the smallest value",
+    "fixture": "int-decode-range-min",
+    "answer": {
+      "rejects": true
+    }
   }
 ]
