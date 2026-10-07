@@ -1,6 +1,6 @@
 # compact-encoding codecs
 
-This document is the normative definition of the codecs in `compact-encoding`. It is written against the reference implementation at the version pinned below, not against any other documentation.
+This document is the normative definition of the codecs in `compact-encoding`, and with the committed answers it is the authority on them. The reference implementation pinned below is checked against those answers rather than defining them.
 
 Reference implementation: `compact-encoding` 3.5.2.
 
