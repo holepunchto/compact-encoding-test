@@ -18,12 +18,12 @@
       "rules": ["fixed-width-width-from-name"]
     },
     {
-      "id": "uint8-truncates",
-      "note": "a value past the width, whose low byte is kept",
+      "id": "uint8-past-width",
+      "note": "a value past the width",
       "input": {
         "value": 256
       },
-      "rules": ["fixed-width-truncates-high-bytes"]
+      "rules": ["fixed-width-refuses-overflow"]
     },
     {
       "id": "uint8-negative",
