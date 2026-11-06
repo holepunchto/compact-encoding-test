@@ -1,1 +1,7 @@
-["unsigned-refuses-negative", "encode-ceiling", "decode-ceiling", "signed-range"]
+[
+  "unsigned-refuses-negative",
+  "encode-ceiling",
+  "decode-ceiling",
+  "signed-range",
+  "fixed-width-refuses-overflow"
+]
