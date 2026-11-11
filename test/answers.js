@@ -19,3 +19,18 @@ test('a rule a number type may not hold commits the format answer', (t) => {
     t.ok(shape === 'hex' || shape === 'decodes', `${fixture.id} answers with the format's ${shape}`)
   }
 })
+
+test('an answer no implementation generates kills a mutant', (t) => {
+  const aimed = new Set(corpus.mutants().map((mutant) => mutant.fixture))
+  const declared = corpus.divergences()
+  const unchecked = []
+
+  for (const name of corpus.codecs()) {
+    for (const example of corpus.loadCases(name).cases) {
+      const generated = example.answer === undefined && declared[example.id] === undefined
+      if (!generated && !aimed.has(example.id)) unchecked.push(example.id)
+    }
+  }
+
+  t.alike(unchecked, [], 'an answer the reference does not give is contradicted by a wrong reading')
+})

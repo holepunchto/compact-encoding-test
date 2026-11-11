@@ -843,5 +843,37 @@
     "answer": {
       "rejects": true
     }
+  },
+  {
+    "rule": "decode-ceiling",
+    "reading": "the varint's widest form is left to `biguint`, so a decoder rejects a reading past the ceiling of a double rather than returning it, as the reference does",
+    "fixture": "uint-decode-ceiling",
+    "answer": {
+      "rejects": true
+    }
+  },
+  {
+    "rule": "decode-ceiling",
+    "reading": "the ceiling belongs to the value rather than the width, so a width that holds the bytes rejects what they carry, as the reference does",
+    "fixture": "uint56-decode-ceiling",
+    "answer": {
+      "rejects": true
+    }
+  },
+  {
+    "rule": "decode-ceiling",
+    "reading": "a big-endian codec rejects past the ceiling of a double as its little-endian sibling does, the two sharing one check",
+    "fixture": "uint64be-decode-ceiling",
+    "answer": {
+      "rejects": true
+    }
+  },
+  {
+    "rule": "encode-ceiling",
+    "reading": "an encoder refuses a value past the ceiling of a double rather than writing the form that holds it, as the reference does",
+    "fixture": "uint-uint64-top-byte",
+    "answer": {
+      "refused": true
+    }
   }
 ]
