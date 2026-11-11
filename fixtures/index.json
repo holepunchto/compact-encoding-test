@@ -21,6 +21,7 @@
       "frame-uint-bounds",
       "frame-uint-length-past-the-end"
     ],
+    "orderedStringRecord": [],
     "record-utf8-uint": [
       "record-utf8-uint-empty",
       "record-utf8-uint-empty-decode",

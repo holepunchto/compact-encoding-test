@@ -1,0 +1,6 @@
+{
+  "category": "combinators",
+  "reason": "a record built on utf8 for both halves that sorts its keys by their encoded bytes, which no rule here states",
+  "implementations": ["javascript"],
+  "cases": []
+}

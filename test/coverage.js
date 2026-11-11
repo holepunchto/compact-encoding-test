@@ -137,7 +137,8 @@ test('every codec the reference exports is a codec or a helper the corpus knows'
     'array',
     'fixed',
     'frame',
-    'record'
+    'record',
+    'orderedRecord'
   ])
   const unknown = Object.keys(c)
     .filter((name) => typeof c[name] === 'function')
