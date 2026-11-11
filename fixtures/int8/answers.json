@@ -8,11 +8,11 @@
   "int8-max": {
     "hex": "fe"
   },
-  "int8-truncates": {
-    "hex": "00"
+  "int8-past-width": {
+    "refused": true
   },
   "int8-signed-max": {
-    "hex": "fe"
+    "refused": true
   },
   "int8-decode-minus-one": {
     "decodes": -1,

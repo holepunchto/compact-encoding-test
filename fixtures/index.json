@@ -236,7 +236,7 @@
       "int8-minus-one",
       "int8-min",
       "int8-max",
-      "int8-truncates",
+      "int8-past-width",
       "int8-signed-max",
       "int8-decode-minus-one",
       "int8-decode-max"
@@ -308,7 +308,7 @@
     "uint8": [
       "uint8-value",
       "uint8-max",
-      "uint8-truncates",
+      "uint8-past-width",
       "uint8-negative",
       "uint8-trailing-bytes"
     ]

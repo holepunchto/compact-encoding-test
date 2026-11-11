@@ -26,20 +26,20 @@
       "rules": ["fixed-width-width-from-name", "fixed-width-signed-zigzag"]
     },
     {
-      "id": "int8-truncates",
+      "id": "int8-past-width",
       "note": "a positive whose zigzag passes the width",
       "input": {
         "value": 128
       },
-      "rules": ["fixed-width-truncates-high-bytes"]
+      "rules": ["fixed-width-refuses-overflow"]
     },
     {
       "id": "int8-signed-max",
-      "note": "the largest value a signed codec accepts, which one byte cannot hold",
+      "note": "the largest value int accepts, which one byte cannot hold",
       "input": {
         "value": 4503599627370495
       },
-      "rules": ["signed-range", "fixed-width-truncates-high-bytes"]
+      "rules": ["fixed-width-refuses-overflow"]
     },
     {
       "id": "int8-decode-minus-one",

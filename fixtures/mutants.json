@@ -114,9 +114,9 @@
     }
   },
   {
-    "rule": "fixed-width-truncates-high-bytes",
+    "rule": "fixed-width-refuses-overflow",
     "reading": "a value past the width saturates at the largest the width holds",
-    "fixture": "uint8-truncates",
+    "fixture": "uint8-past-width",
     "answer": {
       "hex": "ff"
     }
@@ -178,11 +178,11 @@
     }
   },
   {
-    "rule": "fixed-width-truncates-high-bytes",
-    "reading": "an encoder refuses a value the width cannot hold rather than keeping its low bytes",
-    "fixture": "uint8-truncates",
+    "rule": "fixed-width-refuses-overflow",
+    "reading": "a value past the width keeps its low bytes",
+    "fixture": "uint8-past-width",
     "answer": {
-      "refused": true
+      "hex": "00"
     }
   },
   {
