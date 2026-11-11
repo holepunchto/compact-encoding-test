@@ -45,7 +45,8 @@
     "reading": "a decoder returns what it has instead of rejecting a truncated form",
     "fixture": "uint-truncated-prefix",
     "answer": {
-      "decodes": 0
+      "decodes": 0,
+      "read": 1
     }
   },
   {
@@ -126,7 +127,8 @@
     "reading": "a decoder zero fills the bytes it was not given",
     "fixture": "uint16-short-input",
     "answer": {
-      "decodes": 0
+      "decodes": 0,
+      "read": 1
     }
   },
   {
@@ -230,7 +232,8 @@
     "reading": "a decoder returns what bytes it was given",
     "fixture": "utf8-short-input",
     "answer": {
-      "decodes": "a"
+      "decodes": "a",
+      "read": 2
     }
   },
   {
@@ -254,7 +257,8 @@
     "reading": "a decoder reads to the end of the buffer rather than to the count",
     "fixture": "utf8-trailing-bytes",
     "answer": {
-      "decodes": "abcd"
+      "decodes": "abcd",
+      "read": 5
     }
   },
   {
@@ -262,7 +266,8 @@
     "reading": "a decoder treats absent input as the empty string",
     "fixture": "utf8-no-count",
     "answer": {
-      "decodes": ""
+      "decodes": "",
+      "read": 0
     }
   },
   {
@@ -278,7 +283,8 @@
     "reading": "an encoding wider than the code point needs still names that code point",
     "fixture": "utf8-overlong",
     "answer": {
-      "decodes": "/"
+      "decodes": "/",
+      "read": 3
     }
   },
   {
@@ -294,7 +300,8 @@
     "reading": "each invalid byte becomes its own replacement",
     "fixture": "utf8-subpart-completable",
     "answer": {
-      "decodes": "\ufffd\ufffda"
+      "decodes": "\ufffd\ufffda",
+      "read": 4
     }
   },
   {

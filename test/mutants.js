@@ -22,6 +22,10 @@ function carrying(answer) {
   return answer.bits === undefined ? '' : ` carrying ${answer.bits}`
 }
 
+function consumed(read) {
+  return Number.isInteger(read) && read >= 0
+}
+
 test('mutants exist', (t) => {
   t.ok(corpus.mutants().length > 0, 'the corpus carries mutants')
 })
@@ -34,6 +38,8 @@ test('every mutant states one well-formed answer', (t) => {
 
     if (keys.length !== 1) {
       malformed.push(`${mutant.rule}: states ${keys.length} answers`)
+    } else if (mutant.answer.decodes !== undefined && !consumed(mutant.answer.read)) {
+      malformed.push(`${mutant.rule}: states a decode that does not say what it read`)
     } else if (mutant.answer.hex !== undefined && !hex(mutant.answer.hex)) {
       malformed.push(`${mutant.rule}: states bytes that are not hex`)
     } else if (mutant.answer.bits !== undefined && !hex(mutant.answer.bits)) {
