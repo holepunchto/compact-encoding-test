@@ -1,0 +1,18 @@
+{
+  "orderedRecord-utf8-uint-sorts-its-keys": {
+    "hex": "02016102016201"
+  },
+  "orderedRecord-utf8-uint-astral-key": {
+    "hex": "0203ee80800204f090808001"
+  },
+  "orderedRecord-utf8-uint-longer-key-first": {
+    "hex": "0202616102016201"
+  },
+  "orderedRecord-utf8-uint-unsorted-decode": {
+    "decodes": {
+      "b": 2,
+      "a": 1
+    },
+    "read": 7
+  }
+}

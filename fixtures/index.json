@@ -21,6 +21,12 @@
       "frame-uint-bounds",
       "frame-uint-length-past-the-end"
     ],
+    "orderedRecord-utf8-uint": [
+      "orderedRecord-utf8-uint-sorts-its-keys",
+      "orderedRecord-utf8-uint-astral-key",
+      "orderedRecord-utf8-uint-longer-key-first",
+      "orderedRecord-utf8-uint-unsorted-decode"
+    ],
     "orderedStringRecord": [],
     "record-utf8-uint": [
       "record-utf8-uint-empty",

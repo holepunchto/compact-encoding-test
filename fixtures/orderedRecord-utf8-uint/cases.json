@@ -1,0 +1,57 @@
+{
+  "category": "combinators",
+  "codec": {
+    "name": "orderedRecord",
+    "of": [
+      {
+        "name": "utf8"
+      },
+      {
+        "name": "uint"
+      }
+    ]
+  },
+  "cases": [
+    {
+      "id": "orderedRecord-utf8-uint-sorts-its-keys",
+      "note": "two pairs given b first, which the codec writes a first",
+      "input": {
+        "value": [
+          ["b", 1],
+          ["a", 2]
+        ]
+      },
+      "rules": ["ordered-record-sorts-its-keys", "record-count-then-pairs"]
+    },
+    {
+      "id": "orderedRecord-utf8-uint-astral-key",
+      "note": "an astral key beside a BMP key above U+E000, which UTF-8 bytes and UTF-16 code units order the other way round from each other",
+      "input": {
+        "value": [
+          ["\ud800\udc00", 1],
+          ["\ue000", 2]
+        ]
+      },
+      "rules": ["ordered-record-sorts-by-the-key-bytes"]
+    },
+    {
+      "id": "orderedRecord-utf8-uint-longer-key-first",
+      "note": "a two-byte key beside a one-byte key that follows it, which the key's own bytes and the bytes utf8 frames them in order the other way round from each other",
+      "input": {
+        "value": [
+          ["b", 1],
+          ["aa", 2]
+        ]
+      },
+      "rules": ["ordered-record-sorts-by-the-key-bytes"]
+    },
+    {
+      "id": "orderedRecord-utf8-uint-unsorted-decode",
+      "note": "pairs carrying b before a, an order an encoder never writes",
+      "input": {
+        "bytes": "02016202016101"
+      },
+      "rules": ["ordered-record-decodes-in-the-order-given"]
+    }
+  ]
+}
