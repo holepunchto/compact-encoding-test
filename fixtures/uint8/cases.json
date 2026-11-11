@@ -40,6 +40,14 @@
         "bytes": "0161"
       },
       "rules": ["decode-consumes-its-form"]
+    },
+    {
+      "id": "uint8-fraction",
+      "note": "a fraction whose whole part the width holds, so the refusal is the codec's rather than the width's",
+      "input": {
+        "value": 1.5
+      },
+      "rules": ["integer-refuses-a-fraction"]
     }
   ]
 }

@@ -1,7 +1,11 @@
 const test = require('brittle')
 const corpus = require('../lib/corpus')
 
-const REFUSED_BY_THE_FORMAT = new Set(['unsigned-refuses-negative', 'fixed-width-refuses-overflow'])
+const REFUSED_BY_THE_FORMAT = new Set([
+  'integer-refuses-a-fraction',
+  'unsigned-refuses-negative',
+  'fixed-width-refuses-overflow'
+])
 
 test('a rule a number type may not hold commits the format answer', (t) => {
   const marked = new Set(

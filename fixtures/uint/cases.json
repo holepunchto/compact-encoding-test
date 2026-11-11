@@ -175,6 +175,14 @@
       "answer": {
         "hex": "ff0000000000000080"
       }
+    },
+    {
+      "id": "uint-fraction",
+      "note": "a fraction handed to the varint form, which has no room for the part below one",
+      "input": {
+        "value": 1.5
+      },
+      "rules": ["integer-refuses-a-fraction"]
     }
   ]
 }
