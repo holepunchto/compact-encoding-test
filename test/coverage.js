@@ -60,9 +60,24 @@ test('case ids are unique across the corpus', (t) => {
   t.alike(repeated, [], 'no id is claimed twice')
 })
 
+test('every case has an answer beside it', (t) => {
+  const missing = []
+
+  for (const name of corpus.codecs()) {
+    const answers = corpus.loadAnswers(name)
+
+    for (const example of corpus.loadCases(name).cases) {
+      if (answers[example.id] === undefined) missing.push(`${name}: ${example.id}`)
+    }
+  }
+
+  t.alike(missing, [], 'a case the corpus carries is a case it answers')
+})
+
 test('every decoded answer records how far the reading went', (t) => {
   const silent = corpus
     .allFixtures()
+    .filter((fixture) => fixture.answer !== undefined)
     .filter((fixture) => corpus.kind(fixture.answer) === 'decodes')
     .filter((fixture) => !Number.isInteger(fixture.answer.read))
     .map((fixture) => fixture.id)
@@ -73,6 +88,7 @@ test('every decoded answer records how far the reading went', (t) => {
 test('every NaN a decoder returns says which NaN it is', (t) => {
   const silent = corpus
     .allFixtures()
+    .filter((fixture) => fixture.answer !== undefined)
     .filter((fixture) => corpus.kind(fixture.answer) === 'decodes')
     .filter((fixture) => fixture.answer.decodes === 'NaN')
     .filter((fixture) => !fixture.answer.bits || !hex(fixture.answer.bits))
