@@ -53,7 +53,7 @@ Six files sit beside the directories.
 npm test
 ```
 
-The suite reads the corpus the way a consumer does and asserts what the document claims: every rule is cited by a case, every mutant dies, the markers agree, the pinned reference agrees with the committed answers except where a divergence is declared, the kinds each category carries are the kinds its cases carry, and the specification names the version the fixtures were built against.
+The suite reads the corpus the way a consumer does and asserts what the document claims: every rule is cited by a case, every mutant dies, the markers agree, the pinned reference agrees with the committed answers except where a divergence is declared, an answer the reference did not give kills a mutant, the kinds each category carries are the kinds its cases carry, and the specification names the version the fixtures were built against.
 
 ## License
 
