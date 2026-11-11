@@ -154,6 +154,14 @@
     }
   },
   {
+    "rule": "integer-refuses-a-fraction",
+    "reading": "a fraction is truncated as the bytes are written, after zigzag rather than before",
+    "fixture": "int-fraction",
+    "answer": {
+      "hex": "03"
+    }
+  },
+  {
     "rule": "encode-ceiling",
     "reading": "an encoder refuses past the ceiling of a double, as the reference does",
     "fixture": "uint64-encode-ceiling",

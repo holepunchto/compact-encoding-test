@@ -68,5 +68,8 @@
   },
   "uint-uint64-top-byte": {
     "hex": "ff0000000000000080"
+  },
+  "uint-fraction": {
+    "refused": true
   }
 }

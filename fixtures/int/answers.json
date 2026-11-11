@@ -48,5 +48,8 @@
   "int-decode-range-min": {
     "decodes": -4503599627370496,
     "read": 9
+  },
+  "int-fraction": {
+    "refused": true
   }
 }

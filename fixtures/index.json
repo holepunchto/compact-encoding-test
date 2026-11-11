@@ -194,7 +194,8 @@
       "int-decode-one",
       "int-decode-single-byte-min",
       "int-decode-two-byte",
-      "int-decode-range-min"
+      "int-decode-range-min",
+      "int-fraction"
     ],
     "int16": [
       "int16-negative",
@@ -263,7 +264,8 @@
       "uint-uint16-high-bit",
       "uint-uint32-high-bit",
       "uint-uint64-high-bit",
-      "uint-uint64-top-byte"
+      "uint-uint64-top-byte",
+      "uint-fraction"
     ],
     "uint16": [
       "uint16-byte-order",
@@ -310,7 +312,8 @@
       "uint8-max",
       "uint8-past-width",
       "uint8-negative",
-      "uint8-trailing-bytes"
+      "uint8-trailing-bytes",
+      "uint8-fraction"
     ]
   },
   "big-endian-integers": {

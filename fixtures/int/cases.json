@@ -126,6 +126,14 @@
         "bytes": "ffffffffffffff1f00"
       },
       "rules": ["signed-range"]
+    },
+    {
+      "id": "int-fraction",
+      "note": "a fraction handed to a signed codec, which once zigzagged it to bytes reading back as -2",
+      "input": {
+        "value": 1.5
+      },
+      "rules": ["integer-refuses-a-fraction"]
     }
   ]
 }

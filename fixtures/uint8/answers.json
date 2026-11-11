@@ -14,5 +14,8 @@
   "uint8-trailing-bytes": {
     "decodes": 1,
     "read": 1
+  },
+  "uint8-fraction": {
+    "refused": true
   }
 }

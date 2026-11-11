@@ -1,4 +1,5 @@
 [
+  "integer-refuses-a-fraction",
   "unsigned-refuses-negative",
   "encode-ceiling",
   "decode-ceiling",
