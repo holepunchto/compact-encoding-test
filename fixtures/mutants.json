@@ -811,5 +811,37 @@
     "answer": {
       "rejects": true
     }
+  },
+  {
+    "rule": "ordered-record-sorts-its-keys",
+    "reading": "the pairs are written in the order the value carries them, as `record` writes them",
+    "fixture": "orderedRecord-utf8-uint-sorts-its-keys",
+    "answer": {
+      "hex": "02016201016102"
+    }
+  },
+  {
+    "rule": "ordered-record-sorts-by-the-key-bytes",
+    "reading": "the keys are compared as the language compares strings, by UTF-16 code unit",
+    "fixture": "orderedRecord-utf8-uint-astral-key",
+    "answer": {
+      "hex": "0204f09080800103ee808002"
+    }
+  },
+  {
+    "rule": "ordered-record-sorts-by-the-key-bytes",
+    "reading": "the keys are compared as the bytes the key codec frames them in, count and all",
+    "fixture": "orderedRecord-utf8-uint-longer-key-first",
+    "answer": {
+      "hex": "0201620102616102"
+    }
+  },
+  {
+    "rule": "ordered-record-accepts-unsorted-keys",
+    "reading": "a decoder rejects keys that arrive out of order, since an encoder never writes them",
+    "fixture": "orderedRecord-utf8-uint-unsorted-decode",
+    "answer": {
+      "rejects": true
+    }
   }
 ]

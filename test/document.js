@@ -3,6 +3,7 @@ const fs = require('fs')
 const corpus = require('../lib/corpus')
 const { fixturesDir, specPath } = require('..')
 const { ruleSlugs } = require('../lib/spec')
+const { RECORDS } = require('../lib/declaration')
 const { devDependencies } = require('../package.json')
 
 const SLUG_SHAPED = /`([a-z0-9][a-z0-9-]*-[a-z0-9-]+)`/g
@@ -136,7 +137,7 @@ test('a record case carries pairs the reference keeps in order', (t) => {
 
   for (const name of corpus.codecs()) {
     const { codec, cases } = corpus.loadCases(name)
-    if (!codec || codec.name !== 'record') continue
+    if (!codec || !RECORDS.has(codec.name)) continue
 
     for (const example of cases) {
       const pairs = example.input.value
