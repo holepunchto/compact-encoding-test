@@ -21,6 +21,7 @@ function carried() {
     'fixtures/delegated.json',
     'fixtures/unrepresentable.json',
     'fixtures/divergences.json',
+    'fixtures/kinds.json',
     'fixtures/mutants.json'
   ])
 }

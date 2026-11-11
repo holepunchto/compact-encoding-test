@@ -1,0 +1,46 @@
+{
+  "big-endian-integers": {
+    "value": ["number"],
+    "decodes": ["wide integer"]
+  },
+  "big-integers": {
+    "value": [],
+    "decodes": []
+  },
+  "booleans": {
+    "value": ["boolean"],
+    "decodes": ["boolean"]
+  },
+  "buffers": {
+    "value": ["absent", "bytes"],
+    "decodes": ["absent", "bytes"]
+  },
+  "combinators": {
+    "value": ["list", "number", "pairs"],
+    "decodes": ["list", "number", "record"]
+  },
+  "documents": {
+    "value": [],
+    "decodes": []
+  },
+  "floats": {
+    "value": ["number", "token"],
+    "decodes": ["number", "token"]
+  },
+  "integers": {
+    "value": ["number"],
+    "decodes": ["number", "wide integer"]
+  },
+  "network-addresses": {
+    "value": [],
+    "decodes": []
+  },
+  "strings": {
+    "value": ["text"],
+    "decodes": ["text"]
+  },
+  "typed-arrays": {
+    "value": [],
+    "decodes": []
+  }
+}
