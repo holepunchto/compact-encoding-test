@@ -51,7 +51,7 @@
       "input": {
         "bytes": "02016202016101"
       },
-      "rules": ["ordered-record-decodes-in-the-order-given"]
+      "rules": ["ordered-record-accepts-unsorted-keys"]
     }
   ]
 }

@@ -8,5 +8,5 @@
   "bool-only-one-is-true",
   "optional-buffer-zero-is-absent",
   "record-last-pair-wins",
-  "ordered-record-decodes-in-the-order-given"
+  "ordered-record-accepts-unsorted-keys"
 ]

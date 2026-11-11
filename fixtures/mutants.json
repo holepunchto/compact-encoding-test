@@ -837,7 +837,7 @@
     }
   },
   {
-    "rule": "ordered-record-decodes-in-the-order-given",
+    "rule": "ordered-record-accepts-unsorted-keys",
     "reading": "a decoder rejects keys that arrive out of order, since an encoder never writes them",
     "fixture": "orderedRecord-utf8-uint-unsorted-decode",
     "answer": {
