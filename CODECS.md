@@ -2,7 +2,7 @@
 
 This document is the normative definition of the codecs in `compact-encoding`, and with the committed answers it is the authority on them. The reference implementation pinned below is checked against those answers rather than defining them.
 
-Reference implementation: `compact-encoding` 3.6.0.
+Reference implementation: `compact-encoding` 3.7.0.
 
 Normative references: RFC 3629 (STD 63) for UTF-8, the Unicode Standard, Version 18.0, for UTF-16, for surrogates and for the substitution of maximal subparts, and IEEE 754-2019 for the binary32 and binary64 forms the float codecs write. A section number below is a section of the Unicode edition named here.
 
@@ -47,7 +47,7 @@ The reference carries every integer as a double, an IEEE 754 binary64, whose lar
 - `encode-ceiling` (unrepresentable) - an encoder writes an unsigned value above 9007199254740991 in the form its codec gives it, as it writes any other: `uint64` writes 9007199254740992 as `0000000000002000`. The reference refuses one rather than writing an approximation of it. A signed codec is held to the narrower `signed-range` instead, so this bound never governs one.
 - `decode-ceiling` (unrepresentable) - a decoder returns a value above 9007199254740991 as it returns any other: `uint64` decodes eight bytes of ones as 18446744073709551615, and `uint` decodes its eight-byte form carrying 9007199254740992. The reference rejects bytes that would decode past the largest integer a double holds exactly, so the reference's ceiling belongs to the value rather than to the codec, and it decodes six bytes of ones through `uint48` cleanly where it rejects eight through `uint64`. It applies the ceiling to a signed codec's reading, before the reading is unzigzagged: `int64` given the eight bytes carrying 9007199254740992 rejects them rather than returning the 4503599627370496 they unzigzag to, which is the format's answer.
 
-A value that is not a number at all is still outside what these rules define. The integer codecs refuse one, by the same check that refuses a fraction, and the float codecs coerce whatever they are handed, so `float64` writes a NaN for the string `x` and 1.5 for the string `1.5`. Neither is a decision anyone made, and <https://github.com/holepunchto/compact-encoding-test/issues/57> is where it is settled.
+A value that is not a number at all is outside what these rules define, and this document states no rule for one. The reference refuses every such value through every codec here, the integer codecs by the same check that refuses a fraction and the float codecs by one of their own. That is not stated as a rule because a value a codec does not carry has no bytes to describe, and the question reaches an implementation only where its types are checked no earlier than the call: a port whose signature already names the type it carries cannot be handed one, so a rule would bind the dynamically typed and say nothing to the rest. What an implementation does when handed one is its own business.
 
 ## What a decoder consumes
 
