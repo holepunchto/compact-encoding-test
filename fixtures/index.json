@@ -69,6 +69,8 @@
       "utf8-unpaired-surrogate",
       "utf8-invalid-bytes",
       "utf8-short-input",
+      "utf8-count-past-what-the-input-holds",
+      "utf8-count-cuts-a-sequence-short",
       "utf8-no-count",
       "utf8-trailing-bytes",
       "utf8-overlong",
@@ -151,6 +153,7 @@
       "bool-true",
       "bool-false",
       "bool-other-byte",
+      "bool-high-byte",
       "bool-empty-input"
     ]
   },
