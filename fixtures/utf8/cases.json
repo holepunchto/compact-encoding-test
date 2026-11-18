@@ -66,6 +66,22 @@
       "rules": ["utf8-rejects-short-input"]
     },
     {
+      "id": "utf8-count-past-what-the-input-holds",
+      "note": "a count of 2^53 bytes with none behind it, rejected on what follows rather than on a ceiling",
+      "input": {
+        "bytes": "ff0000000000002000"
+      },
+      "rules": ["utf8-rejects-short-input"]
+    },
+    {
+      "id": "utf8-count-cuts-a-sequence-short",
+      "note": "a sequence the count ends mid-way, with a byte behind the count that must be left alone",
+      "input": {
+        "bytes": "02e18061"
+      },
+      "rules": ["utf8-count-then-bytes", "utf8-maximal-subpart"]
+    },
+    {
       "id": "utf8-no-count",
       "note": "no bytes at all, so not even a count",
       "input": {
