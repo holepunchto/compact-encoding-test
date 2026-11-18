@@ -121,6 +121,30 @@
       "rules": ["float-overflows-to-an-infinity"]
     },
     {
+      "id": "float32-rounds-under-the-ceiling",
+      "note": "a value above the largest finite one that rounds down to it rather than past it",
+      "input": {
+        "value": 3.4028235e38
+      },
+      "rules": ["float-overflows-to-an-infinity"]
+    },
+    {
+      "id": "float32-subnormal",
+      "note": "a value below the smallest normal, held as a subnormal rather than rounded to zero",
+      "input": {
+        "value": 1.4e-45
+      },
+      "rules": ["float32-rounds-to-nearest"]
+    },
+    {
+      "id": "float32-underflow",
+      "note": "a value below half the smallest subnormal, which rounds to zero",
+      "input": {
+        "value": 1e-46
+      },
+      "rules": ["float32-rounds-to-nearest"]
+    },
+    {
       "id": "float32-negative-infinity",
       "note": "the same with the sign bit, at the narrower width",
       "input": {
