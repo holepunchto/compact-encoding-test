@@ -76,6 +76,7 @@
       "utf8-above-max-code-point",
       "utf8-subpart-completable",
       "utf8-subpart-uncompletable",
+      "utf8-stranded-continuations",
       "utf8-four-byte",
       "utf8-four-byte-among-ascii",
       "utf8-max-code-point",
