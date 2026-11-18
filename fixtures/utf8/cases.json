@@ -47,7 +47,12 @@
       "input": {
         "value": { "units": [55296] }
       },
-      "rules": ["utf8-replaces-unpaired-surrogate", "utf8-count-after-substitution"]
+      "rules": ["utf8-replaces-unpaired-surrogate", "utf8-count-after-substitution"],
+      "alternatives": [
+        {
+          "refused": true
+        }
+      ]
     },
     {
       "id": "utf8-invalid-bytes",
@@ -175,7 +180,12 @@
       "input": {
         "value": { "units": [55357, 56832, 55296, 97] }
       },
-      "rules": ["utf8-replaces-unpaired-surrogate", "utf8-count-after-substitution"]
+      "rules": ["utf8-replaces-unpaired-surrogate", "utf8-count-after-substitution"],
+      "alternatives": [
+        {
+          "refused": true
+        }
+      ]
     },
     {
       "id": "utf8-decode-four-byte",
