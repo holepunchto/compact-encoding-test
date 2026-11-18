@@ -24,7 +24,7 @@ test('a rule that names a conformant alternative commits it', (t) => {
   for (const slug of corpus.alternatives()) {
     const citing = corpus.allFixtures().filter((f) => f.rules.includes(slug))
     t.ok(
-      citing.some((f) => f.alternative !== undefined),
+      citing.some((f) => f.alternatives !== undefined),
       `${slug} shows its alternative in a case`
     )
   }
@@ -33,7 +33,7 @@ test('a rule that names a conformant alternative commits it', (t) => {
 test('an alternative answer cites a rule that names one', (t) => {
   const marked = new Set(corpus.alternatives())
   for (const fixture of corpus.allFixtures()) {
-    if (fixture.alternative !== undefined) t.ok(fixture.rules.some((slug) => marked.has(slug)))
+    if (fixture.alternatives !== undefined) t.ok(fixture.rules.some((slug) => marked.has(slug)))
   }
 })
 

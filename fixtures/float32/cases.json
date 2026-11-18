@@ -56,11 +56,13 @@
         "bytes": "0100807f"
       },
       "rules": ["float-nan-quiet-bit"],
-      "alternative": {
-        "decodes": "NaN",
-        "bits": "0100807f",
-        "read": 4
-      }
+      "alternatives": [
+        {
+          "decodes": "NaN",
+          "bits": "0100807f",
+          "read": 4
+        }
+      ]
     },
     {
       "id": "float32-negative-zero",
