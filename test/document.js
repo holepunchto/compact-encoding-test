@@ -7,7 +7,7 @@ const { RECORDS } = require('../lib/declaration')
 const { devDependencies } = require('../package.json')
 
 const SLUG_SHAPED = /`([a-z0-9][a-z0-9-]*-[a-z0-9-]+)`/g
-const UPPERCASE_HEX = /"(?:hex|bytes|bits)": "[^"]*[A-F]|\\u[0-9a-f]{0,3}[A-F]/
+
 function document() {
   return fs.readFileSync(specPath, 'utf8')
 }
@@ -160,15 +160,59 @@ test('every code unit outside ASCII is written as an escape', (t) => {
   t.alike(raw.sort(), [], 'a fixture file is ASCII throughout, as the preamble says')
 })
 
-test('every hex digit in a fixture is lowercase', (t) => {
-  const upper = fs
+const HEX_KEYS = ['hex', 'bytes', 'bits']
+
+function hexIn(answer) {
+  if (answer === null || typeof answer !== 'object') return []
+  return HEX_KEYS.filter((key) => typeof answer[key] === 'string').map((key) => answer[key])
+}
+
+test('every hex value in a fixture is lowercase', (t) => {
+  const kinds = corpus.kinds()
+  const wrong = []
+
+  for (const name of corpus.codecs()) {
+    const { category, cases } = corpus.loadCases(name)
+    const answers = corpus.loadAnswers(name)
+    const bytes = kinds[category].value.includes('bytes')
+
+    for (const example of cases) {
+      const answer = answers[example.id] ?? example.answer
+      const found = [
+        ...hexIn(example.input),
+        ...hexIn(answer),
+        ...(example.alternatives ?? []).flatMap(hexIn)
+      ]
+
+      if (bytes) {
+        if (typeof example.input.value === 'string') found.push(example.input.value)
+        if (typeof answer?.decodes === 'string') found.push(answer.decodes)
+      }
+
+      for (const hex of found) {
+        if (hex !== hex.toLowerCase()) wrong.push(`${example.id}: ${hex}`)
+      }
+    }
+  }
+
+  for (const mutant of corpus.mutants()) {
+    for (const hex of hexIn(mutant.answer)) {
+      if (hex !== hex.toLowerCase()) wrong.push(`${mutant.fixture}: ${hex}`)
+    }
+  }
+
+  t.alike(wrong.sort(), [], 'a fixture writes its hex in lowercase, as the preamble says')
+})
+
+test('every escape in a fixture is lowercase', (t) => {
+  const wrong = fs
     .readdirSync(fixturesDir, { recursive: true })
     .filter((file) => file.endsWith('.json'))
-    .filter((file) => UPPERCASE_HEX.test(fs.readFileSync(`${fixturesDir}/${file}`, 'utf8')))
+    .filter((file) =>
+      [...fs.readFileSync(`${fixturesDir}/${file}`, 'utf8').matchAll(ESCAPE)].some(
+        (m) => m[1] !== m[1].toLowerCase()
+      )
+    )
 
-  t.alike(
-    upper.sort(),
-    [],
-    'a fixture writes its bytes and its escapes in lowercase, as the preamble says'
-  )
+  t.alike(wrong.sort(), [], 'an escape spells its digits in lowercase, as the preamble says')
 })
