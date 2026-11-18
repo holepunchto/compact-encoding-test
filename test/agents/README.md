@@ -22,6 +22,6 @@ A sandbox prepared this way is still not sealed: an agent spawned from a session
 
 ## Recording it
 
-A record states what the run was given and barred, quotes any steer its prompt gave, and reports the diff. It says how many of the answers the document states outright, because a run matching those proves transcription rather than derivation. It lists what the run could not settle, says how many observations came back against how many are carried forward, and accounts for the rest.
+A record states what the run was given and barred, quotes any steer its prompt gave, and reports the diff. It says how many of the answers the document states outright, because a run matching those proves transcription rather than derivation. `npm run quoted` counts them per family, so the number is measured rather than estimated: the document teaches a byte-level format by showing bytes, and the bytes it shows are answers the corpus also commits. It lists what the run could not settle, says how many observations came back against how many are carried forward, and accounts for the rest.
 
 Every divergence and every gap becomes an entry in `TODO.md`, never a silent edit to the document or to a fixture.
