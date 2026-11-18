@@ -75,7 +75,7 @@ The fixed-width codecs write a set number of bytes with no prefix, so the reader
 
 ## Floats
 
-`float32` and `float64` write a number in its IEEE 754 form, binary32 and binary64 respectively. What a decoder takes from the bytes is `decode-consumes-its-form`. They carry values the integer codecs refuse: a fraction, an infinity, and a NaN.
+`float32` and `float64` write a number in its IEEE 754 form, binary32 and binary64 respectively. What a decoder takes from the bytes is `decode-consumes-its-form`, and what it does with fewer bytes than the width needs is `decode-rejects-a-short-width`. They carry values the integer codecs refuse: a fraction, an infinity, and a NaN.
 
 - `float-ieee754` - a float is written in the IEEE 754 form its width names, so `float64` writes 1 as `000000000000f03f` and 0.5 as `000000000000e03f`.
 - `float-carries-infinity` - an infinity is a value these codecs carry rather than a bound they refuse, written as an exponent of all ones with no fraction: `000000000000f07f` at 64 bits and `0000807f` at 32, and with the sign bit `000000000000f0ff` and `000080ff`.
@@ -97,7 +97,7 @@ The fixed-width codecs write a set number of bytes with no prefix, so the reader
 
 ## Buffers
 
-The buffer codecs carry bytes rather than a value read out of them, and differ in what says how many. `buffer` and `optionalBuffer` count first; a fixed codec carries a width its name announces; `raw` carries whatever is left. `uint8array` counts first too: the typed-array codecs write the number of elements rather than the number of bytes, and an element of a byte array is one byte, so it writes what `buffer` writes and the same rules check it. Only what a decoder hands back differs, which the bytes do not record. The wider typed arrays, where a count of elements and a count of bytes come apart, are not covered here. What a decoder takes from the bytes is `decode-consumes-its-form`.
+The buffer codecs carry bytes rather than a value read out of them, and differ in what says how many. `buffer` and `optionalBuffer` count first; a fixed codec carries a width its name announces; `raw` carries whatever is left. `uint8array` counts first too: the typed-array codecs write the number of elements rather than the number of bytes, and an element of a byte array is one byte, so it writes what `buffer` writes and the same rules check it. Only what a decoder hands back differs, which the bytes do not record. The wider typed arrays, where a count of elements and a count of bytes come apart, are not covered here. What a decoder takes from the bytes is `decode-consumes-its-form`, and what a fixed codec does with fewer bytes than its width is `decode-rejects-a-short-width`.
 
 - `buffer-count-then-bytes` - a buffer encodes as its length by the `uint` rules, then the bytes themselves, so three bytes are `03616263`.
 - `buffer-empty-is-a-count-of-zero` - the empty buffer is the single byte `00`, and `buffer` reads that byte back as an empty buffer rather than as nothing.
