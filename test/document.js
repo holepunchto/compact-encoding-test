@@ -7,7 +7,7 @@ const { RECORDS } = require('../lib/declaration')
 const { devDependencies } = require('../package.json')
 
 const SLUG_SHAPED = /`([a-z0-9][a-z0-9-]*-[a-z0-9-]+)`/g
-
+const UPPERCASE_HEX = /"(?:hex|bytes|bits)": "[^"]*[A-F]|\\u[0-9a-f]{0,3}[A-F]/
 function document() {
   return fs.readFileSync(specPath, 'utf8')
 }
@@ -158,4 +158,17 @@ test('every code unit outside ASCII is written as an escape', (t) => {
     .filter((file) => /[\u0080-\uffff]/.test(fs.readFileSync(`${fixturesDir}/${file}`, 'utf8')))
 
   t.alike(raw.sort(), [], 'a fixture file is ASCII throughout, as the preamble says')
+})
+
+test('every hex digit in a fixture is lowercase', (t) => {
+  const upper = fs
+    .readdirSync(fixturesDir, { recursive: true })
+    .filter((file) => file.endsWith('.json'))
+    .filter((file) => UPPERCASE_HEX.test(fs.readFileSync(`${fixturesDir}/${file}`, 'utf8')))
+
+  t.alike(
+    upper.sort(),
+    [],
+    'a fixture writes its bytes and its escapes in lowercase, as the preamble says'
+  )
 })
