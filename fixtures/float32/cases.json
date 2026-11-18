@@ -50,6 +50,14 @@
       "rules": ["float-nan-pattern"]
     },
     {
+      "id": "float32-nan-sign",
+      "note": "a NaN whose sign bit is set, which the token cannot tell from any other",
+      "input": {
+        "bytes": "0100c0ff"
+      },
+      "rules": ["float-nan-pattern"]
+    },
+    {
       "id": "float32-nan-signalling",
       "note": "a NaN with the quiet bit clear, which comes back quieted at this width",
       "input": {
