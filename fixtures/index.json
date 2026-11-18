@@ -101,7 +101,8 @@
       "buffer-empty",
       "buffer-empty-decode",
       "buffer-short-input",
-      "buffer-count-past-the-ceiling"
+      "buffer-count-prefixed",
+      "buffer-count-past-what-the-input-holds"
     ],
     "fixed-16": [
       "fixed-16-bytes",
