@@ -172,6 +172,9 @@
       "float32-rounds-up-to-even",
       "float32-infinity",
       "float32-overflow",
+      "float32-rounds-under-the-ceiling",
+      "float32-subnormal",
+      "float32-underflow",
       "float32-negative-infinity"
     ],
     "float64": [
