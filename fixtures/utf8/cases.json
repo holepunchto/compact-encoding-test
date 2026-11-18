@@ -122,6 +122,14 @@
       "rules": ["utf8-maximal-subpart", "utf8-replaces-invalid-bytes"]
     },
     {
+      "id": "utf8-stranded-continuations",
+      "note": "continuation bytes with no lead in front of them, each its own run",
+      "input": {
+        "bytes": "03808041"
+      },
+      "rules": ["utf8-maximal-subpart", "utf8-replaces-invalid-bytes"]
+    },
+    {
       "id": "utf8-four-byte",
       "note": "U+1F600, a surrogate pair that becomes one four-byte sequence",
       "input": {

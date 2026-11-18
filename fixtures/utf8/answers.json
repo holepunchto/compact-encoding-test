@@ -51,6 +51,10 @@
     "decodes": "\ufffd\ufffdA",
     "read": 4
   },
+  "utf8-stranded-continuations": {
+    "decodes": "\ufffd\ufffdA",
+    "read": 4
+  },
   "utf8-four-byte": {
     "hex": "04f09f9880"
   },
