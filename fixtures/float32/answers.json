@@ -49,6 +49,15 @@
   "float32-overflow": {
     "hex": "0000807f"
   },
+  "float32-rounds-under-the-ceiling": {
+    "hex": "ffff7f7f"
+  },
+  "float32-subnormal": {
+    "hex": "01000000"
+  },
+  "float32-underflow": {
+    "hex": "00000000"
+  },
   "float32-negative-infinity": {
     "hex": "000080ff"
   }
