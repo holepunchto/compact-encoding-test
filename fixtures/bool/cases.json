@@ -26,6 +26,14 @@
       "rules": ["bool-only-one-is-true"]
     },
     {
+      "id": "bool-high-byte",
+      "note": "a byte with its top bit set, which an implementation holding a signed byte reads the same way",
+      "input": {
+        "bytes": "ff"
+      },
+      "rules": ["bool-only-one-is-true"]
+    },
+    {
       "id": "bool-empty-input",
       "note": "no bytes at all, where a decoder that treats absence as false would answer",
       "input": {
