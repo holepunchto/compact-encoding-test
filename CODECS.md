@@ -93,9 +93,11 @@ How a payload maps between the two widths is outside what these rules define. Th
 
 `bool` carries one byte, and of the 256 values that byte could hold a decoder reads exactly one as true. What a decoder takes from the bytes is `decode-consumes-its-form`.
 
-- `bool-single-byte` - true is the byte `01` and false is the byte `00`, one byte either way.
+- `bool-single-byte` - true is the byte `01` and false is the byte `00`, one byte either way. What a decoder makes of any other byte is `bool-only-one-is-true` rather than a rejection.
 - `bool-rejects-empty-input` - a decoder rejects input with no byte in it, rather than reading an absent byte as false.
-- `bool-only-one-is-true` (delegated) - a decoder reads `01` as true and every other byte as false, so `02` decodes false rather than true and rather than a rejection. This constrains decoders only: an encoder writes `00` or `01` and nothing else, so the bytes it produces are read the same way under either reading. An implementation that reads any non-zero byte as true, as C does, disagrees on every byte an encoder never writes.
+- `bool-only-one-is-true` (delegated) - a decoder reads `01` as true and every other byte as false, so `02` decodes false rather than true and rather than a rejection. This constrains decoders only: an encoder writes `00` or `01` and nothing else, so the bytes it produces are read the same way under either reading. An implementation that reads any non-zero byte as true, as C does, disagrees on every byte an encoder never writes. The two halves meet where an implementation writes its own boolean rather than a byte it chose: a value its type holds as something other than `00` or `01`, as an Objective-C `BOOL` can, satisfies the width and not the value, and comes back false. The byte is matched against `01` rather than ordered against it, so whether an implementation holds a byte as signed or unsigned does not come into it: `ff` is false either way.
+
+What an encoder does with a value that is not a boolean is outside what these rules define. The reference takes whatever it is handed as true or false by the truth it has in JavaScript, so 1 and a non-empty string write `01` where 0, an empty string and a null write `00`, which is not what the integer codecs do with a value they do not carry. That is not stated as a rule for the reason the numbers section gives for theirs: a value a codec does not carry has no bytes to describe, and the question reaches an implementation only where its types are checked no earlier than the call. What an implementation does when handed one is its own business.
 
 ## Buffers
 

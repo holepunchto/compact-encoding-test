@@ -9,6 +9,10 @@
     "decodes": false,
     "read": 1
   },
+  "bool-high-byte": {
+    "decodes": false,
+    "read": 1
+  },
   "bool-empty-input": {
     "rejects": true
   }
