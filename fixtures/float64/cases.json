@@ -42,6 +42,14 @@
       "rules": ["float-nan-pattern"]
     },
     {
+      "id": "float64-nan-sign",
+      "note": "a NaN whose sign bit is set, which the token cannot tell from any other",
+      "input": {
+        "bytes": "010000000000f8ff"
+      },
+      "rules": ["float-nan-pattern"]
+    },
+    {
       "id": "float64-nan-signalling",
       "note": "the same payload with the quiet bit clear, which survives at this width",
       "input": {

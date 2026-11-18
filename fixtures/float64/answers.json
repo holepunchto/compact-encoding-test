@@ -16,6 +16,11 @@
     "bits": "010000000000f87f",
     "read": 8
   },
+  "float64-nan-sign": {
+    "decodes": "NaN",
+    "bits": "010000000000f8ff",
+    "read": 8
+  },
   "float64-nan-signalling": {
     "decodes": "NaN",
     "bits": "010000000000f07f",
