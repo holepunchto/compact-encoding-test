@@ -34,8 +34,16 @@
       "rules": ["buffer-rejects-short-input"]
     },
     {
-      "id": "buffer-count-past-the-ceiling",
-      "note": "a count of 2^53 with no bytes behind it",
+      "id": "buffer-count-prefixed",
+      "note": "a buffer long enough that its count takes the marker form rather than standing alone",
+      "input": {
+        "value": "61616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161"
+      },
+      "rules": ["buffer-count-then-bytes", "uint-uint16-prefix"]
+    },
+    {
+      "id": "buffer-count-past-what-the-input-holds",
+      "note": "a count of 2^53 with no bytes behind it, rejected on what follows rather than on a ceiling buffers do not have",
       "input": {
         "bytes": "ff0000000000002000"
       },
