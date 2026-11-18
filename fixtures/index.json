@@ -153,6 +153,7 @@
       "bool-true",
       "bool-false",
       "bool-other-byte",
+      "bool-high-byte",
       "bool-empty-input"
     ]
   },
