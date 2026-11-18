@@ -8,6 +8,7 @@ Copy `CODECS.md` and the `input` field of every case in the family to an empty d
 
 - Strip `note` and `rules`. A note often states the answer, and the rules name the question the case asks.
 - Replace the case ids with opaque ones. An id such as `utf8-subpart-completable` hands over the discriminator its two cases exist to separate, and an id such as `float32-rounds-up-to-even` names its own answer. Keep the mapping outside the directory.
+- Escape text by code unit, not by code point. A character outside the Basic Multilingual Plane is two escapes, a high surrogate and a low one, and a loop that walks code points drops the second: `for (const ch of text)` yields such a character whole and `charCodeAt(0)` then returns only its first half. `lib/answers.js` escapes with a replace over code units, which is the form to copy. A run handed a half-escaped character answers a case the corpus does not carry, and will argue convincingly about a gap that is not there.
 - Key the opaque ids by codec. The corpus gives a port a directory per codec, so a flat list takes away something a real reader has. The floats run had to infer which cases were `float32` and which `float64` from decode widths and duplicated values, and said so.
 
 ## What the run is told
