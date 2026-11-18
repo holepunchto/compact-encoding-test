@@ -36,6 +36,10 @@
   "float64-infinity": {
     "hex": "000000000000f07f"
   },
+  "float64-infinity-decode": {
+    "decodes": "Infinity",
+    "read": 8
+  },
   "float64-negative-infinity": {
     "hex": "000000000000f0ff"
   },

@@ -168,12 +168,15 @@
       "float32-nan-payload",
       "float32-nan-sign",
       "float32-nan-signalling",
+      "float32-nan-signalling-payload",
       "float32-negative-zero",
       "float32-negative-zero-decode",
       "float32-short-input",
       "float32-rounds-up-to-even",
       "float32-infinity",
+      "float32-infinity-decode",
       "float32-overflow",
+      "float32-overflow-unnamed",
       "float32-rounds-under-the-ceiling",
       "float32-subnormal",
       "float32-underflow",
@@ -190,6 +193,7 @@
       "float64-negative-zero",
       "float64-negative-zero-decode",
       "float64-infinity",
+      "float64-infinity-decode",
       "float64-negative-infinity",
       "float64-short-input"
     ]

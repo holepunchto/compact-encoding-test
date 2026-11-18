@@ -82,6 +82,14 @@
       "rules": ["float-carries-infinity"]
     },
     {
+      "id": "float64-infinity-decode",
+      "note": "an infinity read back from bytes, where every other case writes one",
+      "input": {
+        "bytes": "000000000000f07f"
+      },
+      "rules": ["float-carries-infinity"]
+    },
+    {
       "id": "float64-negative-infinity",
       "note": "the same with the sign bit, which sits at the top of the last byte written",
       "input": {

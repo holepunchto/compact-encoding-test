@@ -73,6 +73,21 @@
       ]
     },
     {
+      "id": "float32-nan-signalling-payload",
+      "note": "another signalling NaN, whose payload the document does not name",
+      "input": {
+        "bytes": "0200807f"
+      },
+      "rules": ["float-nan-quiet-bit"],
+      "alternatives": [
+        {
+          "decodes": "NaN",
+          "bits": "0200807f",
+          "read": 4
+        }
+      ]
+    },
+    {
       "id": "float32-negative-zero",
       "note": "negative zero written at the narrower width",
       "input": {
@@ -113,10 +128,26 @@
       "rules": ["float-carries-infinity"]
     },
     {
+      "id": "float32-infinity-decode",
+      "note": "an infinity read back from bytes, where every other case writes one",
+      "input": {
+        "bytes": "0000807f"
+      },
+      "rules": ["float-carries-infinity"]
+    },
+    {
       "id": "float32-overflow",
       "note": "a value binary32 cannot reach, which saturates rather than being refused",
       "input": {
         "value": 400000000000000000000000000000000000000
+      },
+      "rules": ["float-overflows-to-an-infinity"]
+    },
+    {
+      "id": "float32-overflow-unnamed",
+      "note": "a value past the width that the document does not name, so the behaviour rather than the example is checked",
+      "input": {
+        "value": 1e39
       },
       "rules": ["float-overflows-to-an-infinity"]
     },

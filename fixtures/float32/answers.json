@@ -30,6 +30,11 @@
     "bits": "0100c07f",
     "read": 4
   },
+  "float32-nan-signalling-payload": {
+    "decodes": "NaN",
+    "bits": "0200c07f",
+    "read": 4
+  },
   "float32-negative-zero": {
     "hex": "00000080"
   },
@@ -46,7 +51,14 @@
   "float32-infinity": {
     "hex": "0000807f"
   },
+  "float32-infinity-decode": {
+    "decodes": "Infinity",
+    "read": 4
+  },
   "float32-overflow": {
+    "hex": "0000807f"
+  },
+  "float32-overflow-unnamed": {
     "hex": "0000807f"
   },
   "float32-rounds-under-the-ceiling": {
