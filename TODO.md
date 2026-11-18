@@ -17,6 +17,10 @@ GitHub Issues are the surface for external contributors. Human-facing work lives
   - [ ] call the specification finished only for a structure the test has passed
   - [ ] every family has now had a run, recorded under `test/agents/`; the floats and strings runs were redone cold after an audit found their prompts steered and a runtime primitive standing in for a rule
   - [ ] a run proves less than its count suggests: say in each record how many answers the document states outright
+  - [ ] the record family still has no record; its run on 2026-11-11 predates `test/agents/` and the method in its README
 - [ ] **Run the corpus against every implementation** `[ready-for-human]` - each port runs the corpus fixtures in a harness in its own language and declares the capabilities it does not support. (was #19)
 - [ ] **Cover the big-endian codecs once the reference implements them** `[ready-for-human]` - `uint16be`, `uintbe`, `int16be`, `int32be`, `int64be` and `intbe` stay zero-fixture capabilities until the reference grows them or the family is declared deliberately C-only. (was #20)
   - [ ] blocked by the conformance run above, which produces the evidence for that decision
+- [ ] **Which answer a case commits is settled far from the rules that state two** `[needs-triage]` - `encode-ceiling`, `decode-ceiling` and `signed-range` each give the format's answer and the reference's bound in adjacent sentences, and twelve answers turn on a sentence in the section preamble. (integers finish test, 2026-11-18)
+- [ ] **A rule marked `unrepresentable` that describes a refusal admits two answers** `[needs-triage]` - `integer-refuses-a-fraction`, `unsigned-refuses-negative` and `fixed-width-refuses-overflow` carry the marker, so a port could answer `unrepresentable` where the corpus answers `refused`, on eight cases. (integers finish test, 2026-11-18)
+- [ ] **Nothing says `read` counts from the start of the input** `[needs-triage]` - a decoder reporting only the bytes of the value answers differently on every overlong form. (integers finish test, 2026-11-18)
