@@ -20,4 +20,3 @@ GitHub Issues are the surface for external contributors. Human-facing work lives
 - [ ] **Run the corpus against every implementation** `[ready-for-human]` - each port runs the corpus fixtures in a harness in its own language and declares the capabilities it does not support. (was #19)
 - [ ] **Cover the big-endian codecs once the reference implements them** `[ready-for-human]` - `uint16be`, `uintbe`, `int16be`, `int32be`, `int64be` and `intbe` stay zero-fixture capabilities until the reference grows them or the family is declared deliberately C-only. (was #20)
   - [ ] blocked by the conformance run above, which produces the evidence for that decision
-- [ ] **`CODECS.md` prints the answers to cases the corpus also commits** `[ready-for-human]` - the example slice and the worked examples in `utf8-maximal-subpart` give about six case answers verbatim, so a reader implementing from the document transcribes those rather than deriving them. (records audit, 2026-11-17)
