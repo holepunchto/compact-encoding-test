@@ -17,9 +17,6 @@ GitHub Issues are the surface for external contributors. Human-facing work lives
   - [ ] call the specification finished only for a structure the test has passed
   - [ ] every family has now had a run, recorded under `test/agents/`; the floats and strings runs were redone cold after an audit found their prompts steered and a runtime primitive standing in for a rule
   - [ ] a run proves less than its count suggests: say in each record how many answers the document states outright
-- [ ] **A record case is named for a ceiling records do not have** `[ready-for-agent]` - `record-utf8-uint-count-past-the-ceiling` cites `record-rejects-short-input`, whose text says a count of pairs carries no ceiling of its own. (was #152)
-- [ ] **A record case encodes an order the document declines to define** `[ready-for-agent]` - `record-utf8-uint-two-pairs` encodes a two-pair record whose bytes depend on a key order the document states no rule for. (was #153)
-- [ ] **The uint section sends a reader away from values the ceiling rules require** `[ready-for-agent]` - `uint-uint64-prefix` directs the reader to `biguint` for the values that `encode-ceiling` and `decode-ceiling` then require `uint64` to carry. (was #154)
 - [ ] **Run the corpus against every implementation** `[ready-for-human]` - each port runs the corpus fixtures in a harness in its own language and declares the capabilities it does not support. (was #19)
 - [ ] **Cover the big-endian codecs once the reference implements them** `[ready-for-human]` - `uint16be`, `uintbe`, `int16be`, `int32be`, `int64be` and `intbe` stay zero-fixture capabilities until the reference grows them or the family is declared deliberately C-only. (was #20)
   - [ ] blocked by the conformance run above, which produces the evidence for that decision
