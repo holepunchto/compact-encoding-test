@@ -1,7 +1,7 @@
 const test = require('brittle')
 const corpus = require('../lib/corpus')
 
-const REFUSED_BY_THE_FORMAT = new Set([
+const ANSWERED_BY_A_REFUSAL = new Set([
   'integer-refuses-a-fraction',
   'unsigned-refuses-negative',
   'fixed-width-refuses-overflow'
@@ -9,7 +9,7 @@ const REFUSED_BY_THE_FORMAT = new Set([
 
 test('a rule a number type may not hold commits the format answer', (t) => {
   const marked = new Set(
-    corpus.unrepresentable().filter((slug) => !REFUSED_BY_THE_FORMAT.has(slug))
+    corpus.unrepresentable().filter((slug) => !ANSWERED_BY_A_REFUSAL.has(slug))
   )
 
   for (const fixture of corpus.allFixtures()) {
@@ -50,4 +50,14 @@ test('an answer no implementation generates kills a mutant', (t) => {
   }
 
   t.alike(unchecked, [], 'an answer the reference does not give is contradicted by a wrong reading')
+})
+
+test('a rule a type may not hold never commits unrepresentable', (t) => {
+  const marked = new Set(corpus.unrepresentable())
+
+  for (const fixture of corpus.allFixtures()) {
+    if (!fixture.rules.some((slug) => marked.has(slug))) continue
+
+    t.absent(fixture.answer.unrepresentable, `${fixture.id} commits an answer, not unrepresentable`)
+  }
 })
