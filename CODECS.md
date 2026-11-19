@@ -38,7 +38,8 @@ The fixtures are JSON (RFC 8259). A `value` is a number where the codec carries 
 - `uint-uint16-prefix` - a value from `0xfd` through `0xffff` encodes as the byte `0xfd` followed by a two-byte payload.
 - `uint-uint32-prefix` - a value from `0x10000` through `0xffffffff` encodes as the byte `0xfe` followed by a four-byte payload.
 - `uint-uint64-prefix` - a value from `0x100000000` through `2^64 - 1` encodes as the byte `0xff` followed by an eight-byte payload. The reference stops at 9007199254740991, under `encode-ceiling`, and directs the caller to `biguint`, which carries integers too large for a double and which this corpus does not cover. The form itself reaches further than the reference does: what the format writes for a value above that is `encode-ceiling`, and what a decoder makes of those bytes is `decode-ceiling`.
-- `uint-little-endian` - the payload of every prefixed form is little-endian, least significant byte first.
+- `uint-little-endian` - the payload of a prefixed form is little-endian, least significant byte first, in every codec but the big-endian twins `uint-big-endian-twin` names.
+- `uint-big-endian-twin` - `uintbe` and `intbe` write the forms `uint` and `int` write, with the payload most significant byte first. The marker does not move with it: 253 is `fdfd00` through `uint` and `fd00fd` through `uintbe`, the same `fd` in front either way, and `intbe` zigzags before it lays the bytes down as `int` does.
 - `uint-overlong-decode` (delegated) - a decoder reads a prefixed form wider than the value needs, rather than rejecting it as non-canonical. An encoder never produces one for an integer, so this constrains decoders only, and a decoder that rejects an overlong form is not conformant.
 - `uint-truncated-rejected` - a decoder rejects input that ends before the form it is reading is complete, whether that is a payload cut short of what its prefix announces or no bytes at all, where not even the first byte is there to read.
 

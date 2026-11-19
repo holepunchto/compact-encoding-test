@@ -1,6 +1,21 @@
 {
   "category": "big-endian-integers",
-  "reason": "the reference carries it and this corpus has no cases for it yet; libcompact is the other implementation that provides it",
-  "implementations": ["c"],
-  "cases": []
+  "cases": [
+    {
+      "id": "intbe-byte-order",
+      "note": "a negative whose zigzag takes the prefixed form, payload most significant first",
+      "input": {
+        "value": -127
+      },
+      "rules": ["uint-big-endian-twin", "int-zigzag"]
+    },
+    {
+      "id": "intbe-decode-byte-order",
+      "note": "a prefixed payload read most significant first and unzigzagged, so -127 rather than -32385",
+      "input": {
+        "bytes": "fd00fd"
+      },
+      "rules": ["uint-big-endian-twin", "decode-consumes-its-form"]
+    }
+  ]
 }

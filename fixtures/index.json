@@ -349,7 +349,10 @@
       "int64be-byte-order",
       "int64be-decode-byte-order"
     ],
-    "intbe": [],
+    "intbe": [
+      "intbe-byte-order",
+      "intbe-decode-byte-order"
+    ],
     "uint16be": [
       "uint16be-byte-order",
       "uint16be-decode-byte-order"
@@ -362,7 +365,10 @@
       "uint64be-byte-order",
       "uint64be-decode-ceiling"
     ],
-    "uintbe": []
+    "uintbe": [
+      "uintbe-byte-order",
+      "uintbe-decode-byte-order"
+    ]
   },
   "network-addresses": {
     "ip": [],
