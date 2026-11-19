@@ -204,6 +204,25 @@ test('every hex value in a fixture is lowercase', (t) => {
   t.alike(wrong.sort(), [], 'a fixture writes its hex in lowercase, as the preamble says')
 })
 
+test('the inventory names every codec and no other', (t) => {
+  const listed = [
+    ...document().matchAll(/^\|\s*`([^`]+)`\s*\|\s*([a-z-]+)\s*\|\s*(yes|no)\s*\|$/gm)
+  ].map(([, codec, family, covered]) => `${codec} ${family} ${covered}`)
+
+  const carried = []
+  for (const [family, codecs] of Object.entries(corpus.capabilities())) {
+    for (const [codec, cases] of Object.entries(codecs)) {
+      carried.push(`${codec} ${family} ${cases.length > 0 ? 'yes' : 'no'}`)
+    }
+  }
+
+  t.alike(
+    listed.sort(),
+    carried.sort(),
+    'the inventory is the corpus, not a copy of it that drifted'
+  )
+})
+
 test('every escape in a fixture is lowercase', (t) => {
   const wrong = fs
     .readdirSync(fixturesDir, { recursive: true })

@@ -30,6 +30,98 @@ A directory covers one codec, and where that codec is built rather than exported
 
 The fixtures are JSON (RFC 8259). A `value` is a number where the codec carries one and a sequence of UTF-16 code units where it carries text, rather than a sequence of code points. Where those units do not all pair, the value is written as its code units instead, `{ "units": [55296] }` for a high surrogate with nothing after it: RFC 8259 leaves an escape for an unpaired surrogate to the parser, and a strict one refuses the document rather than the string, so a corpus that wrote the escape would be unreadable in a language whose parser is strict. UTF-16 is Section 3.9 of the Unicode Standard and the surrogates it pairs are Section 3.8, which between them say which code units are surrogates and when two of them pair. A `value` and a `decodes` answer carry whatever the codec carries: a number, one of the tokens above where JSON cannot hold it, text, hex digits, `true` or `false`, or `null` where a value is absent, and for a combinator whatever it was built from, gathered as its own rules say - a list for an array, a list of pairs for a record or an ordered record, and a single value for a frame. Which of those kinds a category actually carries is `fixtures/kinds.json`, which the build checks against the cases rather than against a sentence here, so that a case carrying a kind the taxonomy does not admit fails until it is admitted. That file is a check on the corpus rather than something a port resolves: the kinds are named above, and the answer beside a case is what a port reads. A record's pairs are written as a list because RFC 8259 gives an object's members no order and the order is part of what the case says; a decoded record answers as an object, where the order no longer matters because the bytes already carry it. `bytes`, `hex` and `bits` are always bytes written as pairs of lowercase hex digits, as is a `value` or a `decodes` carrying hex digits rather than text. Every code unit outside ASCII is written as a `\uXXXX` escape, in the cases and the answers both, its four digits lowercase as well. A number in an answer is written the way JSON writes it, so a decoded float carries that spelling rather than a rounded one. A number in a case is written however the corpus's formatter leaves it, which is the same spelling except in exponent form, where the two disagree and nothing depends on it.
 
+## The codecs
+
+Every codec this corpus knows of has a directory under `fixtures/`, named for it. The table below names them all, the family each belongs to, and whether the corpus carries cases for it.
+
+A family with a section below is defined by the rules in it. A family with no section - documents, typed arrays, big integers and network addresses - is carried as a capability and defined nowhere here, which is a statement that this document does not specify those codecs rather than an oversight. A codec with no cases says why in its own `cases.json`, whether its family has a section or not.
+
+`fixed-3` and its siblings are the fixed codec built with that width, and a name joining codecs with hyphens is the first built from the rest: `record-utf8-uint` is a record whose keys are `utf8` and whose values are `uint`.
+
+| codec                     | family              | covered |
+| ------------------------- | ------------------- | ------- |
+| `int16be`                 | big-endian-integers | yes     |
+| `int32be`                 | big-endian-integers | yes     |
+| `int64be`                 | big-endian-integers | yes     |
+| `intbe`                   | big-endian-integers | yes     |
+| `uint16be`                | big-endian-integers | yes     |
+| `uint32be`                | big-endian-integers | yes     |
+| `uint64be`                | big-endian-integers | yes     |
+| `uintbe`                  | big-endian-integers | yes     |
+| `bigint`                  | big-integers        | no      |
+| `bigint64`                | big-integers        | no      |
+| `biguint`                 | big-integers        | no      |
+| `biguint64`               | big-integers        | no      |
+| `bool`                    | booleans            | yes     |
+| `binary`                  | buffers             | no      |
+| `buffer`                  | buffers             | yes     |
+| `fixed-16`                | buffers             | yes     |
+| `fixed-24`                | buffers             | yes     |
+| `fixed-3`                 | buffers             | yes     |
+| `fixed-32`                | buffers             | yes     |
+| `fixed-64`                | buffers             | yes     |
+| `fixed-8`                 | buffers             | yes     |
+| `none`                    | buffers             | no      |
+| `optionalBuffer`          | buffers             | yes     |
+| `raw`                     | buffers             | yes     |
+| `uint8array`              | buffers             | yes     |
+| `array-uint`              | combinators         | yes     |
+| `frame-uint`              | combinators         | yes     |
+| `orderedRecord-utf8-uint` | combinators         | yes     |
+| `orderedStringRecord`     | combinators         | no      |
+| `record-utf8-uint`        | combinators         | yes     |
+| `stringRecord`            | combinators         | no      |
+| `any`                     | documents           | no      |
+| `date`                    | documents           | no      |
+| `json`                    | documents           | no      |
+| `ndjson`                  | documents           | no      |
+| `float32`                 | floats              | yes     |
+| `float64`                 | floats              | yes     |
+| `int`                     | integers            | yes     |
+| `int16`                   | integers            | yes     |
+| `int24`                   | integers            | yes     |
+| `int32`                   | integers            | yes     |
+| `int40`                   | integers            | yes     |
+| `int48`                   | integers            | yes     |
+| `int56`                   | integers            | yes     |
+| `int64`                   | integers            | yes     |
+| `int8`                    | integers            | yes     |
+| `lexint`                  | integers            | no      |
+| `uint`                    | integers            | yes     |
+| `uint16`                  | integers            | yes     |
+| `uint24`                  | integers            | yes     |
+| `uint32`                  | integers            | yes     |
+| `uint40`                  | integers            | yes     |
+| `uint48`                  | integers            | yes     |
+| `uint56`                  | integers            | yes     |
+| `uint64`                  | integers            | yes     |
+| `uint8`                   | integers            | yes     |
+| `ip`                      | network-addresses   | no      |
+| `ipAddress`               | network-addresses   | no      |
+| `ipv4`                    | network-addresses   | no      |
+| `ipv4Address`             | network-addresses   | no      |
+| `ipv6`                    | network-addresses   | no      |
+| `ipv6Address`             | network-addresses   | no      |
+| `port`                    | network-addresses   | no      |
+| `ascii`                   | strings             | no      |
+| `base64`                  | strings             | no      |
+| `hex`                     | strings             | no      |
+| `string`                  | strings             | no      |
+| `ucs2`                    | strings             | no      |
+| `utf16le`                 | strings             | no      |
+| `utf8`                    | strings             | yes     |
+| `arraybuffer`             | typed-arrays        | no      |
+| `bigint64array`           | typed-arrays        | no      |
+| `biguint64array`          | typed-arrays        | no      |
+| `bitarray`                | typed-arrays        | no      |
+| `float32array`            | typed-arrays        | no      |
+| `float64array`            | typed-arrays        | no      |
+| `int16array`              | typed-arrays        | no      |
+| `int32array`              | typed-arrays        | no      |
+| `int8array`               | typed-arrays        | no      |
+| `uint16array`             | typed-arrays        | no      |
+| `uint32array`             | typed-arrays        | no      |
+
 ## uint
 
 `uint` encodes an unsigned integer as one of four forms, chosen by magnitude. The first byte is either the value itself or a marker selecting a fixed-width payload that follows it. What a decoder takes from the bytes is `decode-consumes-its-form`.
