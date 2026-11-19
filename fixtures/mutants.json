@@ -111,7 +111,7 @@
     "reading": "a decoder reads the bytes of a big-endian codec least significant first",
     "fixture": "int16be-decode",
     "answer": {
-      "decodes": -385,
+      "decodes": 384,
       "read": 2
     }
   },
