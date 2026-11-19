@@ -3,6 +3,8 @@ const fs = require('fs')
 const corpus = require('../lib/corpus')
 const { fixturesDir, specPath } = require('..')
 const { ruleSlugs } = require('../lib/spec')
+const { render } = require('../claims')
+const claimsPath = require('path').join(__dirname, '..', 'CLAIMS.md')
 const { RECORDS } = require('../lib/declaration')
 const { devDependencies } = require('../package.json')
 
@@ -202,6 +204,14 @@ test('every hex value in a fixture is lowercase', (t) => {
   }
 
   t.alike(wrong.sort(), [], 'a fixture writes its hex in lowercase, as the preamble says')
+})
+
+test('the claims are the claims the document makes', (t) => {
+  t.is(
+    render(),
+    fs.readFileSync(claimsPath, 'utf8'),
+    'CLAIMS.md is what claims.js writes from CODECS.md'
+  )
 })
 
 test('the inventory names every codec and no other', (t) => {
