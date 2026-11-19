@@ -2,6 +2,8 @@
 
 A finish test decides whether `CODECS.md` is finished for one family of codecs, by having a fresh agent implement that family from the document alone and diffing its answers against the committed fixtures. One author writes the document, the fixtures and every port, so this is the only independence the corpus has. Each run is recorded here, dated and named for its family.
 
+A family is run as it lands rather than once every family is in. The integer run of 2026-09-18 found two defects that six later families would otherwise have been built on, which is the whole argument for the cadence. A family counts as finished only once a run has passed for it, and the record is what says so.
+
 ## Preparing the handover
 
 Copy `CODECS.md` and the `input` field of every case in the family to an empty directory outside this repository. Nothing else goes with them.
