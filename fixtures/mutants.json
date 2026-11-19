@@ -264,10 +264,10 @@
   },
   {
     "rule": "utf8-replaces-unpaired-surrogate",
-    "reading": "an encoder refuses a string it cannot represent",
+    "reading": "an encoder writes an unpaired surrogate as the bytes its code point would take",
     "fixture": "utf8-unpaired-surrogate",
     "answer": {
-      "refused": true
+      "hex": "03eda080"
     }
   },
   {
@@ -794,11 +794,11 @@
   },
   {
     "rule": "float-nan-quiet-bit",
-    "reading": "a decoder keeps the signal at 32 bits, as one holding a native binary32 does",
+    "reading": "quieting a NaN drops the payload it arrived with",
     "fixture": "float32-nan-signalling",
     "answer": {
       "decodes": "NaN",
-      "bits": "0100807f",
+      "bits": "0000c07f",
       "read": 4
     }
   },
