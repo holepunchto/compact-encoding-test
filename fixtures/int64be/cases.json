@@ -1,6 +1,25 @@
 {
   "category": "big-endian-integers",
-  "reason": "the reference carries it and this corpus has no cases for it yet; libcompact is the other implementation that provides it",
-  "implementations": ["c"],
-  "cases": []
+  "cases": [
+    {
+      "id": "int64be-byte-order",
+      "note": "a negative whose zigzag has differing bytes past the fourth, most significant first",
+      "input": {
+        "value": -141843476153092
+      },
+      "rules": [
+        "fixed-width-width-from-name",
+        "fixed-width-big-endian",
+        "fixed-width-signed-zigzag"
+      ]
+    },
+    {
+      "id": "int64be-decode",
+      "note": "eight bytes read most significant first and unzigzagged",
+      "input": {
+        "bytes": "0000000000000003"
+      },
+      "rules": ["fixed-width-big-endian", "fixed-width-signed-zigzag"]
+    }
+  ]
 }

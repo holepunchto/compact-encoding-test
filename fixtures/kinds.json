@@ -1,7 +1,7 @@
 {
   "big-endian-integers": {
     "value": ["number"],
-    "decodes": ["wide integer"]
+    "decodes": ["wide integer", "number"]
   },
   "big-integers": {
     "value": [],

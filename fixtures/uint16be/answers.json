@@ -1,1 +1,8 @@
-{}
+{
+  "uint16be-byte-order": {
+    "hex": "0102"
+  },
+  "uint16be-short-input": {
+    "rejects": true
+  }
+}

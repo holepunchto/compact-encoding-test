@@ -1,1 +1,9 @@
-{}
+{
+  "int64be-byte-order": {
+    "hex": "0001020304050607"
+  },
+  "int64be-decode": {
+    "decodes": -2,
+    "read": 8
+  }
+}
