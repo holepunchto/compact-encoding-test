@@ -64,7 +64,7 @@ A decoder reads from a buffer it does not own the end of, so how it treats what 
 
 ## Fixed-width integers
 
-The fixed-width codecs write a set number of bytes with no prefix, so the reader knows the length before it reads anything. What a decoder takes from the bytes is `decode-consumes-its-form`. `uint8` through `uint64` carry unsigned values, `int8` through `int64` signed ones, and `uint32be` and `uint64be` differ from their siblings only in byte order. The big-endian codecs are their own capability, since only two implementations provide any, and the ones the reference does not implement at all carry a capability with no cases and a reason.
+The fixed-width codecs write a set number of bytes with no prefix, so the reader knows the length before it reads anything. What a decoder takes from the bytes is `decode-consumes-its-form`. `uint8` through `uint64` carry unsigned values, `int8` through `int64` signed ones, and `uint32be` and `uint64be` differ from their siblings only in byte order. The big-endian codecs are their own capability, since only two implementations provide any. The reference carries all eight, and the six this corpus has no cases for carry a capability with no cases and a reason.
 
 - `fixed-width-width-from-name` - a codec named `uintN` or `intN` writes exactly N bits, so `uint24` writes three bytes and `int64` writes eight, whatever the value. N counts bits here and bytes in the buffer codecs named the same way, which `fixed-width-in-bytes` states.
 - `fixed-width-little-endian` - a codec whose name has no suffix writes its bytes least significant first.

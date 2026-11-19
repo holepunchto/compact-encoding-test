@@ -18,5 +18,4 @@ GitHub Issues are the surface for external contributors. Human-facing work lives
   - [ ] every family has now had a run, recorded under `test/agents/`; the floats and strings runs were redone cold after an audit found their prompts steered and a runtime primitive standing in for a rule
   - [ ] a run proves less than its count suggests: say in each record how many answers the document states outright
 - [ ] **Run the corpus against every implementation** `[ready-for-human]` - each port runs the corpus fixtures in a harness in its own language and declares the capabilities it does not support. (was #19)
-- [ ] **Cover the big-endian codecs once the reference implements them** `[ready-for-human]` - `uint16be`, `uintbe`, `int16be`, `int32be`, `int64be` and `intbe` stay zero-fixture capabilities until the reference grows them or the family is declared deliberately C-only. (was #20)
-  - [ ] blocked by the conformance run above, which produces the evidence for that decision
+- [ ] **Cover the big-endian codecs** `[ready-for-agent]` - `uint16be`, `uintbe`, `int16be`, `int32be`, `int64be` and `intbe` have no cases, and the reason each carried was that the reference lacked them, which it does not: 3.7.0 carries all eight and `uint32be` and `uint64be` already have generated answers. (document review, 2026-11-19)

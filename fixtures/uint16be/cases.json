@@ -1,6 +1,6 @@
 {
   "category": "big-endian-integers",
-  "reason": "the reference implementation has no uint16be; libcompact only",
+  "reason": "the reference carries it and this corpus has no cases for it yet; libcompact is the other implementation that provides it",
   "implementations": ["c"],
   "cases": []
 }
