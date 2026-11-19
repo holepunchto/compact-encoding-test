@@ -1,5 +1,6 @@
 const test = require('brittle')
 const fs = require('fs')
+const c = require('compact-encoding')
 const corpus = require('../lib/corpus')
 const { fixturesDir, specPath } = require('..')
 const { ruleSlugs } = require('../lib/spec')
@@ -202,6 +203,46 @@ test('every hex value in a fixture is lowercase', (t) => {
   }
 
   t.alike(wrong.sort(), [], 'a fixture writes its hex in lowercase, as the preamble says')
+})
+
+const VALUE_ROW = /^\|\s*(-?[\w.]+)\s*\|\s*`([0-9a-f]+)`\s*\|\s*`([0-9a-f]+)`\s*\|$/gm
+
+const TOKENS = new Map([
+  ['NaN', NaN],
+  ['Infinity', Infinity],
+  ['-Infinity', -Infinity],
+  ['-0', -0]
+])
+
+function written(codec, value) {
+  const state = c.state()
+  codec.preencode(state, value)
+  state.buffer = Buffer.alloc(state.end)
+  codec.encode(state, value)
+  return state.buffer.toString('hex')
+}
+
+test('every value the document tabulates writes what it says', (t) => {
+  const rows = [...document().matchAll(VALUE_ROW)]
+  const wrong = []
+
+  t.ok(rows.length > 0, 'the table is found')
+
+  for (const [, spelling, at32, at64] of rows) {
+    const value = TOKENS.has(spelling) ? TOKENS.get(spelling) : Number(spelling)
+
+    for (const [codec, expected, width] of [
+      [c.float32, at32, 'float32'],
+      [c.float64, at64, 'float64']
+    ]) {
+      const bytes = written(codec, value)
+      if (bytes !== expected) {
+        wrong.push(`${spelling} through ${width}: says ${expected}, writes ${bytes}`)
+      }
+    }
+  }
+
+  t.alike(wrong, [], 'a worked example in the document is one the reference produces')
 })
 
 test('the inventory names every codec and no other', (t) => {

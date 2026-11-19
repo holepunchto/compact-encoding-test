@@ -258,8 +258,20 @@ The reference carries all eight.
 
 `float32` and `float64` write a number in its IEEE 754 form, binary32 and binary64 respectively. What a decoder takes from the bytes is `decode-consumes-its-form`, and what it does with fewer bytes than the width needs is `decode-rejects-a-short-width`. They carry values the integer codecs refuse: a fraction, an infinity, and a NaN.
 
-- `float-ieee754` - a float is written in the IEEE 754 form its width names, so `float64` writes 1 as `000000000000f03f` and 0.5 as `000000000000e03f`.
-- `float-carries-infinity` - an infinity is a value these codecs carry rather than a bound they refuse, written as an exponent of all ones with no fraction: `000000000000f07f` at 64 bits and `0000807f` at 32, and with the sign bit `000000000000f0ff` and `000080ff`.
+What each value writes, at both widths:
+
+| value     | `float32`  | `float64`          |
+| --------- | ---------- | ------------------ |
+| 1         | `0000803f` | `000000000000f03f` |
+| 0.5       | `0000003f` | `000000000000e03f` |
+| -1        | `000080bf` | `000000000000f0bf` |
+| Infinity  | `0000807f` | `000000000000f07f` |
+| -Infinity | `000080ff` | `000000000000f0ff` |
+| -0        | `00000080` | `0000000000000080` |
+| NaN       | `0000c07f` | `000000000000f87f` |
+
+- `float-ieee754` - a float is written in the IEEE 754 form its width names, as the table above gives it.
+- `float-carries-infinity` - an infinity is a value these codecs carry rather than a bound they refuse, written as an exponent of all ones with no fraction, with the sign bit where the value is negative, as the table above gives it.
 - `float-overflows-to-an-infinity` - a value too large for the width becomes an infinity rather than a refusal, so `float32` writes 4e38 as `0000807f` and loses it.
   A float codec refuses no number it is given: what the width cannot hold it rounds, and what the width cannot reach becomes an infinity.
   The rounding comes first, so a value above the largest finite one the width holds is written as that largest one where it rounds down to it, 3.4028235e38 as `ffff7f7f`, and becomes an infinity only where it rounds past it, 3.4028236e38 as `0000807f`.
@@ -270,7 +282,7 @@ The reference carries all eight.
 - `float32-rounds-to-nearest` - a value binary32 cannot hold exactly is rounded to the nearest it can, on the way in rather than on the way out: 0.1 is written `cdcccc3d` and reads back as 0.10000000149011612.
   A value exactly between two it can hold goes to the one whose significand ends in a zero bit, as IEEE 754 rounds by default, so 16777217 is written as 16777216 and 16777219 as 16777220 - neither away from zero nor always down.
   The same rounding runs at the bottom of the range: a value below the smallest the width holds as a normal is written as a subnormal, 1.4e-45 as `01000000`, and one below half the smallest subnormal rounds to zero rather than to the smallest, so 1e-46 is `00000000`.
-- `float-nan-pattern` (delegated) - an encoder handed a NaN writes one of the many the format spells, `000000000000f87f` at 64 bits and `0000c07f` at 32, and another implementation may write a different quiet NaN, which is right by IEEE 754 and still disagrees with the reference on the bytes.
+- `float-nan-pattern` (delegated) - an encoder handed a NaN writes one of the many the format spells, as the table above gives it, and another implementation may write a different quiet NaN, which is right by IEEE 754 and still disagrees with the reference on the bytes.
   The marker warns of that rather than admitting it: the quiet NaNs a width spells are too many to commit beside a case, so a case citing this rule carries the reference bytes alone.
   A NaN that came from bytes keeps the payload and the sign it arrived with: `010000000000f87f` decodes to a NaN that writes back unchanged, and so does `010000000000f8ff`, whose sign bit is set.
   A NaN whose quiet bit is clear is the exception, and `float-nan-quiet-bit` says what moves.
@@ -279,7 +291,7 @@ The reference carries all eight.
   The reference holds every number as a double, so a `float32` decode widens to binary64, and the widening is what sets the quiet bit: `0100807f` arrives as `000000200000f87f`, quiet already, and narrowing it again writes `0100c07f`.
   An implementation with a native binary32 has nothing to widen, keeps the signal, writes back the bytes it was given, and is conformant.
   The payload survives at both widths either way; only the quiet bit moves.
-- `float-negative-zero` (delegated) - negative zero keeps its sign bit through an encode and comes back as negative zero rather than zero, so the two zeroes are distinct values at every width: `0000000000000080` at 64 bits and `00000080` at 32.
+- `float-negative-zero` (delegated) - negative zero keeps its sign bit through an encode and comes back as negative zero rather than zero, so the two zeroes are distinct values at every width, as the table above gives them.
   An implementation whose numbers do not tell them apart normalises to positive zero and disagrees in both directions.
 
 How a payload maps between the two widths is outside what these rules define.
