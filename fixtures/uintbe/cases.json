@@ -1,6 +1,21 @@
 {
   "category": "big-endian-integers",
-  "reason": "the reference carries it and this corpus has no cases for it yet; libcompact is the other implementation that provides it",
-  "implementations": ["c"],
-  "cases": []
+  "cases": [
+    {
+      "id": "uintbe-byte-order",
+      "note": "the first value past the single-byte form, whose payload bytes differ, most significant first",
+      "input": {
+        "value": 253
+      },
+      "rules": ["uint-big-endian-twin", "uint-uint16-prefix"]
+    },
+    {
+      "id": "uintbe-decode-byte-order",
+      "note": "a prefixed payload read most significant first, so 253 rather than 64768",
+      "input": {
+        "bytes": "fd00fd"
+      },
+      "rules": ["uint-big-endian-twin", "decode-consumes-its-form"]
+    }
+  ]
 }

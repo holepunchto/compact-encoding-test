@@ -8,6 +8,23 @@
     }
   },
   {
+    "rule": "uint-big-endian-twin",
+    "reading": "a big-endian twin lays its payload down in the order `uint` does",
+    "fixture": "uintbe-byte-order",
+    "answer": {
+      "hex": "fdfd00"
+    }
+  },
+  {
+    "rule": "uint-big-endian-twin",
+    "reading": "a decoder reads a big-endian twin payload least significant first",
+    "fixture": "uintbe-decode-byte-order",
+    "answer": {
+      "decodes": 64768,
+      "read": 3
+    }
+  },
+  {
     "rule": "uint-little-endian",
     "reading": "a decoder extends the sign of each byte",
     "fixture": "uint-uint16-high-bit",

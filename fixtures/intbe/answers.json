@@ -1,1 +1,9 @@
-{}
+{
+  "intbe-byte-order": {
+    "hex": "fd00fd"
+  },
+  "intbe-decode-byte-order": {
+    "decodes": -127,
+    "read": 3
+  }
+}
