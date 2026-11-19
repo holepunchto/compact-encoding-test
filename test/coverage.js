@@ -117,6 +117,24 @@ test('a codec with no cases says why', (t) => {
   t.alike(silent, [], 'a codec the corpus does not cover states its reason')
 })
 
+const LACKS_IT = /reference\b[^.]*\b(has no|does not implement|lacks|implements no)\b/
+
+test('a reason does not say the reference lacks a codec it carries', (t) => {
+  const untrue = []
+
+  for (const name of corpus.codecs()) {
+    const { cases, reason } = corpus.loadCases(name)
+    if (cases.length > 0 || !reason) continue
+    if (LACKS_IT.test(reason) && c[name] !== undefined) untrue.push(`${name}: ${reason}`)
+  }
+
+  t.alike(
+    untrue,
+    [],
+    'a reason a reader cannot check is at least not contradicted by the reference'
+  )
+})
+
 const CARRIES = {
   strings: (value) => typeof value === 'string' || units(value),
   floats: (value) => Number.isFinite(value) || tokenised(value),
