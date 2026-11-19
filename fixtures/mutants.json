@@ -107,6 +107,15 @@
     }
   },
   {
+    "rule": "fixed-width-big-endian",
+    "reading": "a decoder reads the bytes of a big-endian codec least significant first",
+    "fixture": "int16be-decode-byte-order",
+    "answer": {
+      "decodes": -385,
+      "read": 2
+    }
+  },
+  {
     "rule": "fixed-width-signed-zigzag",
     "reading": "a signed codec stores two's complement",
     "fixture": "int8-minus-one",

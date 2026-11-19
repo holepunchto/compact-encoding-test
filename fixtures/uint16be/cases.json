@@ -1,6 +1,21 @@
 {
   "category": "big-endian-integers",
-  "reason": "the reference carries it and this corpus has no cases for it yet; libcompact is the other implementation that provides it",
-  "implementations": ["c"],
-  "cases": []
+  "cases": [
+    {
+      "id": "uint16be-byte-order",
+      "note": "a value whose two bytes differ, most significant first",
+      "input": {
+        "value": 258
+      },
+      "rules": ["fixed-width-width-from-name", "fixed-width-big-endian"]
+    },
+    {
+      "id": "uint16be-decode-byte-order",
+      "note": "two differing bytes read most significant first, so 258 rather than 513",
+      "input": {
+        "bytes": "0102"
+      },
+      "rules": ["decode-consumes-its-form", "fixed-width-big-endian"]
+    }
+  ]
 }

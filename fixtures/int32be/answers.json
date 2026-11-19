@@ -1,1 +1,9 @@
-{}
+{
+  "int32be-byte-order": {
+    "hex": "01020304"
+  },
+  "int32be-decode-byte-order": {
+    "decodes": 8454530,
+    "read": 4
+  }
+}
