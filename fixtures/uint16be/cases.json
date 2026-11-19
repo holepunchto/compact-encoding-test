@@ -10,12 +10,12 @@
       "rules": ["fixed-width-width-from-name", "fixed-width-big-endian"]
     },
     {
-      "id": "uint16be-short-input",
-      "note": "one byte where the width announces two",
+      "id": "uint16be-decode-byte-order",
+      "note": "two differing bytes read most significant first, so 258 rather than 513",
       "input": {
-        "bytes": "01"
+        "bytes": "0102"
       },
-      "rules": ["decode-rejects-a-short-width"]
+      "rules": ["decode-consumes-its-form", "fixed-width-big-endian"]
     }
   ]
 }

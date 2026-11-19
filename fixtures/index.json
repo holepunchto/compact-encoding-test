@@ -339,20 +339,20 @@
   "big-endian-integers": {
     "int16be": [
       "int16be-byte-order",
-      "int16be-decode"
+      "int16be-decode-byte-order"
     ],
     "int32be": [
       "int32be-byte-order",
-      "int32be-short-input"
+      "int32be-decode-byte-order"
     ],
     "int64be": [
       "int64be-byte-order",
-      "int64be-decode"
+      "int64be-decode-byte-order"
     ],
     "intbe": [],
     "uint16be": [
       "uint16be-byte-order",
-      "uint16be-short-input"
+      "uint16be-decode-byte-order"
     ],
     "uint32be": [
       "uint32be-byte-order",

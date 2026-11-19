@@ -14,12 +14,12 @@
       ]
     },
     {
-      "id": "int16be-decode",
-      "note": "two bytes read most significant first and unzigzagged",
+      "id": "int16be-decode-byte-order",
+      "note": "two differing bytes read most significant first and unzigzagged, so -130 rather than -385",
       "input": {
-        "bytes": "0003"
+        "bytes": "0103"
       },
-      "rules": ["fixed-width-big-endian", "fixed-width-signed-zigzag"]
+      "rules": ["decode-consumes-its-form", "fixed-width-big-endian", "fixed-width-signed-zigzag"]
     }
   ]
 }

@@ -14,12 +14,12 @@
       ]
     },
     {
-      "id": "int64be-decode",
-      "note": "eight bytes read most significant first and unzigzagged",
+      "id": "int64be-decode-byte-order",
+      "note": "eight differing bytes read most significant first and unzigzagged",
       "input": {
-        "bytes": "0000000000000003"
+        "bytes": "0001020304050607"
       },
-      "rules": ["fixed-width-big-endian", "fixed-width-signed-zigzag"]
+      "rules": ["decode-consumes-its-form", "fixed-width-big-endian", "fixed-width-signed-zigzag"]
     }
   ]
 }

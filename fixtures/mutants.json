@@ -109,9 +109,9 @@
   {
     "rule": "fixed-width-big-endian",
     "reading": "a decoder reads the bytes of a big-endian codec least significant first",
-    "fixture": "int16be-decode",
+    "fixture": "int16be-decode-byte-order",
     "answer": {
-      "decodes": 384,
+      "decodes": -385,
       "read": 2
     }
   },

@@ -2,8 +2,8 @@
   "int64be-byte-order": {
     "hex": "0001020304050607"
   },
-  "int64be-decode": {
-    "decodes": -2,
+  "int64be-decode-byte-order": {
+    "decodes": -141843476153092,
     "read": 8
   }
 }

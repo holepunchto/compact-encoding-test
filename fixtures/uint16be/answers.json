@@ -2,7 +2,8 @@
   "uint16be-byte-order": {
     "hex": "0102"
   },
-  "uint16be-short-input": {
-    "rejects": true
+  "uint16be-decode-byte-order": {
+    "decodes": 258,
+    "read": 2
   }
 }
