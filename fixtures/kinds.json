@@ -28,7 +28,7 @@
     "decodes": ["number", "token"]
   },
   "integers": {
-    "value": ["number"],
+    "value": ["number", "wide integer"],
     "decodes": ["number", "wide integer"]
   },
   "network-addresses": {

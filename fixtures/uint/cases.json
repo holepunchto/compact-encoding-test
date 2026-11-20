@@ -169,7 +169,7 @@
       "id": "uint-uint64-top-byte",
       "note": "the first value that sets the last payload byte, which is past the ceiling",
       "input": {
-        "value": 9223372036854775808
+        "value": "9223372036854775808n"
       },
       "rules": ["encode-ceiling", "uint-little-endian"],
       "answer": {

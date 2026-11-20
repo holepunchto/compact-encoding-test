@@ -29,7 +29,7 @@
       "id": "uint64-encode-ceiling",
       "note": "the first unsafe integer, which no codec encodes",
       "input": {
-        "value": 9007199254740992
+        "value": "9007199254740992n"
       },
       "rules": ["encode-ceiling"]
     },
@@ -45,7 +45,7 @@
       "id": "uint64-encode-top-byte",
       "note": "the first value that sets the eighth byte, which is past the ceiling",
       "input": {
-        "value": 9223372036854775808
+        "value": "9223372036854775808n"
       },
       "rules": ["encode-ceiling", "fixed-width-little-endian"]
     }

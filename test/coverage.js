@@ -135,11 +135,18 @@ test('a reason does not say the reference lacks a codec it carries', (t) => {
   )
 })
 
+const WIDE = /^-?[0-9]+n$/
+
+const integer = (value) => Number.isFinite(value) || WIDE.test(value)
+
 const CARRIES = {
   strings: (value) => typeof value === 'string' || units(value),
   floats: (value) => Number.isFinite(value) || tokenised(value),
   booleans: (value) => typeof value === 'boolean',
-  buffers: (value) => value === null || (typeof value === 'string' && hex(value))
+  buffers: (value) => value === null || (typeof value === 'string' && hex(value)),
+  integers: integer,
+  'big-endian-integers': integer,
+  'big-integers': integer
 }
 
 function byCategory(category) {
