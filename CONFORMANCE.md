@@ -41,6 +41,12 @@ An answer matching the committed one is conformant. So are two other outcomes, a
 - `unrepresentable`, where the case cites a rule in `unrepresentable.json`. An implementation reports it for a value its types cannot carry, and only there: anywhere else it is a divergence. An implementation whose types can carry the value is held to the committed answer.
 - Any entry in a case's `alternatives`, which a case carries where its rule names another choice as conformant rather than merely different. `float32-nan-signalling` commits the bytes the reference writes and carries the bytes an implementation with a native binary32 writes, and both are right.
 
+## What a first run reports
+
+Run against the reference itself, a harness matches 220 of the 233 cases and diverges on 13. Every divergence cites `encode-ceiling`, `decode-ceiling` or `signed-range`, the rules where this corpus commits the format's answer and the reference stops at the largest integer a double holds together with every integer below it. Those cases state their own answer rather than taking the reference's, which is why the reference disagrees with them.
+
+A port whose integers reach further should match those 13 rather than fail them. The committed answers are values a 64-bit integer carries exactly - `18446744073709551615n`, `9007199254740992n`, `-4503599627370496` - so a port built on one is expected to produce them where the reference cannot. Diverging there is a finding rather than the known gap.
+
 ## What a harness reports
 
 For each capability: the cases that matched, the cases that diverged, and whether the implementation supports the codec at all. A capability the implementation does not provide is a declaration, not a failure - a partial port is a legitimate state, and the corpus is built so that saying so is possible.

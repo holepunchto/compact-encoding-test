@@ -5,6 +5,8 @@ const corpus = require('../lib/corpus')
 const { fixturesDir, specPath } = require('..')
 const { ruleSlugs } = require('../lib/spec')
 const { render } = require('../claims')
+const conformance = require('../conformance')
+const contractPath = require('path').join(__dirname, '..', 'CONFORMANCE.md')
 const claimsPath = require('path').join(__dirname, '..', 'CLAIMS.md')
 const { RECORDS } = require('../lib/declaration')
 const { devDependencies } = require('../package.json')
@@ -205,6 +207,23 @@ test('every hex value in a fixture is lowercase', (t) => {
   }
 
   t.alike(wrong.sort(), [], 'a fixture writes its hex in lowercase, as the preamble says')
+})
+
+test('the contract reports the numbers a run produces', (t) => {
+  const contract = fs.readFileSync(contractPath, 'utf8')
+  const stated = /matches (\d+) of the (\d+) cases and diverges on (\d+)/.exec(contract)
+
+  t.ok(stated, 'the contract says what a first run reports')
+
+  const report = conformance.run()
+  const matched = report.reduce((n, r) => n + r.matched, 0)
+  const diverged = report.reduce((n, r) => n + r.diverged.length, 0)
+
+  t.alike(
+    stated.slice(1).map(Number),
+    [matched, matched + diverged, diverged],
+    'a port reading the contract meets the run it describes'
+  )
 })
 
 test('the claims are the claims the document makes', (t) => {
