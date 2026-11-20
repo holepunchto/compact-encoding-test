@@ -74,7 +74,7 @@ function run(impl = c) {
       report.push({
         codec: name,
         supported: true,
-        unsupported: reason,
+        uncovered: reason,
         matched: [],
         unrun: [],
         diverged: []
@@ -119,7 +119,7 @@ function report(impl = c) {
 
   for (const codec of given) {
     if (!codec.supported) unsupported.push(codec.codec)
-    else if (codec.unsupported) uncovered[codec.codec] = codec.unsupported
+    else if (codec.uncovered) uncovered[codec.codec] = codec.uncovered
 
     matched.push(...codec.matched)
     unrun.push(...codec.unrun)
