@@ -114,11 +114,11 @@ function report(impl = c) {
   const matched = []
   const unrun = []
   const diverged = {}
-  const unsupported = {}
+  const unsupported = []
   const uncovered = {}
 
   for (const codec of given) {
-    if (!codec.supported) unsupported[codec.codec] = 'the implementation does not provide it'
+    if (!codec.supported) unsupported.push(codec.codec)
     else if (codec.unsupported) uncovered[codec.codec] = codec.unsupported
 
     matched.push(...codec.matched)
@@ -134,10 +134,10 @@ function report(impl = c) {
       matched: matched.length,
       diverged: Object.keys(diverged).length,
       unrun: unrun.length,
-      unsupported: Object.keys(unsupported).length,
+      unsupported: unsupported.length,
       uncovered: Object.keys(uncovered).length
     },
-    unsupported,
+    unsupported: unsupported.sort(),
     uncovered,
     diverged,
     unrun: unrun.sort(),
@@ -163,9 +163,7 @@ if (require.main === module) {
 
     console.log(matched + ' cases matched, ' + diverged + ' diverged, ' + unrun + ' not run')
     console.log(
-      unsupported +
-        ' codecs unsupported' +
-        (unsupported ? ': ' + Object.keys(found.unsupported).join(', ') : '')
+      unsupported + ' codecs unsupported' + (unsupported ? ': ' + found.unsupported.join(', ') : '')
     )
     console.log(uncovered + ' codecs the corpus has no cases for')
   }
