@@ -29,6 +29,7 @@
   "files": [
     "index.js",
     "CODECS.md",
+    "CONFORMANCE.md",
     "fixtures",
     "NOTICE"
   ],
