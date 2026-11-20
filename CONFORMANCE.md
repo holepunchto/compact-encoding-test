@@ -53,7 +53,7 @@ A harness emits the same report whatever language it is written in, so that two 
 
 ```json
 {
-  "corpus": "0.3.0",
+  "corpus": "0.3.1",
   "implementation": "compact-encoding 3.7.0",
   "summary": { "matched": 220, "diverged": 13, "unrun": 0, "unsupported": 0, "uncovered": 37 },
   "unsupported": [],
