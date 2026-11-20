@@ -3,6 +3,7 @@
   "unsigned-refuses-negative",
   "encode-ceiling",
   "decode-ceiling",
+  "fixed-width-refuses-overflow",
   "signed-range",
-  "fixed-width-refuses-overflow"
+  "fixed-refuses-wrong-size"
 ]

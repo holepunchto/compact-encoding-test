@@ -4,7 +4,8 @@ const corpus = require('../lib/corpus')
 const ANSWERED_BY_A_REFUSAL = new Set([
   'integer-refuses-a-fraction',
   'unsigned-refuses-negative',
-  'fixed-width-refuses-overflow'
+  'fixed-width-refuses-overflow',
+  'fixed-refuses-wrong-size'
 ])
 
 test('a rule a number type may not hold commits the format answer', (t) => {
