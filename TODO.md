@@ -14,5 +14,4 @@ GitHub Issues are the surface for external contributors. Human-facing work lives
   - [ ] the 1.0.0 gate is met: every family has a passing run recorded under `test/agents/`
 - [ ] **Run the corpus against every implementation** `[ready-for-human]` - each port runs the corpus fixtures in a harness in its own language and declares the capabilities it does not support. (was #19)
 - [ ] **Move the conformance accounting test out of `test/document.js`** `[ready-for-agent]` - that file tests CODECS.md and CLAIMS.md prose, so the report test belongs in its own `test/conformance.js` wired into `test.js`. (review of #213)
-- [ ] **`unsupported` names two different claims one call apart** `[ready-for-agent]` - `run()` uses it for the corpus-coverage reason that `report()` renames to `uncovered`, while `report()` uses it for codecs the implementation lacks; rename the one in `run()`. (review of #213)
 - [ ] **The `diverged` example in CONFORMANCE.md shows no fields** `[ready-for-agent]` - it prints `{ "corpus": {}, "port": {} }`, so a port author learns nothing about what an answer holds. (review of #213)
