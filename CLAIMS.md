@@ -67,7 +67,7 @@ Reference implementation: `compact-encoding` 3.7.0.
 - `optional-buffer-zero-is-absent` (delegated) - `optionalBuffer` writes `00` for an absent value and `00` for an empty buffer, and reads `00` as absent, so an empty buffer goes in as bytes and comes back as nothing.
 - `fixed-no-count` - a fixed codec writes its bytes with nothing in front of them, so a buffer of the width it was built with comes out at that same length and a reader that expected a count would take the first byte of data for one.
 - `fixed-width-in-bytes` - a fixed codec carries a width counted in bytes, the number it was built with: `fixed(8)` carries eight bytes where `uint8` carries eight bits.
-- `fixed-refuses-wrong-size` - a buffer that is not exactly the width the codec was built with is refused, rather than padded or cut to fit.
+- `fixed-refuses-wrong-size` (unrepresentable) - a buffer that is not exactly the width the codec was built with is refused, rather than padded or cut to fit.
 - `raw-no-count` - `raw` writes its bytes alone, as a fixed codec does, at whatever length the buffer happens to be, including none at all.
 - `raw-takes-the-rest` - a decoder takes everything from where it starts to the end of the buffer, so `raw` has no form of its own to stop at and reaching the end is what `decode-consumes-its-form` means for it, and nothing left to take is the empty buffer rather than a rejection.
 
