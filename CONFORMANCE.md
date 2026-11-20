@@ -47,6 +47,24 @@ Run against the reference itself, a harness matches 220 of the 233 cases and div
 
 A port whose integers reach further should match those 13 rather than fail them. The committed answers are values a 64-bit integer carries exactly - `18446744073709551615n`, `9007199254740992n`, `-4503599627370496` - so a port built on one is expected to produce them where the reference cannot. Diverging there is a finding rather than the known gap.
 
+## The shape of a report
+
+A harness emits the same report whatever language it is written in, so that two ports can be compared line by line rather than read side by side. `npm run conformance -- --json` in the corpus prints one for the reference.
+
+```json
+{
+  "corpus": "0.3.0",
+  "implementation": "compact-encoding 3.7.0",
+  "summary": { "matched": 220, "diverged": 13, "unsupported": 0, "uncovered": 37 },
+  "unsupported": {},
+  "uncovered": { "ascii": "the reference implements it and no other implementation does" },
+  "diverged": { "uint-decode-ceiling": { "corpus": {}, "port": {} } },
+  "matched": ["array-uint-empty"]
+}
+```
+
+`unsupported` names codecs the implementation does not provide; `uncovered` names codecs the corpus carries no cases for, with the reason from the directory. They are different claims and a harness that merges them reports a port as missing codecs it has. `matched` is sorted, so a diff between two reports is the set of cases they disagree about.
+
 ## What a harness reports
 
 For each capability: the cases that matched, the cases that diverged, and whether the implementation supports the codec at all. A capability the implementation does not provide is a declaration, not a failure - a partial port is a legitimate state, and the corpus is built so that saying so is possible.

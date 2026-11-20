@@ -1,11 +1,11 @@
 const test = require('brittle')
 const fs = require('fs')
 const c = require('compact-encoding')
+const conformance = require('../conformance')
 const corpus = require('../lib/corpus')
 const { fixturesDir, specPath } = require('..')
 const { ruleSlugs } = require('../lib/spec')
 const { render } = require('../claims')
-const conformance = require('../conformance')
 const contractPath = require('path').join(__dirname, '..', 'CONFORMANCE.md')
 const claimsPath = require('path').join(__dirname, '..', 'CLAIMS.md')
 const { RECORDS } = require('../lib/declaration')
@@ -272,6 +272,18 @@ test('every value the document tabulates writes what it says', (t) => {
   }
 
   t.alike(wrong, [], 'a worked example in the document is one the reference produces')
+})
+
+test('a report accounts for every case exactly once', (t) => {
+  const report = conformance.report()
+  const seen = [...report.matched, ...Object.keys(report.diverged)].sort()
+  const ids = corpus
+    .allFixtures()
+    .map((fixture) => fixture.id)
+    .sort()
+
+  t.alike(seen, ids, 'every case is matched or diverged, and none is counted twice')
+  t.is(report.summary.matched, report.matched.length, 'the summary counts what the report lists')
 })
 
 test('the inventory names every codec and no other', (t) => {
