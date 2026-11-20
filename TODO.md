@@ -14,3 +14,6 @@ GitHub Issues are the surface for external contributors. Human-facing work lives
   - [ ] the 1.0.0 gate is met: every family has a passing run recorded under `test/agents/`
 - [ ] **Run the corpus against every implementation** `[ready-for-human]` - each port runs the corpus fixtures in a harness in its own language and declares the capabilities it does not support. (was #19)
 - [ ] **The example report in the contract drifts** `[ready-for-agent]` - the JSON block in CONFORMANCE.md is hand-maintained output of `npm run conformance -- --json`, so its version and counts go stale silently; a test could hold it to the real report. (review of #213)
+- [ ] **`fixed-refuses-wrong-size` admits no `unrepresentable` answer** `[needs-triage]` - a port whose fixed codec takes a `uint8_t[32]` cannot be handed 31 bytes to refuse them, the same shape as `uint8` refusing 256, but that rule carries the marker and this one does not. (libcompact first run)
+  - the two cases are `fixed-32-wrong-size` and `fixed-64-wrong-size`, the only ones libcompact diverges on that are not its own
+  - marking it still holds a port that can refuse to `refused`, since the marker admits the committed answer as well
