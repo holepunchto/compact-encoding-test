@@ -122,7 +122,7 @@ A category with a section below is defined by the rules in it. A category with n
 | `uint16array`             | typed-arrays        | no      |
 | `uint32array`             | typed-arrays        | no      |
 
-## uint
+## Unsigned integers
 
 `uint` encodes an unsigned integer as one of four forms, chosen by magnitude. The first byte is either the value itself or a marker selecting a fixed-width payload that follows it. What a decoder takes from the bytes is `decode-consumes-its-form`.
 
@@ -165,7 +165,7 @@ The fixed-width codecs write a set number of bytes with no prefix, so the reader
 - `fixed-width-signed-zigzag` - a signed codec zigzags the value into an unsigned one before laying the bytes down, mapping -1 to 1 and 1 to 2, rather than storing two's complement. An implementer who writes two's complement agrees with the reference on no negative value at all.
 - `fixed-width-refuses-overflow` (unrepresentable) - an encoder refuses a value the width cannot hold rather than keeping its low bytes, so `uint8` refuses 256 and `int8` refuses 128, whose zigzag is 256.
 
-## int
+## Signed integers
 
 `int` carries a signed value in the space `uint` uses, by mapping it to an unsigned one first. A decoder needs no bound of its own: zigzag maps the whole unsigned range exactly onto the signed one, sending 9007199254740991 to -4503599627370496 and 9007199254740990 to 4503599627370495, so every reading unzigzags to a value the codec carries. What a decoder takes from the bytes is `decode-consumes-its-form`.
 

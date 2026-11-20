@@ -34,6 +34,7 @@
   ],
   "scripts": {
     "generate": "node generate.js",
+    "claims": "node claims.js",
     "quoted": "node quoted.js",
     "test": "npm run test:bare && npm run test:node",
     "test:bare": "brittle-bare test.js",
