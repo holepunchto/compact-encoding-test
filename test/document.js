@@ -216,7 +216,7 @@ test('the contract reports the numbers a run produces', (t) => {
   t.ok(stated, 'the contract says what a first run reports')
 
   const report = conformance.run()
-  const matched = report.reduce((n, r) => n + r.matched, 0)
+  const matched = report.reduce((n, r) => n + r.matched.length, 0)
   const diverged = report.reduce((n, r) => n + r.diverged.length, 0)
 
   t.alike(
@@ -276,14 +276,30 @@ test('every value the document tabulates writes what it says', (t) => {
 
 test('a report accounts for every case exactly once', (t) => {
   const report = conformance.report()
-  const seen = [...report.matched, ...Object.keys(report.diverged)].sort()
+  const seen = [...report.matched, ...Object.keys(report.diverged), ...report.unrun].sort()
   const ids = corpus
     .allFixtures()
     .map((fixture) => fixture.id)
     .sort()
 
-  t.alike(seen, ids, 'every case is matched or diverged, and none is counted twice')
-  t.is(report.summary.matched, report.matched.length, 'the summary counts what the report lists')
+  t.alike(seen, ids, 'every case is matched, diverged or unrun, and none is counted twice')
+  t.is(
+    report.summary.matched + report.summary.diverged + report.summary.unrun,
+    ids.length,
+    'the summary counts every case the corpus carries'
+  )
+})
+
+test('a case of a codec the implementation lacks is not counted as matched', (t) => {
+  const report = conformance.report({ ...c, uint: undefined })
+  const ids = corpus.loadCases('uint').cases.map((example) => example.id)
+
+  t.alike(report.unrun.filter((id) => ids.includes(id)).sort(), ids.sort(), 'its cases are unrun')
+  t.absent(
+    report.matched.some((id) => ids.includes(id)),
+    'a case the harness never ran is not reported as passing'
+  )
+  t.is(report.summary.unrun, report.unrun.length, 'the summary counts what the report lists')
 })
 
 test('the inventory names every codec and no other', (t) => {
