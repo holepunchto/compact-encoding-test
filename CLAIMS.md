@@ -4,7 +4,7 @@ Every rule in [CODECS.md](./CODECS.md), stated once. The document is normative a
 
 Reference implementation: `compact-encoding` 3.7.0.
 
-## uint
+## Unsigned integers
 
 - `uint-single-byte` - a value below `0xfd` encodes as that one byte, with nothing following.
 - `uint-uint16-prefix` - a value from `0xfd` through `0xffff` encodes as the byte `0xfd` followed by a two-byte payload.
@@ -35,22 +35,22 @@ Reference implementation: `compact-encoding` 3.7.0.
 - `fixed-width-signed-zigzag` - a signed codec zigzags the value into an unsigned one before laying the bytes down, mapping -1 to 1 and 1 to 2, rather than storing two's complement.
 - `fixed-width-refuses-overflow` (unrepresentable) - an encoder refuses a value the width cannot hold rather than keeping its low bytes, so `uint8` refuses 256 and `int8` refuses 128, whose zigzag is 256.
 
-## int
+## Signed integers
 
 - `int-zigzag` - the value is zigzagged and the result encoded by the `uint` rules above.
 - `signed-range` (unrepresentable) - a signed codec carries whatever its form holds after zigzag: `int` writes 4503599627370496 as `ff0000000000002000`.
 
 ## Floats
 
-- `float-ieee754` - a float is written in the IEEE 754 form its width names, so `float64` writes 1 as `000000000000f03f` and 0.5 as `000000000000e03f`.
-- `float-carries-infinity` - an infinity is a value these codecs carry rather than a bound they refuse, written as an exponent of all ones with no fraction: `000000000000f07f` at 64 bits and `0000807f` at 32, and with the sign bit `000000000000f0ff` and `000080ff`.
+- `float-ieee754` - a float is written in the IEEE 754 form its width names, as the table above gives it.
+- `float-carries-infinity` - an infinity is a value these codecs carry rather than a bound they refuse, written as an exponent of all ones with no fraction, with the sign bit where the value is negative, as the table above gives it.
 - `float-overflows-to-an-infinity` - a value too large for the width becomes an infinity rather than a refusal, so `float32` writes 4e38 as `0000807f` and loses it.
 - `float-width-from-name` - `float32` writes four bytes and `float64` eight, whatever the value.
 - `float-little-endian` - the bytes go least significant first, which puts the sign bit at the top of the last byte written.
 - `float32-rounds-to-nearest` - a value binary32 cannot hold exactly is rounded to the nearest it can, on the way in rather than on the way out: 0.1 is written `cdcccc3d` and reads back as 0.10000000149011612.
-- `float-nan-pattern` (delegated) - an encoder handed a NaN writes one of the many the format spells, `000000000000f87f` at 64 bits and `0000c07f` at 32, and another implementation may write a different quiet NaN, which is right by IEEE 754 and still disagrees with the reference on the bytes.
+- `float-nan-pattern` (delegated) - an encoder handed a NaN writes one of the many the format spells, as the table above gives it, and another implementation may write a different quiet NaN, which is right by IEEE 754 and still disagrees with the reference on the bytes.
 - `float-nan-quiet-bit` (delegated) - a NaN whose quiet bit is clear keeps the signal at 64 bits and loses it at 32: `010000000000f07f` writes back unchanged, while `0100807f` comes back as `0100c07f`.
-- `float-negative-zero` (delegated) - negative zero keeps its sign bit through an encode and comes back as negative zero rather than zero, so the two zeroes are distinct values at every width: `0000000000000080` at 64 bits and `00000080` at 32.
+- `float-negative-zero` (delegated) - negative zero keeps its sign bit through an encode and comes back as negative zero rather than zero, so the two zeroes are distinct values at every width, as the table above gives them.
 
 ## Booleans
 
