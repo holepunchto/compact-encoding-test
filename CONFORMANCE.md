@@ -58,13 +58,20 @@ A harness emits the same report whatever language it is written in, so that two 
   "summary": { "matched": 220, "diverged": 13, "unrun": 0, "unsupported": 0, "uncovered": 37 },
   "unsupported": [],
   "uncovered": { "ascii": "the reference implements it and no other implementation does" },
-  "diverged": { "uint-decode-ceiling": { "corpus": {}, "port": {} } },
+  "diverged": {
+    "uint-decode-ceiling": {
+      "corpus": { "decodes": "9007199254740992n", "read": 9 },
+      "port": { "rejects": true }
+    }
+  },
   "unrun": [],
   "matched": ["array-uint-empty"]
 }
 ```
 
 `unsupported` is a sorted list of the codecs the implementation does not provide; `uncovered` names the codecs the corpus carries no cases for, mapped to the reason from the directory. They are different claims and a harness that merges them reports a port as missing codecs it has.
+
+A divergence carries both answers in the shape [Running a case](#running-a-case) describes: `corpus` is the committed answer and `port` is what the harness produced, so the entry says what disagreed without anyone opening the fixture.
 
 Every case the corpus carries appears exactly once, in `matched`, `diverged` or `unrun`, and the summary counts the three to the same total. `unrun` holds the cases of the codecs `unsupported` names: a harness that leaves them out of the accounting reports cases it never ran as matched, which is the one way a partial port can read as a passing one. Both lists are sorted, so a diff between two reports is the set of cases they disagree about.
 
