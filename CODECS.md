@@ -126,6 +126,17 @@ A category with a section below is defined by the rules in it. A category with n
 
 `uint` encodes an unsigned integer as one of four forms, chosen by magnitude. The first byte is either the value itself or a marker selecting a fixed-width payload that follows it. What a decoder takes from the bytes is `decode-consumes-its-form`.
 
+The four forms, with the lowest and highest value each one writes:
+
+| values                              | first byte       | total bytes | lowest               | highest              |
+| ----------------------------------- | ---------------- | ----------- | -------------------- | -------------------- |
+| 0 through 252                       | the value itself | 1           | `00`                 | `fc`                 |
+| 253 through 65535                   | `fd`             | 3           | `fdfd00`             | `fdffff`             |
+| 65536 through 4294967295            | `fe`             | 5           | `fe00000100`         | `feffffffff`         |
+| 4294967296 through 9007199254740991 | `ff`             | 9           | `ff0000000001000000` | `ffffffffffffff1f00` |
+
+The last row stops where the reference stops, under `encode-ceiling`. The form itself reaches to 2^64 - 1, and what the format writes above the reference bound is that rule and `decode-ceiling`.
+
 - `uint-single-byte` - a value below `0xfd` encodes as that one byte, with nothing following.
 - `uint-uint16-prefix` - a value from `0xfd` through `0xffff` encodes as the byte `0xfd` followed by a two-byte payload.
 - `uint-uint32-prefix` - a value from `0x10000` through `0xffffffff` encodes as the byte `0xfe` followed by a four-byte payload.
