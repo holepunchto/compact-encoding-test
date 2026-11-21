@@ -251,6 +251,35 @@ function written(codec, value) {
   return state.buffer.toString('hex')
 }
 
+const FORM_ROW =
+  /^\|\s*(\d+) through (\d+)\s*\|\s*(?:the value itself|`([0-9a-f]{2})`)\s*\|\s*(\d+)\s*\|\s*`([0-9a-f]+)`\s*\|\s*`([0-9a-f]+)`\s*\|$/gm
+
+test('every form the document tabulates is the form the reference writes', (t) => {
+  const rows = [...document().matchAll(FORM_ROW)]
+  const wrong = []
+
+  t.is(rows.length, 4, 'the table carries a row per form')
+
+  for (const [, low, high, marker, total, lowest, highest] of rows) {
+    for (const [value, expected] of [
+      [low, lowest],
+      [high, highest]
+    ]) {
+      const bytes = written(c.uint, Number(value))
+      if (bytes !== expected) wrong.push(`${value}: says ${expected}, writes ${bytes}`)
+      if (bytes.length / 2 !== Number(total)) {
+        wrong.push(`${value}: says ${total} bytes, writes ${bytes.length / 2}`)
+      }
+    }
+
+    if (marker !== undefined && !lowest.startsWith(marker)) {
+      wrong.push(`${low}: says the first byte is ${marker}, writes ${lowest.slice(0, 2)}`)
+    }
+  }
+
+  t.alike(wrong, [], 'a row in the forms table is a form the reference produces')
+})
+
 test('every value the document tabulates writes what it says', (t) => {
   const rows = [...document().matchAll(VALUE_ROW)]
   const wrong = []
